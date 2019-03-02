@@ -69,7 +69,7 @@ module.exports = {
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, 'assets', 'tilemaps', '**', '*'),
-        to: path.resolve(__dirname, 'build')
+        to: path.resolve(__dirname, 'dist', 'tilemaps')
       }
     ]),
     new DefinePlugin({
