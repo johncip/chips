@@ -108,15 +108,7 @@ var Chip = Chip || {
     108: 'swim:right',
     109: 'tank:right',
     111: 'chip:right'
-  },
-
-  LEVELS: ['lesson1',
-    'lesson2',
-    'lesson3',
-    'lesson4',
-    'lesson5',
-    'lesson6'
-  ]
+  }
 }
 
 // TODO: replace with bimap
