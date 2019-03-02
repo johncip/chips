@@ -11,7 +11,6 @@
 
   Preload.includes({
     preload: function () {
-      this.game.plugins.add(new Phaser.Plugin.SaveCPU(this.game))
       this.game.stage.backgroundColor = Config.BG_COLOR
       this.load.spritesheet('sprites', SPRITE_SHEET, TILE_SIZE, TILE_SIZE, 112)
 
