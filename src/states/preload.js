@@ -26,8 +26,8 @@ extend(Preload.prototype, {
       112
     )
 
-    each(images, this.loadImage, this)
-    each(levels, this.loadTilemap, this)
+    each(images, (x) => this.loadImage(x))
+    each(levels, (x) => this.loadTilemap(x))
   },
 
   loadTilemap: function (name) {
