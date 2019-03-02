@@ -32,7 +32,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      filename: 'index.html'
+      filename: 'index.html',
+      template: './src/template.html'
     }),
     new CopyWebpackPlugin([
       {
