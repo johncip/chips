@@ -29,6 +29,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(png|jpg)$/,
+        use: ['file-loader']
+      },
+      {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
       },
@@ -49,6 +53,7 @@ module.exports = {
 
   resolve: {
     alias: {
+      Assets: path.resolve(__dirname, 'assets'),
       phaser: path.join(phaserPath, 'build/custom/phaser-split.js'),
       pixi: path.join(phaserPath, 'build/custom/pixi.js'),
       p2: path.join(phaserPath, 'build/custom/p2.js')
