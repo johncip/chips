@@ -1,3 +1,5 @@
+import PIXI from 'pixi' // eslint-disable-line no-unused-vars
+import p2 from 'p2'// eslint-disable-line no-unused-vars
 import Phaser, { Sprite, Group } from 'phaser'
 import { extend } from 'lodash'
 
