@@ -1,9 +1,11 @@
+import { extend } from 'lodash'
+
 /*
  * The attract screen and main menu.
  */
-Chip.MainMenu = function () {}
+const MainMenu = function () {}
 
-Chip.MainMenu.includes({
+extend(MainMenu.prototype, {
   init: function (score) {
     this.startTime = this.time.now
   },
@@ -22,8 +24,12 @@ Chip.MainMenu.includes({
       fill: '#fff',
       align: 'center'
     }
-    var t = this.game.add.text(this.game.width / 2, this.game.height - 50,
-      text, style)
+    var t = this.game.add.text(
+      this.game.width / 2,
+      this.game.height - 50,
+      text,
+      style
+    )
     t.anchor.set(0.5)
   },
 
@@ -41,3 +47,5 @@ Chip.MainMenu.includes({
     }
   }
 })
+
+export default MainMenu
