@@ -1,6 +1,7 @@
 const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { DefinePlugin } = require('webpack')
 
 module.exports = {
@@ -33,6 +34,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html'
     }),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, 'assets', 'tilemaps', '**', '*'),
+        to: path.resolve(__dirname, 'build')
+      }
+    ]),
     new DefinePlugin({
       'typeof CANVAS_RENDERER': JSON.stringify(true),
       'typeof WEBGL_RENDERER': JSON.stringify(true)
