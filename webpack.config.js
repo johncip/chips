@@ -11,6 +11,8 @@ module.exports = {
     contentBase: path.join(__dirname, 'dist')
   },
 
+  devtool: 'source-map',
+
   entry: {
     index: './src/index.js'
   },
