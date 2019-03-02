@@ -1,14 +1,13 @@
-(function(Entity, Marchable, Dir) {
+(function (Entity, Marchable, Dir) {
+  var Fireball = Chip.Fireball = function (tile, emap) {
+    Entity.call(this, tile, emap)
+    Marchable.call(this)
 
-  var Fireball = Chip.Fireball = function(tile, emap) {
-    Entity.call(this, tile, emap);
-    Marchable.call(this);
+    this.lastDir = _.clone(Dir.LEFT)
+  }
 
-    this.lastDir = _.clone(Dir.LEFT);
-  };
-
-  Fireball.extends(Entity);
-  Fireball.extends(Marchable);
+  Fireball.extends(Entity)
+  Fireball.extends(Marchable)
 
   Fireball.includes({
     frames: {
@@ -18,14 +17,14 @@
       '1,0': 53
     },
 
-    collideWith: function(target) {
+    collideWith: function (target) {
       if (target.type === 'chip') {
-        target.collideWith(this);
+        target.collideWith(this)
       }
     },
 
-    march: function() {
-      this.moveForward();
+    march: function () {
+      this.moveForward()
     }
-  });
-})(Chip.Entity, Chip.Mixins.Marchable, Chip.Dir);
+  })
+})(Chip.Entity, Chip.Mixins.Marchable, Chip.Dir)

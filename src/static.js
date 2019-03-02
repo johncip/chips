@@ -17,7 +17,7 @@ var Chip = Chip || {
     DEBUG: false,
     ENABLE_MUSIC: true,
     START_LEVEL: 0,
-    START_STATE: 'MainMenu',
+    START_STATE: 'MainMenu'
   },
 
   Dir: {
@@ -138,7 +138,7 @@ var Chip = Chip || {
     'lesson5',
     'lesson6'
   ]
-};
+}
 
 // TODO: replace with bimap
 Chip.Util = {
@@ -150,34 +150,34 @@ Chip.Util = {
    * Convert integer-strings to integers for convenience.
    */
   inverse: function (obj) {
-    var res = {};
+    var res = {}
     _.each(obj, function (value, key) {
-      res[value] = isNaN(key) ? key : _.parseInt(key);
-    });
+      res[value] = isNaN(key) ? key : _.parseInt(key)
+    })
 
-    return res;
-  },
-};
+    return res
+  }
+}
 
-Chip.SPRITE_INDICES = Chip.Util.inverse(Chip.INDEX_SPRITES);
-Chip.Dir.MOVE_DIRS = [Chip.Dir.UP, Chip.Dir.RIGHT, Chip.Dir.DOWN, Chip.Dir.LEFT];
+Chip.SPRITE_INDICES = Chip.Util.inverse(Chip.INDEX_SPRITES)
+Chip.Dir.MOVE_DIRS = [Chip.Dir.UP, Chip.Dir.RIGHT, Chip.Dir.DOWN, Chip.Dir.LEFT]
 
 /* eslint-disable no-extend-native */
 
 Function.prototype.extends = function () {
-  var args = Array.prototype.slice.call(arguments);
+  var args = Array.prototype.slice.call(arguments)
 
   _.each(args, function (arg) {
-    _.extend(this.prototype, arg.prototype);
-  }, this);
-};
+    _.extend(this.prototype, arg.prototype)
+  }, this)
+}
 
 Function.prototype.includes = function (obj) {
-  _.extend(this.prototype, obj);
-};
+  _.extend(this.prototype, obj)
+}
 
 String.prototype.toTitleCase = function (str) {
   return this.replace(/\w\S*/g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-};
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+  })
+}

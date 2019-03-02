@@ -1,14 +1,13 @@
 (function (Entity, Movable) {
-
   /*
    * Blocks can be pushed. They become dirt after colliding with water.
    */
   var Block = Chip.Block = function (tile, emap) {
-    Chip.Entity.call(this, tile, emap);
-  };
+    Chip.Entity.call(this, tile, emap)
+  }
 
-  Block.extends(Entity);
-  Block.extends(Movable);
+  Block.extends(Entity)
+  Block.extends(Movable)
 
   Block.includes({
     frames: {
@@ -23,18 +22,17 @@
      */
     collideWith: function (target) {
       if (target.type === 'chip') {
-        var dir = target.lastDir;
-        var dx = dir[0];
-        var dy = dir[1];
+        var dir = target.lastDir
+        var dx = dir[0]
+        var dy = dir[1]
 
         if (!this.isPushable(dx, dy)) {
-          Chip.sfx.bump();
-          return;
+          Chip.sfx.bump()
         } else {
-          var oldX = this.x;
-          var oldY = this.y;
-          this.move(dx, dy);
-          target.move(dx, dy);
+          var oldX = this.x
+          var oldY = this.y
+          this.move(dx, dy)
+          target.move(dx, dy)
         }
       }
     },
@@ -44,9 +42,8 @@
      * "flat" in the way.
      */
     isPushable: function (dx, dy) {
-      var resident = this.emap.get(this.x + dx, this.y + dy);
-      return resident === undefined || resident.isFlat;
+      var resident = this.emap.get(this.x + dx, this.y + dy)
+      return resident === undefined || resident.isFlat
     }
-  });
-
-})(Chip.Entity, Chip.Mixins.Movable);
+  })
+})(Chip.Entity, Chip.Mixins.Movable)

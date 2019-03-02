@@ -1,29 +1,28 @@
-(function(Config, Entity) {
-
+(function (Config, Entity) {
   /*
    * The socket is a special door which can only be opened by collecting
    * all of the chips.
    */
-  var Socket = Chip.Socket = function(tile, emap) {
-    Entity.call(this, tile, emap);
-  };
+  var Socket = Chip.Socket = function (tile, emap) {
+    Entity.call(this, tile, emap)
+  }
 
-  Socket.extends(Entity);
+  Socket.extends(Entity)
 
   Socket.includes({
-    collideWith: function(player) {
+    collideWith: function (player) {
       if (player.hasAllChips() || Config.DEBUG) {
-        this.openUp(player);
+        this.openUp(player)
       } else {
-        Chip.sfx.bump();
+        Chip.sfx.bump()
       }
     },
 
-    openUp: function(player) {
-      this.retire();
-      Chip.sfx.open();
-      this.moveHere(player);
-    },
+    openUp: function (player) {
+      this.retire()
+      Chip.sfx.open()
+      this.moveHere(player)
+    }
 
-  });
-})(Chip.Config, Chip.Entity);
+  })
+})(Chip.Config, Chip.Entity)

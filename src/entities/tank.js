@@ -1,16 +1,14 @@
-(function(Entity, Mixins) {
+(function (Entity, Mixins) {
+  var Tank = Chip.Tank = function (tile, emap) {
+    Entity.call(this, tile, emap)
+    Mixins.Marchable.call(this, tile, emap)
 
-  var Tank = Chip.Tank = function(tile, emap) {
-    Entity.call(this, tile, emap);
-    Mixins.Marchable.call(this, tile, emap);
+    this.marchDir = _.clone(Chip.Dir.UP)
+    this.marchDelay = 300
+  }
 
-    this.marchDir = _.clone(Chip.Dir.UP);
-    this.marchDelay = 300;
-  };
-
-
-  Tank.extends(Entity);
-  Tank.extends(Mixins.Marchable);
+  Tank.extends(Entity)
+  Tank.extends(Mixins.Marchable)
 
   Tank.includes({
     frames: {
@@ -20,18 +18,18 @@
       '1,0': 109
     },
 
-    collideWith: function(target) {
+    collideWith: function (target) {
       if (target.type === 'chip') {
-        target.collideWith(this);
+        target.collideWith(this)
       } else {
-        Entity.prototype.collideWith.call(this, target);
+        Entity.prototype.collideWith.call(this, target)
       }
     },
 
-    march: function() {
-      var dx = this.marchDir[0];
-      var dy = this.marchDir[1];
-      this.move(dx, dy);
+    march: function () {
+      var dx = this.marchDir[0]
+      var dy = this.marchDir[1]
+      this.move(dx, dy)
     }
-  });
-})(Chip.Entity, Chip.Mixins);
+  })
+})(Chip.Entity, Chip.Mixins)
