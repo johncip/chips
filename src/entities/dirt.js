@@ -1,5 +1,5 @@
 import { extend } from 'lodash'
-import Entity from './entity.js'
+import Entity from './entity'
 
 /*
  * Dirt is produced when blocks and water collide. It disappears when Chip

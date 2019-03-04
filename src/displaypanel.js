@@ -1,6 +1,8 @@
 import { extend } from 'lodash'
-import config from './config.js'
-import LCD from './lcd.js'
+
+import config from './config'
+import LCD from './lcd'
+
 
 function DisplayPanel (game) {
   const { tsize } = config

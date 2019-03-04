@@ -1,5 +1,5 @@
 import { extend } from 'lodash'
-import Entity from './entity.js'
+import Entity from './entity'
 
 /*
  * The hint tile offers a hint when the player steps on it.

@@ -1,11 +1,12 @@
 import Phaser, { Rectangle } from 'phaser'
 import { extend, throttle } from 'lodash'
 
-import config from '../config.js'
-import levels from '../levels.js'
-import DisplayPanel from '../displaypanel.js'
-import Modal from '../modal.js'
-import Level from '../level.js'
+import config from '../config'
+import levels from '../levels'
+import DisplayPanel from '../displaypanel'
+import Modal from '../modal'
+import Level from '../level'
+
 
 function Playing () {}
 

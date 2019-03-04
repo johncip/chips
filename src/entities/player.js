@@ -1,12 +1,12 @@
 import { contains, extend } from 'lodash'
 
-import Controllable from './_controllable.js'
-import Entity from './entity.js'
-import Marchable from './_marchable.js'
-import Movable from './_movable.js'
-import Inventory from '../inventory.js'
-import config from '../config.js'
-import sfx from '../sfx.js'
+import Controllable from './_controllable'
+import Entity from './entity'
+import Marchable from './_marchable'
+import Movable from './_movable'
+import Inventory from '../inventory'
+import config from '../config'
+import sfx from '../sfx'
 
 
 function Player (game, tile, emap) {

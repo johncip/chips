@@ -1,7 +1,9 @@
 import { clone, extend } from 'lodash'
-import { Dir } from '../constants.js'
-import Entity from './entity.js'
-import Marchable from './_marchable.js'
+
+import { Dir } from '../constants'
+import Entity from './entity'
+import Marchable from './_marchable'
+
 
 function Bug (game, tile, emap) {
   Entity.call(this, game, tile, emap)

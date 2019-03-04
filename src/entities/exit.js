@@ -1,6 +1,6 @@
 import { extend } from 'lodash'
-import Entity from './entity.js'
-import sfx from '../sfx.js'
+import Entity from './entity'
+import sfx from '../sfx'
 
 /*
  * The exit triggers the win screen and takes the player to the next level.

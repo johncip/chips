@@ -1,7 +1,9 @@
 import { extend } from 'lodash'
-import Entity from './entity.js'
-import Movable from './_movable.js'
-import sfx from '../sfx.js'
+
+import Entity from './entity'
+import Movable from './_movable'
+import sfx from '../sfx'
+
 
 /*
  * Blocks can be pushed. They become dirt after colliding with water.

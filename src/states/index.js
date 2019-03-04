@@ -1,6 +1,6 @@
-import Preload from './preload.js'
-import MainMenu from './mainmenu.js'
-import Playing from './playing.js'
+import Preload from './preload'
+import MainMenu from './mainmenu'
+import Playing from './playing'
 
 export {
   Preload,

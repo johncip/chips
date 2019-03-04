@@ -1,8 +1,8 @@
 import { extend, findIndex } from 'lodash'
 
-import Movable from './_movable.js'
-import config from '../config.js'
-import { Dir } from '../constants.js'
+import Movable from './_movable'
+import config from '../config'
+import { Dir } from '../constants'
 
 
 /*

@@ -3,9 +3,9 @@ import p2 from 'p2' // eslint-disable-line no-unused-vars
 import Phaser from 'phaser'
 import { each, extend } from 'lodash'
 
-import config from '../config.js'
-import images from '../images.js'
-import tilemaps from '../tilemaps.js'
+import config from '../config'
+import images from '../images'
+import tilemaps from '../tilemaps'
 
 
 function Preload () {}

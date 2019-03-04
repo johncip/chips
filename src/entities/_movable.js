@@ -1,5 +1,6 @@
 import { extend, isEqual } from 'lodash'
-import Entity from './entity.js'
+import Entity from './entity'
+
 
 function Movable () {
   // TODO: get movement dir

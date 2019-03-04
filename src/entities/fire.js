@@ -1,7 +1,9 @@
 import { extend } from 'lodash'
-import Entity from './entity.js'
-import Floor from './_floor.js'
-import sfx from '../sfx.js'
+
+import Entity from './entity'
+import Floor from './_floor'
+import sfx from '../sfx'
+
 
 /*
  * Doors can only be opened when the right key is in the inventory.

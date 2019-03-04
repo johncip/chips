@@ -1,7 +1,7 @@
 import { extend, parseInt } from 'lodash'
 
-import EntityMap from './entitymap.js'
-import levels from './levels.js'
+import EntityMap from './entitymap'
+import levels from './levels'
 
 
 function Level (game, index) {

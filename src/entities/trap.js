@@ -1,5 +1,5 @@
 import { extend } from 'lodash'
-import Entity from './entity.js'
+import Entity from './entity'
 
 
 function Trap (game, tile, emap) {

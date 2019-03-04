@@ -1,8 +1,10 @@
 import { extend } from 'lodash'
-import { Dir } from '../constants.js'
-import Entity from './entity.js'
-import Floor from './_floor.js'
-import sfx from '../sfx.js'
+
+import { Dir } from '../constants'
+import Entity from './entity'
+import Floor from './_floor'
+import sfx from '../sfx'
+
 
 const { UP, DOWN, LEFT, RIGHT } = Dir
 

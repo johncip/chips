@@ -1,6 +1,8 @@
 import { extend } from 'lodash'
-import Entity from './entity.js'
-import sfx from '../sfx.js'
+
+import Entity from './entity'
+import sfx from '../sfx'
+
 
 /*
  * A Collectible entity can be put into inventory.

@@ -1,7 +1,9 @@
 import { Easing } from 'phaser'
 import { extend } from 'lodash'
-import config from '../config.js'
-import { spriteNamesByIndex, spriteIndicesByName } from '../constants.js'
+
+import config from '../config'
+import { spriteNamesByIndex, spriteIndicesByName } from '../constants'
+
 
 /*
  * A game Entity is an item on the tile map -- it could be a wall,

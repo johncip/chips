@@ -1,5 +1,5 @@
 import { extend } from 'lodash'
-import config from '../config.js'
+import config from '../config'
 
 /*
  * Mixin for floor types (fire, water, ice, force floor).

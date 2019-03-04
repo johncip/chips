@@ -1,7 +1,7 @@
 import { extend } from 'lodash'
 
-import Movable from './_movable.js'
-import config from '../config.js'
+import Movable from './_movable'
+import config from '../config'
 
 
 function Controllable () {

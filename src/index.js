@@ -2,8 +2,8 @@ import PIXI from 'pixi' // eslint-disable-line no-unused-vars
 import p2 from 'p2'// eslint-disable-line no-unused-vars
 import Phaser from 'phaser'
 
-import config from './config.js'
-import { Preload, MainMenu, Playing } from './states/index.js'
+import config from './config'
+import { Preload, MainMenu, Playing } from './states/index'
 
 const game = new Phaser.Game(
   config.width,

@@ -1,4 +1,4 @@
-import config from './config.js'
+import config from './config'
 import { extend } from 'lodash'
 import sprintf from 'sprintf'
 

@@ -1,9 +1,9 @@
 import { extend } from 'lodash'
 
-import { Dir } from '../constants.js'
-import Entity from './entity.js'
-import Marchable from './_marchable.js'
-import Movable from './_movable.js'
+import { Dir } from '../constants'
+import Entity from './entity'
+import Marchable from './_marchable'
+import Movable from './_movable'
 
 
 function Glider (game, tile, emap) {

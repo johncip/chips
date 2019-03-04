@@ -1,8 +1,8 @@
 import { clone, extend } from 'lodash'
 
-import Entity from './entity.js'
-import Marchable from './_marchable.js'
-import { Dir } from '../constants.js'
+import Entity from './entity'
+import Marchable from './_marchable'
+import { Dir } from '../constants'
 
 
 function Ball (game, tile, emap) {

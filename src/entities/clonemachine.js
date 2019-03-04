@@ -1,6 +1,8 @@
 import { extend } from 'lodash'
-import Entity from './entity.js'
-import { spriteIndicesByName } from '../constants.js'
+
+import Entity from './entity'
+import { spriteIndicesByName } from '../constants'
+
 
 function CloneMachine (game, tile, emap) {
   Entity.call(this, game, tile, emap)
