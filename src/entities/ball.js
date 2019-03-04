@@ -12,7 +12,11 @@ function Ball (game, tile, emap) {
   this.lastDir = clone(Dir.RIGHT) // TODO: set based on frame
 }
 
-Ball.extends(Entity, Marchable)
+extend(
+  Ball.prototype,
+  Entity.prototype,
+  Marchable.prototype
+)
 
 extend(Ball.prototype, {
   frames: {

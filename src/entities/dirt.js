@@ -9,7 +9,7 @@ function Dirt (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
-Dirt.extends(Entity)
+extend(Dirt.prototype, Entity.prototype)
 
 extend(Dirt.prototype, {
   collideWith: function (player) {

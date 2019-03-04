@@ -8,7 +8,7 @@ function Wall (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
-Wall.extends(Entity)
+extend(Wall.prototype, Entity.prototype)
 
 extend(Wall.prototype, {
   collideWith: function (target) {

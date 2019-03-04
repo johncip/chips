@@ -9,7 +9,7 @@ function Hint (game, tile, emap) {
   this.isFlat = true
 }
 
-Hint.extends(Entity)
+extend(Hint.prototype, Entity.prototype)
 
 extend(Hint.prototype, {
   collideWith: function (target) {

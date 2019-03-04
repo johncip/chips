@@ -13,8 +13,12 @@ function Glider (game, tile, emap) {
   this.marchDelay = 300
 }
 
-// TODO: can probably skip extending movable
-Glider.extends(Entity, Movable, Marchable)
+extend(
+  Glider.prototype,
+  Entity.prototype,
+  Movable.prototype, // TODO: might not need Movable
+  Marchable.prototype
+)
 
 extend(Glider.prototype, {
   frames: {

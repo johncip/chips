@@ -17,7 +17,7 @@ function Marchable () {
   this.marchDelay = config.moveDelay
 }
 
-Marchable.extends(Movable)
+extend(Marchable.prototype, Movable.prototype)
 
 extend(Marchable.prototype, {
   update: function () {

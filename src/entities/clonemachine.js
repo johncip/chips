@@ -7,7 +7,7 @@ function CloneMachine (game, tile, emap) {
   this.template = null // set later by emap
 }
 
-CloneMachine.extends(Entity)
+extend(CloneMachine.prototype, Entity.prototype)
 
 extend(CloneMachine.prototype, {
   clone: function () {

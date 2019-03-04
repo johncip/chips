@@ -10,7 +10,11 @@ function Bug (game, tile, emap) {
   this.lastDir = clone(Dir.UP)
 }
 
-Bug.extends(Entity, Marchable)
+extend(
+  Bug.prototype,
+  Entity.prototype,
+  Marchable.prototype
+)
 
 extend(Bug.prototype, {
   frames: {

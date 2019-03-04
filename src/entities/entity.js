@@ -29,7 +29,7 @@ function Entity (game, tile, emap) {
   )
 }
 
-// Entity.extends(Collidable)
+// extend(Entity.prototype, Collidable.prototype)
 
 extend(Entity.prototype, {
   retire: function () {

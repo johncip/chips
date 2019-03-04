@@ -13,7 +13,11 @@ function Tank (game, tile, emap) {
   this.marchDelay = 300
 }
 
-Tank.extends(Entity, Marchable)
+extend(
+  Tank.prototype,
+  Entity.prototype,
+  Marchable.prototype
+)
 
 extend(Tank.prototype, {
   frames: {

@@ -29,8 +29,13 @@ Player.FRAMES = {
   '1,0': 111
 }
 
-// TODO: might not need to extend Movable
-Player.extends(Entity, Movable, Marchable, Controllable)
+extend(
+  Player.prototype,
+  Entity.prototype,
+  Movable.prototype, // TODO: might not need Movable
+  Marchable.prototype,
+  Controllable.prototype
+)
 
 extend(Player.prototype, {
   march: function () {

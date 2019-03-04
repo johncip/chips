@@ -10,7 +10,11 @@ function Fireball (game, tile, emap) {
   this.lastDir = clone(Dir.LEFT)
 }
 
-Fireball.extends(Entity, Marchable)
+extend(
+  Fireball.prototype,
+  Entity.prototype,
+  Marchable.prototype
+)
 
 extend(Fireball.prototype, {
   frames: {

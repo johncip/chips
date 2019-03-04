@@ -13,7 +13,11 @@ function Ice (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
-Ice.extends(Entity, Floor)
+extend(
+  Ice.prototype,
+  Entity.prototype,
+  Floor.prototype
+)
 
 extend(Ice.prototype, {
   noShoes: function (player) {

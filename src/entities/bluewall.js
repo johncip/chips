@@ -5,7 +5,7 @@ function BlueWall (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
-BlueWall.extends(Entity)
+extend(BlueWall.prototype, Entity.prototype)
 
 extend(BlueWall.prototype, {
   collideWith: function (target) {

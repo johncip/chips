@@ -7,7 +7,7 @@ function Button (game, tile, emap) {
   this.target = null
 }
 
-Button.extends(Entity)
+extend(Button.prototype, Entity.prototype)
 
 extend(Button.prototype, {
   collideWith: function (target) {

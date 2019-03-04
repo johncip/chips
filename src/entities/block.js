@@ -10,8 +10,11 @@ function Block (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
-Block.extends(Entity)
-Block.extends(Movable)
+extend(
+  Block.prototype,
+  Entity.prototype,
+  Movable.prototype
+)
 
 extend(Block.prototype, {
   frames: {

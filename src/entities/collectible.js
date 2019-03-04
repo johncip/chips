@@ -10,7 +10,7 @@ function Collectible (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
-Collectible.extends(Entity)
+extend(Collectible.prototype, Entity.prototype)
 
 extend(Collectible.prototype, {
   /*

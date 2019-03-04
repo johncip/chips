@@ -9,7 +9,7 @@ function Controllable () {
   this.enableMove()
 }
 
-Controllable.extends(Movable)
+extend(Controllable.prototype, Movable.prototype)
 
 extend(Controllable.prototype, {
   enableMove: function () {

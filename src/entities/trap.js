@@ -6,7 +6,7 @@ function Trap (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
-Trap.extends(Entity)
+extend(Trap.prototype, Entity.prototype)
 
 extend(Trap.prototype, {
   collideWith: function (target) {

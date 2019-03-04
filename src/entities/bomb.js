@@ -6,7 +6,7 @@ function Bomb (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
-Bomb.extends(Entity)
+extend(Bomb.prototype, Entity.prototype)
 
 extend(Bomb.prototype, {
   collideWith: function (target) {

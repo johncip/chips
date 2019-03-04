@@ -8,7 +8,7 @@ function ToggleWall (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
-ToggleWall.extends(Entity)
+extend(ToggleWall.prototype, Entity.prototype)
 
 extend(ToggleWall.prototype, {
   collideWith: function (target) {

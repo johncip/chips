@@ -10,7 +10,11 @@ function ForceFloor (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
-ForceFloor.extends(Entity, Floor)
+extend(
+  ForceFloor.prototype,
+  Entity.prototype,
+  Floor.prototype
+)
 
 extend(ForceFloor.prototype, {
   noShoes: function (player) {

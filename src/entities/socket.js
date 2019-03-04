@@ -13,7 +13,7 @@ function Socket (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
-Socket.extends(Entity)
+extend(Socket.prototype, Entity.prototype)
 
 extend(Socket.prototype, {
   collideWith: function (player) {

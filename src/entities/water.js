@@ -14,7 +14,11 @@ function Water (game, tile, emap) {
   this.isFlat = true
 }
 
-Water.extends(Entity, Floor)
+extend(
+  Water.prototype,
+  Entity.prototype,
+  Floor.prototype
+)
 
 extend(Water.prototype, {
   /*

@@ -10,7 +10,7 @@ function Door (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
-Door.extends(Entity)
+extend(Door.prototype, Entity.prototype)
 
 extend(Door.prototype, {
   /*

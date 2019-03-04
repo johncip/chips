@@ -13,8 +13,11 @@ function Fire (game, tile, emap) {
 
 Fire.BURN_FPS = 2
 
-Fire.extends(Entity)
-Fire.extends(Floor)
+extend(
+  Fire.prototype,
+  Entity.prototype,
+  Floor.prototype
+)
 
 extend(Fire.prototype, {
   collideWith: function (target) {

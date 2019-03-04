@@ -12,7 +12,7 @@ function Exit (game, tile, emap) {
   this.pulse.play(Exit.PULSE_FPS, true)
 }
 
-Exit.extends(Entity)
+extend(Exit.prototype, Entity.prototype)
 
 Exit.PULSE_FPS = 2
 
