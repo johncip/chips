@@ -23,7 +23,7 @@ extend(Controllable.prototype, {
     var keyboard = this.game.input.keyboard
 
     this.cursors = keyboard.createCursorKeys()
-    keyboard.onUpCallback = this.enableMove.bind(this)
+    keyboard.onUpCallback = () => this.enableMove()
 
     this.enableMove()
   },

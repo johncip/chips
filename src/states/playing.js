@@ -138,12 +138,12 @@ extend(Playing.prototype, {
   },
 
   lose: function (msg, delay) {
-    this.modal.flash(msg, delay, this.startCurrentLevel.bind(this))
+    this.modal.flash(msg, delay, () => this.startCurrentLevel())
   },
 
   win: function (msg, delay) {
     msg = msg || 'Yowzer! You win!'
-    this.modal.flash(msg, delay, this.startNextLevel.bind(this))
+    this.modal.flash(msg, delay, () => this.startNextLevel())
   },
 
   playMusic: function () {

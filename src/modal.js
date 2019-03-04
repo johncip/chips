@@ -100,7 +100,7 @@ extend(Modal.prototype, {
    * hide the modal and unpause the game.
    */
   flash: function (message, delay, fn) {
-    fn = fn || this._unpause.bind(this)
+    fn = fn || (() => this._unpause())
     delay = delay || 0
 
     this.setText(message)

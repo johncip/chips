@@ -23,7 +23,7 @@ function Inventory (game) {
   this.sprites = {}
 
   this.createBackground()
-  ITEMS.forEach(this.createSprite.bind(this))
+  ITEMS.forEach(item => this.createSprite(item))
 }
 
 extend(Inventory.prototype, {

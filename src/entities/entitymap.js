@@ -64,7 +64,7 @@ extend(EntityMap.prototype, {
   },
 
   createCloneMachines: function () {
-    this.eachOfType('clonemachine', function (machine) {
+    this.eachOfType('clonemachine', machine => {
       var above = machine.entityAbove()
 
       // duplicate sprite
@@ -77,13 +77,13 @@ extend(EntityMap.prototype, {
 
       machine.template = above.spriteKey
       above.retire()
-    }, this)
+    })
   },
 
   promoteChip: function () {
-    this.eachOfType('chip', function (player) {
+    this.eachOfType('chip', player => {
       this.group.bringToTop(player.sprite)
-    }, this)
+    })
   },
 
   getChipsNeeded: function (properties) {
@@ -91,9 +91,7 @@ extend(EntityMap.prototype, {
       return parseInt(properties.chipsNeeded)
     } else {
       var total = 0
-      this.eachOfType('ic', player => {
-        total++
-      }, this)
+      this.eachOfType('ic', player => { total++ })
       return total
     }
   },
@@ -164,20 +162,14 @@ extend(EntityMap.prototype, {
     })
   },
 
-  eachEntity: function (fn, context) {
-    context = context || this
-    each(this._lower, fn.bind(context))
-    each(this._upper, fn.bind(context))
+  eachEntity: function (fn) {
+    each(this._lower, ent => fn(ent))
+    each(this._upper, ent => fn(ent))
   },
 
-  eachOfType: function (type, fn, context) {
-    each(filter(this._lower, {
-      type: type
-    }), fn.bind(context))
-
-    each(filter(this._upper, {
-      type: type
-    }), fn.bind(context))
+  eachOfType: function (type, fn) {
+    each(filter(this._lower, { type: type }), ent => fn(ent))
+    each(filter(this._upper, { type: type }), ent => fn(ent))
   },
 
   resetTraps: function () {
