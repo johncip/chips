@@ -1,6 +1,6 @@
 import PIXI from 'pixi' // eslint-disable-line no-unused-vars
 import p2 from 'p2'// eslint-disable-line no-unused-vars
-import Phaser, { Sprite, Group } from 'phaser'
+import Phaser, { Group } from 'phaser'
 import { extend } from 'lodash'
 
 import config from './config.js'
@@ -8,17 +8,6 @@ import Preload from './states/preload.js' // TODO: namespace states
 import MainMenu from './states/mainmenu.js'
 import Playing from './states/playing.js'
 
-
-// TODO: these might need to be run everywhere Sprite / Group are imported
-extend(Sprite.prototype, {
-  bringToFront: function () {
-    if (this.parent) {
-      var parent = this.parent
-      parent.removeChild(this)
-      parent.addChild(this)
-    }
-  }
-})
 
 extend(Group.prototype, {
   hide: function () {
