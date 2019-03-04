@@ -14,8 +14,6 @@ extend(Hint.prototype, Entity.prototype)
 extend(Hint.prototype, {
   collideWith: function (target) {
     this.moveHere(target)
-
-    // TODO: hopefully this.game works here
     this.game.hintPanel.show()
   }
 })

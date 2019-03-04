@@ -21,7 +21,6 @@ extend(Marchable.prototype, Movable.prototype)
 
 extend(Marchable.prototype, {
   update: function () {
-    // I hope this.game works here...
     this.timeSinceTick += this.game.time.elapsed
 
     if (this.timeSinceTick > this.marchDelay) {

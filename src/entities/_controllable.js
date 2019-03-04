@@ -14,12 +14,10 @@ extend(Controllable.prototype, Movable.prototype)
 extend(Controllable.prototype, {
   enableMove: function () {
     this.moveSafe = true
-    // hopefully this.game works here
     this.lastMove = this.game.time.now
   },
 
   createCursorKeys: function () {
-    // hopefully this.game works here
     const keyboard = this.game.input.keyboard
 
     this.cursors = keyboard.createCursorKeys()
@@ -54,7 +52,6 @@ extend(Controllable.prototype, {
   },
 
   updateThrottle: function () {
-    // hopefully this.game works here
     const now = this.game.time.now
     const waited = (now - this.lastMove) > config.moveDelay
 
@@ -64,7 +61,6 @@ extend(Controllable.prototype, {
   },
 
   updateCamera: function () {
-    // hopefully this.game works here
     const game = this.game
 
     let cx = this.sprite.x - 4 * config.tsize

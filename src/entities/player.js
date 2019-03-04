@@ -14,7 +14,6 @@ function Player (game, tile, emap) {
   Marchable.call(this)
   Controllable.call(this)
 
-  // TODO: hopefully this.game works here
   this.inventory = new Inventory(this.game)
   this.marchDelay = config.floorDelay
 
@@ -48,12 +47,8 @@ extend(Player.prototype, {
 
   move: function (dx, dy) {
     this.frames = Player.FRAMES
-
-    // TODO: hopefully this.game works here
     this.game.hintPanel.hide()
-
     this.frozen = false
-
     Movable.prototype.move.call(this, dx, dy)
 
     // TODO: this might apply to all movables
@@ -96,14 +91,12 @@ extend(Player.prototype, {
 
   triggerWin: function () {
     this.retire()
-    // TODO: hopefully this.game works here
     const state = this.game.state.getCurrentState()
     state.win(null, 1500)
   },
 
   triggerLose: function () {
     this.retire()
-    // TODO: hopefully this.game works here
     const state = this.game.state.getCurrentState()
     state.lose('Oops!', 1500)
   }
