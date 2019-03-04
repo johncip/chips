@@ -1,4 +1,4 @@
-import { each, extend, parseInt } from 'lodash'
+import { each, parseInt } from 'lodash'
 
 export const Dir = {
   UP: [0, -1],
@@ -135,16 +135,3 @@ const invert = obj => {
 }
 
 export const spriteIndicesByName = invert(spriteNamesByIndex)
-
-// eslint-disable-next-line no-extend-native
-Function.prototype.extends = function () {
-  const args = Array.prototype.slice.call(arguments)
-  each(args, a => extend(this.prototype, a.prototype))
-}
-
-// eslint-disable-next-line no-extend-native
-String.prototype.toTitleCase = function (str) {
-  return this.replace(/\w\S*/g, txt => (
-    txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-  ))
-}

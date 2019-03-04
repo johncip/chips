@@ -1,5 +1,5 @@
 import { extend } from 'lodash'
-import { Dir } from '../static.js'
+import { Dir } from '../constants.js'
 import Entity from './entity.js'
 import Floor from './_floor.js'
 

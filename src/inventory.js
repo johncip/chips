@@ -1,6 +1,6 @@
 import { each, extend } from 'lodash'
 import config from './config.js'
-import { spriteIndicesByName } from './static.js'
+import { spriteIndicesByName } from './constants.js'
 
 const ITEMS = [
   'key:blue', 'key:green', 'key:red', 'key:yellow',

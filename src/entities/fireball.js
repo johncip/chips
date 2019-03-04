@@ -1,5 +1,5 @@
 import { clone, extend } from 'lodash'
-import { Dir } from '../static.js'
+import { Dir } from '../constants.js'
 import Entity from './entity.js'
 import Marchable from './_marchable.js'
 

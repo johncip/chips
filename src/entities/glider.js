@@ -1,6 +1,6 @@
 import { extend } from 'lodash'
 
-import { Dir } from '../static.js'
+import { Dir } from '../constants.js'
 import Entity from './entity.js'
 import Marchable from './_marchable.js'
 import Movable from './_movable.js'

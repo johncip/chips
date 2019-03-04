@@ -1,12 +1,26 @@
 import PIXI from 'pixi' // eslint-disable-line no-unused-vars
 import p2 from 'p2'// eslint-disable-line no-unused-vars
 import Phaser, { Sprite, Group } from 'phaser'
-import { extend } from 'lodash'
+import { each, extend } from 'lodash'
 
 import config from './config.js'
 import Preload from './states/preload.js' // TODO: namespace states
 import MainMenu from './states/mainmenu.js'
 import Playing from './states/playing.js'
+
+
+// eslint-disable-next-line no-extend-native
+Function.prototype.extends = function () {
+  const args = Array.prototype.slice.call(arguments)
+  each(args, a => extend(this.prototype, a.prototype))
+}
+
+// eslint-disable-next-line no-extend-native
+String.prototype.toTitleCase = function (str) {
+  return this.replace(/\w\S*/g, txt => (
+    txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+  ))
+}
 
 // TODO: these might need to be run everywhere Sprite / Group are imported
 extend(Sprite.prototype, {

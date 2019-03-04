@@ -1,4 +1,4 @@
-import { spriteNamesByIndex } from './static.js'
+import { spriteNamesByIndex } from './constants.js'
 
 import Ball from './entities/ball.js'
 import Block from './entities/block.js'
