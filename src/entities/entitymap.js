@@ -1,4 +1,4 @@
-import { each, extend, flatten, parseInt, where } from 'lodash'
+import { each, extend, filter, flatten, parseInt } from 'lodash'
 
 import config from '../config.js'
 import entityFromTile from './entityFromTile.js'
@@ -171,11 +171,11 @@ extend(EntityMap.prototype, {
   },
 
   eachOfType: function (type, callback, context) {
-    each(where(this._lower, {
+    each(filter(this._lower, {
       type: type
     }), callback.bind(context))
 
-    each(where(this._upper, {
+    each(filter(this._upper, {
       type: type
     }), callback.bind(context))
   },
