@@ -8,7 +8,6 @@ export default {
   lcdBgColor: 0x301010,
   moveDelay: (1000 / 3),
   musicVolume: 0.25,
-  spriteSheet: 'assets/tilemaps/sets/felix-big.png',
   startLevel: 0,
   startState: 'MainMenu',
   tsize: 64,
