@@ -9,7 +9,7 @@ export default {
   moveDelay: (1000 / 3),
   musicVolume: 0.25,
   startLevel: 0,
-  startState: 'MainMenu',
+  startState: 'Playing',
   tsize: 64,
   width: 896
 }
