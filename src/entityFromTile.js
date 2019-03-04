@@ -66,6 +66,12 @@ const classMap = {
   bluewall: 'BlueWall'
 }
 
+function titleCase (str) {
+  return str.replace(/\w\S*/g, s => (
+    s.charAt(0).toUpperCase() + s.substr(1).toLowerCase()
+  ))
+}
+
 /*
  * Creates an entity with class based on the type of the given tile.
  * Defaults to Entity.
@@ -77,7 +83,7 @@ export default function entityFromTile (game, tile, emap) {
   }
 
   const prefix = key.split(':')[0]
-  const constructor = classMap[prefix] || prefix.toTitleCase()
+  const constructor = classMap[prefix] || titleCase(prefix)
 
   if (!entities[constructor]) {
     throw new Error('not a constructor: ' + constructor)

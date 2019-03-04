@@ -9,13 +9,6 @@ import MainMenu from './states/mainmenu.js'
 import Playing from './states/playing.js'
 
 
-// eslint-disable-next-line no-extend-native
-String.prototype.toTitleCase = function (str) {
-  return this.replace(/\w\S*/g, txt => (
-    txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-  ))
-}
-
 // TODO: these might need to be run everywhere Sprite / Group are imported
 extend(Sprite.prototype, {
   bringToFront: function () {

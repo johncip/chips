@@ -14,10 +14,10 @@ const classMap = {
   bomb: 'Entity'
 }
 
-const typeOf = function (entity) {
-  const prefix = entity.type
-  return classMap[prefix] || prefix.toTitleCase()
-}
+// const typeOf = function (entity) {
+//   const prefix = entity.type
+//   return classMap[prefix] || titleCase(prefix)
+// }
 
 // eslint-disable-next-line no-unused-vars
 const joinedTypes = function (entity, intruder) {
