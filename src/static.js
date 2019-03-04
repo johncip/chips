@@ -140,10 +140,7 @@ export const spriteIndicesByName = invert(spriteNamesByIndex)
 // eslint-disable-next-line no-extend-native
 Function.prototype.extends = function () {
   var args = Array.prototype.slice.call(arguments)
-
-  each(args, function (arg) {
-    extend(this.prototype, arg.prototype)
-  }, this)
+  each(args, a => extend(this.prototype, a.prototype))
 }
 
 // eslint-disable-next-line no-extend-native
