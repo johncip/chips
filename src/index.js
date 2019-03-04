@@ -21,10 +21,6 @@ extend(Sprite.prototype, {
 })
 
 extend(Group.prototype, {
-  promote: function () {
-    this.game.world.bringToTop(this)
-  },
-
   hide: function () {
     this.forEach(item => { item.exists = false })
   },

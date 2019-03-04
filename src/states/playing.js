@@ -100,8 +100,8 @@ extend(Playing.prototype, {
   },
 
   fixLayering: function () {
-    this.displayPanel.group.promote()
-    this.level.inventory.group.promote()
+    this.game.world.bringToTop(this.displayPanel.group)
+    this.game.world.bringToTop(this.level.inventory.group)
   },
 
   pause: function () {

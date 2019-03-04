@@ -82,7 +82,7 @@ extend(Modal.prototype, {
   },
 
   show: function () {
-    this.group.promote()
+    this.game.world.bringToTop(this.group)
     this.group.show()
   },
 
