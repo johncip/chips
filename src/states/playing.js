@@ -35,7 +35,7 @@ extend(Playing.prototype, {
     var hintBounds = new Rectangle(9.5 * tsize, 0, 5 * tsize, 9 * tsize)
     this.hintPanel = new Modal(this.game, hintBounds, '', {
       boundsAlignV: 'top',
-      font: '30px Lato',
+      font: '30px lato',
       wordWrapWidth: hintBounds.width - tsize
     })
 

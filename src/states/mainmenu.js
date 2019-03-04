@@ -20,7 +20,7 @@ extend(MainMenu.prototype, {
   createStartText: function () {
     var text = 'Click to continue!'
     var style = {
-      font: '30px Lato',
+      font: '30px lato',
       fill: '#fff',
       align: 'center'
     }
