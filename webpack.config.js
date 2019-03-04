@@ -1,6 +1,7 @@
 const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const GoogleFontsPlugin = require('@beyonk/google-fonts-webpack-plugin')
 const { DefinePlugin } = require('webpack')
 
 const phaserPath = path.join(__dirname, '/node_modules/phaser-ce/')
@@ -64,6 +65,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './src/template.html'
+    }),
+    new GoogleFontsPlugin({
+      fonts: [
+        { family: 'Lato', subsets: ['latin'] }
+      ]
     }),
     new DefinePlugin({
       'typeof CANVAS_RENDERER': JSON.stringify(true),

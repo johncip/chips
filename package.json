@@ -22,6 +22,7 @@
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
+    "@beyonk/google-fonts-webpack-plugin": "^1.2.3",
     "clean-webpack-plugin": "^1.0.1",
     "eslint": "^5.15.0",
     "eslint-config-standard": "^12.0.0",
