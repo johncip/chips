@@ -2,8 +2,8 @@ import { extend } from 'lodash'
 import Entity from './entity.js'
 import sfx from '../sfx.js'
 
-function Bomb (tile, emap) {
-  Entity.call(this, tile, emap)
+function Bomb (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
 }
 
 Bomb.extends(Entity)

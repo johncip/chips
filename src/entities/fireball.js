@@ -3,8 +3,8 @@ import { Dir } from '../static.js'
 import Entity from './entity.js'
 import Marchable from './_marchable.js'
 
-function Fireball (tile, emap) {
-  Entity.call(this, tile, emap)
+function Fireball (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
   Marchable.call(this)
 
   this.lastDir = clone(Dir.LEFT)

@@ -9,8 +9,8 @@ import config from '../config.js'
 import sfx from '../sfx.js'
 
 
-function Player (tile, emap) {
-  Entity.call(this, tile, emap)
+function Player (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
   Marchable.call(this)
   Controllable.call(this)
 

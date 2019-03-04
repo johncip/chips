@@ -6,8 +6,8 @@ import Marchable from './_marchable.js'
 import Movable from './_movable.js'
 
 
-function Glider (tile, emap) {
-  Entity.call(this, tile, emap)
+function Glider (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
   Marchable.call(this)
   this.lastDir = [0, -1] // TODO: set based on frame
   this.marchDelay = 300

@@ -6,8 +6,8 @@ import sfx from '../sfx.js'
  * A Collectible entity can be put into inventory.
  * ICs, shoes, and keys are collectible.
  */
-function Collectible (tile, emap) {
-  Entity.call(this, tile, emap)
+function Collectible (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
 }
 
 Collectible.extends(Entity)

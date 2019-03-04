@@ -9,8 +9,8 @@ import sfx from '../sfx.js'
  * The socket is a special door which can only be opened by collecting
  * all of the chips.
  */
-function Socket (tile, emap) {
-  Entity.call(this, tile, emap)
+function Socket (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
 }
 
 Socket.extends(Entity)

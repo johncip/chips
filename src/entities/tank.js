@@ -5,8 +5,8 @@ import Marchable from './_marchable.js'
 import { Dir } from '../static.js'
 
 
-function Tank (tile, emap) {
-  Entity.call(this, tile, emap)
+function Tank (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
   Marchable.call(this, tile, emap)
 
   this.marchDir = clone(Dir.UP)

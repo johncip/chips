@@ -4,8 +4,8 @@ import Entity from './entity.js'
 /*
  * The hint tile offers a hint when the player steps on it.
  */
-function Hint (tile, emap) {
-  Entity.call(this, tile, emap)
+function Hint (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
   this.isFlat = true
 }
 

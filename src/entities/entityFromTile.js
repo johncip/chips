@@ -70,7 +70,7 @@ const classMap = {
  * Creates an entity with class based on the type of the given tile.
  * Defaults to Entity.
  */
-export default function entityFromTile (tile, emap) {
+export default function entityFromTile (game, tile, emap) {
   var key = spriteNamesByIndex[tile.index - 1]
   if (!key) {
     throw new Error('no tile for: ' + (tile.index - 1))
@@ -83,5 +83,5 @@ export default function entityFromTile (tile, emap) {
     throw new Error('not a constructor: ' + constructor)
   }
 
-  return new entities[constructor](tile, emap)
+  return new entities[constructor](game, tile, emap)
 }

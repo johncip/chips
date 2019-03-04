@@ -6,8 +6,8 @@ import sfx from '../sfx.js'
 /*
  * Doors can only be opened when the right key is in the inventory.
  */
-function Door (tile, emap) {
-  Entity.call(this, tile, emap)
+function Door (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
 }
 
 Door.extends(Entity)

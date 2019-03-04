@@ -33,7 +33,7 @@ extend(EntityMap.prototype, {
     tiles.forEach(tile => {
       if (tile.index >= 0) {
         var key = this._key(tile.x, tile.y)
-        res[key] = entityFromTile(tile, this)
+        res[key] = entityFromTile(this.game, tile, this)
       }
     })
 
@@ -143,7 +143,7 @@ extend(EntityMap.prototype, {
 
   createEntity: function (tile, layer) {
     var key = this._key(tile.x, tile.y)
-    var entity = entityFromTile(tile, this)
+    var entity = entityFromTile(this.game, tile, this)
     layer[key] = entity
 
     return entity

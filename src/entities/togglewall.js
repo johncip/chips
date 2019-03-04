@@ -4,8 +4,8 @@ import Entity from './entity.js'
 import sfx from '../sfx.js'
 
 
-function ToggleWall (tile, emap) {
-  Entity.call(this, tile, emap)
+function ToggleWall (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
 }
 
 ToggleWall.extends(Entity)

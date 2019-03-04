@@ -9,8 +9,8 @@ const { UP, DOWN, LEFT, RIGHT } = Dir
 /*
  * Ice makes chip slide unless he has the skates.
  */
-function Ice (tile, emap) {
-  Entity.call(this, tile, emap)
+function Ice (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
 }
 
 Ice.extends(Entity, Floor)

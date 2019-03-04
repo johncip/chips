@@ -6,8 +6,8 @@ import Floor from './_floor.js'
 /*
  * Force floors push Chip unless he has the suction boots.
  */
-function ForceFloor (tile, emap) {
-  Entity.call(this, tile, emap)
+function ForceFloor (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
 }
 
 ForceFloor.extends(Entity, Floor)

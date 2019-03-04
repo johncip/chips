@@ -2,8 +2,8 @@ import { clone, extend } from 'lodash'
 import Entity from './entity.js'
 import sfx from '../sfx.js'
 
-function Button (tile, emap) {
-  Entity.call(this, tile, emap)
+function Button (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
   this.target = null
 }
 

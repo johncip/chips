@@ -6,8 +6,8 @@ import sfx from '../sfx.js'
 /*
  * Doors can only be opened when the right key is in the inventory.
  */
-function Fire (tile, emap) {
-  Entity.call(this, tile, emap)
+function Fire (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
   this.burn = this.sprite.animations.add('burn', [31, 38])
 }
 

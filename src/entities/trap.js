@@ -2,8 +2,8 @@ import { extend } from 'lodash'
 import Entity from './entity.js'
 
 
-function Trap (tile, emap) {
-  Entity.call(this, tile, emap)
+function Trap (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
 }
 
 Trap.extends(Entity)

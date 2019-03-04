@@ -5,8 +5,8 @@ import sfx from '../sfx.js'
 /*
  * The exit triggers the win screen and takes the player to the next level.
  */
-function Exit (tile, emap) {
-  Entity.call(this, tile, emap)
+function Exit (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
   this.emap.exit = this // TODO: don't do these here
   this.pulse = this.sprite.animations.add('pulse', [73, 80])
   this.pulse.play(Exit.PULSE_FPS, true)

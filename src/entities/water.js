@@ -9,8 +9,8 @@ import sfx from '../sfx.js'
  * Water kills Chip unless he has the right footgear.
  * When dirt collides with water, they make mud.
  */
-function Water (tile, emap) {
-  Entity.call(this, tile, emap)
+function Water (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
   this.isFlat = true
 }
 

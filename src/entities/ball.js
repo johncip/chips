@@ -5,8 +5,8 @@ import Marchable from './_marchable.js'
 import { Dir } from '../static.js'
 
 
-function Ball (tile, emap) {
-  Entity.call(this, tile, emap)
+function Ball (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
   Marchable.call(this, tile, emap)
 
   this.lastDir = clone(Dir.RIGHT) // TODO: set based on frame

@@ -5,8 +5,8 @@ import Entity from './entity.js'
  * Dirt is produced when blocks and water collide. It disappears when Chip
  * collides with it.
  */
-function Dirt (tile, emap) {
-  Entity.call(this, tile, emap)
+function Dirt (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
 }
 
 Dirt.extends(Entity)

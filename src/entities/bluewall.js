@@ -1,8 +1,8 @@
 import { extend } from 'lodash'
 import Entity from './entity.js'
 
-function BlueWall (tile, emap) {
-  Entity.call(this, tile, emap)
+function BlueWall (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
 }
 
 BlueWall.extends(Entity)

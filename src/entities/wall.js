@@ -4,8 +4,8 @@ import Entity from './entity.js'
 import sfx from '../sfx.js'
 
 
-function Wall (tile, emap) {
-  Entity.call(this, tile, emap)
+function Wall (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
 }
 
 Wall.extends(Entity)

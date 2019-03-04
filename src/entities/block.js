@@ -6,8 +6,8 @@ import sfx from '../sfx.js'
 /*
  * Blocks can be pushed. They become dirt after colliding with water.
  */
-function Block (tile, emap) {
-  Entity.call(this, tile, emap)
+function Block (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
 }
 
 Block.extends(Entity)
