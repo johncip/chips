@@ -11,7 +11,7 @@ const game = new Phaser.Game(
   config.width,
   config.height,
   Phaser.AUTO,
-  'canvasContainer',
+  'gameContainer',
   null
 )
 game.state.add('Preload', Preload)
