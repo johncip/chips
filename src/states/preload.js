@@ -19,9 +19,9 @@ extend(Preload.prototype, {
     each(images, (fname, key) =>
       this.load.image(key, fname)
     )
-    each(tilemaps, (key) =>
-      this.load.tilemap(key, `tilemaps/${key}.json`, null, Phaser.Tilemap.TILED_JSON)
-    )
+    each(tilemaps, (val, key) => {
+      this.load.tilemap(key, null, val, Phaser.Tilemap.TILED_JSON)
+    })
     this.load.image('tiles', images.spriteSheet)
     this.load.spritesheet('sprites', images.spriteSheet, tsize, tsize, 112)
   },

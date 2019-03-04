@@ -1,7 +1,6 @@
 const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { DefinePlugin } = require('webpack')
 
 const phaserPath = path.join(__dirname, '/node_modules/phaser-ce/')
@@ -66,12 +65,6 @@ module.exports = {
       filename: 'index.html',
       template: './src/template.html'
     }),
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(__dirname, 'assets', 'tilemaps', '**', '*'),
-        to: path.resolve(__dirname, 'dist', 'tilemaps')
-      }
-    ]),
     new DefinePlugin({
       'typeof CANVAS_RENDERER': JSON.stringify(true),
       'typeof WEBGL_RENDERER': JSON.stringify(true)
