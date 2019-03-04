@@ -1,16 +1,23 @@
+import { extend } from 'lodash'
+import Entity from './entity.js'
+
 /*
  * The hint tile offers a hint when the player steps on it.
  */
-var Hint = Chip.Hint = function (tile, emap) {
-  Chip.Entity.call(this, tile, emap)
+function Hint (tile, emap) {
+  Entity.call(this, tile, emap)
   this.isFlat = true
 }
 
-Hint.extends(Chip.Entity)
+Hint.extends(Entity)
 
-Hint.includes({
+extend(Hint.prototype, {
   collideWith: function (target) {
     this.moveHere(target)
-    Chip.game.hintPanel.show()
+
+    // TODO: hopefully this.game works here
+    this.game.hintPanel.show()
   }
 })
+
+export default Hint

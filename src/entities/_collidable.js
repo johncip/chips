@@ -1,41 +1,44 @@
-(function (Mixins) {
-  var Collidable = Chip.Mixins.Collidable = function () {}
+// import multimethod from ...
 
-  var classMap = {
-    key: 'Collectible',
-    shoe: 'Collectible',
-    ic: 'Collectible',
-    force: 'ForceFloor',
-    chip: 'Player',
-    togglewall: 'ToggleWall',
-    wall: 'Entity',
-    glider: 'Entity',
-    bomb: 'Entity'
-  }
+const Collidable = function () {}
 
-  var typeOf = function (entity) {
-    var prefix = entity.type
-    return classMap[prefix] || prefix.toTitleCase()
-  }
+const classMap = {
+  key: 'Collectible',
+  shoe: 'Collectible',
+  ic: 'Collectible',
+  force: 'ForceFloor',
+  chip: 'Player',
+  togglewall: 'ToggleWall',
+  wall: 'Entity',
+  glider: 'Entity',
+  bomb: 'Entity'
+}
 
-  var joinedTypes = function (entity, intruder) {
-    var types = [typeOf(entity), typeOf(intruder)]
-    var res = types.sort().join(' + ')
+const typeOf = function (entity) {
+  var prefix = entity.type
+  return classMap[prefix] || prefix.toTitleCase()
+}
 
-    return res
-  }
+// eslint-disable-next-line no-unused-vars
+const joinedTypes = function (entity, intruder) {
+  var types = [typeOf(entity), typeOf(intruder)]
+  var res = types.sort().join(' + ')
 
-  Collidable.prototype.collideWith2 = multimethod()
-    .dispatch(joinedTypes)
-    //
-    .when('Player + Water', function () {
-      target.frames = {
-        '0,-1': 87,
-        '-1,0': 94,
-        '0,1': 101,
-        '1,0': 108
-      }
-      target.changeFrameDir(target.lastDir)
-      Mixins.Floor.prototype.collideWith.call(this, target)
-    })
-})(Chip.Mixins)
+  return res
+}
+
+// Collidable.prototype.collideWith2 = multimethod()
+//   .dispatch(joinedTypes)
+//   //
+//   .when('Player + Water', function () {
+//     target.frames = {
+//       '0,-1': 87,
+//       '-1,0': 94,
+//       '0,1': 101,
+//       '1,0': 108
+//     }
+//     target.changeFrameDir(target.lastDir)
+//     Mixins.Floor.prototype.collideWith.call(this, target)
+//   })
+
+export default Collidable

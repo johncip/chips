@@ -1,24 +1,27 @@
-(function (Entity) {
-  var BlueWall = Chip.BlueWall = function (tile, emap) {
-    Chip.Entity.call(this, tile, emap)
-  }
+import { extend } from 'lodash'
+import Entity from './entity.js'
 
-  BlueWall.extends(Entity)
+function BlueWall (tile, emap) {
+  Entity.call(this, tile, emap)
+}
 
-  BlueWall.includes({
-    collideWith: function (target) {
-      if (target.type === 'chip') {
-        switch (this.subtype) {
-          case 'fake':
-            this.retire()
-            this.moveHere(target)
-            break
-          case 'real':
-            var wall = this.replaceWith('wall:basic', false)
-            wall.collideWith(target)
-            break
-        }
+BlueWall.extends(Entity)
+
+extend(BlueWall.prototype, {
+  collideWith: function (target) {
+    if (target.type === 'chip') {
+      switch (this.subtype) {
+        case 'fake':
+          this.retire()
+          this.moveHere(target)
+          break
+        case 'real':
+          var wall = this.replaceWith('wall:basic', false)
+          wall.collideWith(target)
+          break
       }
     }
-  })
-})(Chip.Entity)
+  }
+})
+
+export default BlueWall

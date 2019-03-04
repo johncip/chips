@@ -1,19 +1,23 @@
-(function (Entity) {
-  var Bomb = Chip.Bomb = function (tile, emap) {
-    Chip.Entity.call(this, tile, emap)
-  }
+import { extend } from 'lodash'
+import Entity from './entity.js'
+import sfx from '../sfx.js'
 
-  Bomb.extends(Entity)
+function Bomb (tile, emap) {
+  Entity.call(this, tile, emap)
+}
 
-  Bomb.includes({
-    collideWith: function (target) {
-      if (target.type === 'chip') {
-        Chip.sfx.explode()
-        target.triggerLose()
-      } else {
-        target.retire()
-        this.retire()
-      }
+Bomb.extends(Entity)
+
+extend(Bomb.prototype, {
+  collideWith: function (target) {
+    if (target.type === 'chip') {
+      sfx.explode()
+      target.triggerLose()
+    } else {
+      target.retire()
+      this.retire()
     }
-  })
-})(Chip.Entity)
+  }
+})
+
+export default Bomb

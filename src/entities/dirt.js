@@ -1,16 +1,21 @@
+import { extend } from 'lodash'
+import Entity from './entity.js'
+
 /*
  * Dirt is produced when blocks and water collide. It disappears when Chip
  * collides with it.
  */
-var Dirt = Chip.Dirt = function (tile, emap) {
-  Chip.Entity.call(this, tile, emap)
+function Dirt (tile, emap) {
+  Entity.call(this, tile, emap)
 }
 
-Dirt.extends(Chip.Entity)
+Dirt.extends(Entity)
 
-Dirt.includes({
+extend(Dirt.prototype, {
   collideWith: function (player) {
     this.retire()
     this.moveHere(player)
   }
 })
+
+export default Dirt

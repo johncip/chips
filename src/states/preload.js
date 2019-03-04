@@ -1,50 +1,33 @@
 import PIXI from 'pixi' // eslint-disable-line no-unused-vars
-import p2 from 'p2'// eslint-disable-line no-unused-vars
+import p2 from 'p2' // eslint-disable-line no-unused-vars
 import Phaser from 'phaser'
 import { each, extend } from 'lodash'
+
 import config from '../config.js'
-import levels from '../levels.js'
+import images from '../images.js'
+import tilemaps from '../tilemaps.js'
 
-const images = {
-  black: 'assets/images/black.png',
-  boxart: 'assets/images/boxart.jpg',
-  inventorybg: 'assets/images/inventorybg.png',
-  lcd: 'assets/fonts/lcd.png',
-  tiles: config.SPRITE_SHEET
-}
 
-const Preload = function () {}
+function Preload () {}
 
 extend(Preload.prototype, {
   preload: function () {
-    this.game.stage.backgroundColor = config.BG_COLOR
-    this.load.spritesheet(
-      'sprites',
-      config.SPRITE_SHEET,
-      config.TILE_SIZE,
-      config.TILE_SIZE,
-      112
+    const { tsize } = config
+
+    this.game.stage.backgroundColor = config.bgColor
+
+    each(images, (fname, key) =>
+      this.load.image(key, fname)
     )
-
-    each(images, (x) => this.loadImage(x))
-    each(levels, (x) => this.loadTilemap(x))
-  },
-
-  loadTilemap: function (name) {
-    this.load.tilemap(
-      name,
-      `assets/tilemaps/${name}.json`,
-      null,
-      Phaser.Tilemap.TILED_JSON
+    each(tilemaps, (key) =>
+      this.load.tilemap(key, `tilemaps/${key}.json`, null, Phaser.Tilemap.TILED_JSON)
     )
-  },
-
-  loadImage: function (fname, key) {
-    this.load.image(key, fname)
+    this.load.image('tiles', images.spriteSheet)
+    this.load.spritesheet('sprites', images.spriteSheet, tsize, tsize, 112)
   },
 
   create: function () {
-    this.state.start(config.START_STATE)
+    this.state.start(config.startState)
   }
 })
 

@@ -1,41 +1,47 @@
-(function (Entity, Mixins, Dir) {
-  var Glider = Chip.Glider = function (tile, emap) {
-    Chip.Entity.call(this, tile, emap)
-    Chip.Mixins.Marchable.call(this)
-    this.lastDir = [0, -1] // TODO: set based on frame
-    this.marchDelay = 300
-  }
+import { extend } from 'lodash'
 
-  Glider.extends(Entity)
-  Glider.extends(Mixins.Movable)
-  Glider.extends(Mixins.Marchable)
+import { Dir } from '../static.js'
+import Entity from './entity.js'
+import Marchable from './_marchable.js'
+import Movable from './_movable.js'
 
-  Glider.includes({
 
-    frames: {
-      '0,-1': 5,
-      '-1,0': 12,
-      '0,1': 19,
-      '1,0': 26
-    },
+function Glider (tile, emap) {
+  Entity.call(this, tile, emap)
+  Marchable.call(this)
+  this.lastDir = [0, -1] // TODO: set based on frame
+  this.marchDelay = 300
+}
 
-    march: function () {
-      var fwdNeighbor = this.neighbor(Dir.UP)
+// TODO: can probably skip extending movable
+Glider.extends(Entity, Movable, Marchable)
 
-      if (fwdNeighbor && fwdNeighbor.type === 'wall') {
-        this.turnAndMove(3)
-      } else {
-        this.moveForward()
-      }
-    },
+extend(Glider.prototype, {
+  frames: {
+    '0,-1': 5,
+    '-1,0': 12,
+    '0,1': 19,
+    '1,0': 26
+  },
 
-    collideWith: function (target) {
-      if (target.type === 'player') {
-        target.collideWith(this)
-      } else if (target.type === 'bomb') {
-        this.retire()
-        target.retire()
-      }
+  march: function () {
+    var fwdNeighbor = this.neighbor(Dir.UP)
+
+    if (fwdNeighbor && fwdNeighbor.type === 'wall') {
+      this.turnAndMove(3)
+    } else {
+      this.moveForward()
     }
-  })
-})(Chip.Entity, Chip.Mixins, Chip.Dir)
+  },
+
+  collideWith: function (target) {
+    if (target.type === 'player') {
+      target.collideWith(this)
+    } else if (target.type === 'bomb') {
+      this.retire()
+      target.retire()
+    }
+  }
+})
+
+export default Glider

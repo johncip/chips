@@ -1,18 +1,26 @@
-var Controllable = Chip.Mixins.Controllable = function () {
+import { extend } from 'lodash'
+
+import Movable from './_movable.js'
+import config from '../config.js'
+
+
+function Controllable () {
   this.createCursorKeys()
   this.enableMove()
 }
 
-Controllable.extends(Chip.Mixins.Movable)
+Controllable.extends(Movable)
 
-Controllable.includes({
+extend(Controllable.prototype, {
   enableMove: function () {
     this.moveSafe = true
-    this.lastMove = Chip.game.time.now
+    // hopefully this.game works here
+    this.lastMove = this.game.time.now
   },
 
   createCursorKeys: function () {
-    var keyboard = Chip.game.input.keyboard
+    // hopefully this.game works here
+    var keyboard = this.game.input.keyboard
 
     this.cursors = keyboard.createCursorKeys()
     keyboard.onUpCallback = this.enableMove.bind(this)
@@ -46,8 +54,9 @@ Controllable.includes({
   },
 
   updateThrottle: function () {
-    var now = Chip.game.time.now
-    var waited = (now - this.lastMove) > Chip.Config.MOVE_DELAY
+    // hopefully this.game works here
+    var now = this.game.time.now
+    var waited = (now - this.lastMove) > config.moveDelay
 
     if (waited) {
       this.enableMove()
@@ -55,11 +64,11 @@ Controllable.includes({
   },
 
   updateCamera: function () {
-    var game = Chip.game
-    var TSZ = Chip.Config.TILE_SIZE
+    // hopefully this.game works here
+    var game = this.game
 
-    var cx = this.sprite.x - 4 * TSZ
-    var cy = this.sprite.y - 4 * TSZ
+    var cx = this.sprite.x - 4 * config.tsize
+    var cy = this.sprite.y - 4 * config.tsize
 
     if (cx < 0) {
       cx = 0
@@ -69,15 +78,17 @@ Controllable.includes({
       cy = 0
     }
 
-    if (cx > game.world.width - 9 * TSZ) {
-      cx = game.world.width - 9 * TSZ
+    if (cx > game.world.width - 9 * config.tsize) {
+      cx = game.world.width - 9 * config.tsize
     }
 
-    if (cy > game.world.height - 9 * TSZ) {
-      cy = game.world.height - 9 * TSZ
+    if (cy > game.world.height - 9 * config.tsize) {
+      cy = game.world.height - 9 * config.tsize
     }
 
     game.camera.view.x = cx
     game.camera.view.y = cy
   }
 })
+
+export default Controllable

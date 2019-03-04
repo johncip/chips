@@ -1,11 +1,14 @@
-var Modal = Chip.Modal = function (bounds, subtext, style) {
+import { each, extend } from 'lodash'
+
+function Modal (game, bounds, subtext, style) {
   if (subtext === undefined) {
     subtext = 'Press SPACE to continue'
   }
+  this.game = game
   this.setBounds(bounds)
   this.setStyle(style)
   this.subtext = subtext
-  this.group = Chip.game.add.group(undefined, 'Modal')
+  this.group = game.add.group(undefined, 'Modal')
 
   this.background = this.createBackground()
   this.mainText = this.createMainText()
@@ -19,15 +22,14 @@ var Modal = Chip.Modal = function (bounds, subtext, style) {
   this.group.hide()
 }
 
-Modal.includes({
-
+extend(Modal.prototype, {
   setBounds: function (bounds) {
     this.bounds = bounds
 
     var props = ['left', 'top', 'height', 'width', 'halfHeight']
-    _.each(props, function (property) {
+    each(props, property => {
       this[property] = bounds[property]
-    }, this)
+    })
   },
 
   setStyle: function (style) {
@@ -45,12 +47,12 @@ Modal.includes({
       wordWrapWidth: this.width
     }
 
-    _.extend(this.style, style)
+    extend(this.style, style)
   },
 
   createBackground: function () {
     var bgSprite = this.group.create(this.left, this.top, 'black')
-    return _.extend(bgSprite, {
+    return extend(bgSprite, {
       width: this.width,
       height: this.height,
       alpha: 0.8
@@ -58,18 +60,18 @@ Modal.includes({
   },
 
   createMainText: function () {
-    var main = Chip.game.add.text(0, 0, '', this.style)
+    var main = this.game.add.text(0, 0, '', this.style)
     main.setTextBounds(this.left, this.top, this.width, this.height)
     return main
   },
 
   createSubtext: function () {
-    var subStyle = _.extend({}, this.style, {
+    var subStyle = extend({}, this.style, {
       fontSize: 24,
       fill: '#ccd'
     })
 
-    var sub = Chip.game.add.text(0, 0, this.subtext, subStyle)
+    var sub = this.game.add.text(0, 0, this.subtext, subStyle)
     sub.setTextBounds(this.left, this.halfHeight, this.width, this.halfHeight)
 
     return sub
@@ -104,22 +106,24 @@ Modal.includes({
     delay = delay || 0
 
     this.setText(message)
-    Chip.game.halfPaused = true
+    this.game.halfPaused = true
 
     setTimeout(function () {
-      Chip.game.input.keyboard.onPressCallback = callback
+      this.game.input.keyboard.onPressCallback = callback
       this.show()
-      Chip.game.paused = true
+      this.game.paused = true
     }.bind(this), delay)
   },
 
   _unpause: function () {
-    if (Chip.game.music) {
-      Chip.game.music.resume()
+    if (this.game.music) {
+      this.game.music.resume()
     }
 
     this.hide()
-    Chip.game.paused = false
-    Chip.game.halfPaused = false
+    this.game.paused = false
+    this.game.halfPaused = false
   }
 })
+
+export default Modal

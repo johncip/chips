@@ -1,40 +1,44 @@
-(function (Entity) {
-  var Trap = Chip.Trap = function (tile, emap) {
-    Chip.Entity.call(this, tile, emap)
-  }
+import { extend } from 'lodash'
+import Entity from './entity.js'
 
-  Trap.extends(Entity)
 
-  Trap.includes({
-    collideWith: function (target) {
-      this.moveHere(target)
+function Trap (tile, emap) {
+  Entity.call(this, tile, emap)
+}
 
-      if (this.subtype === 'closed') {
-        target.frozen = true
-      }
-    },
+Trap.extends(Entity)
 
-    open: function () {
-      this.subtype = 'open'
-      this.spriteKey = 'trap:open'
-      this.changeFrame(this.spriteKey)
+extend(Trap.prototype, {
+  collideWith: function (target) {
+    this.moveHere(target)
 
-      var above = this.entityAbove()
-
-      if (above) {
-        above.frozen = false
-      }
-    },
-
-    close: function () {
-      this.subtype = 'closed'
-      this.spriteKey = 'trap:closed'
-      this.changeFrame(this.spriteKey)
-
-      var above = this.entityAbove()
-      if (above) {
-        above.frozen = true
-      }
+    if (this.subtype === 'closed') {
+      target.frozen = true
     }
-  })
-})(Chip.Entity)
+  },
+
+  open: function () {
+    this.subtype = 'open'
+    this.spriteKey = 'trap:open'
+    this.changeFrame(this.spriteKey)
+
+    var above = this.entityAbove()
+
+    if (above) {
+      above.frozen = false
+    }
+  },
+
+  close: function () {
+    this.subtype = 'closed'
+    this.spriteKey = 'trap:closed'
+    this.changeFrame(this.spriteKey)
+
+    var above = this.entityAbove()
+    if (above) {
+      above.frozen = true
+    }
+  }
+})
+
+export default Trap

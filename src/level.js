@@ -1,13 +1,18 @@
-var Level = Chip.Level = function (index) {
-  this.shortName = Chip.LEVELS[index]
+import { extend, parseInt } from 'lodash'
+
+import EntityMap from './entities/entitymap.js'
+import levels from './levels.js'
+
+
+function Level (game, index) {
+  this.game = game
+  this.shortName = levels[index]
 
   this.tilemap = this.createTilemap()
   this.bgLayer = this.tilemap.createLayer('bg')
   this.lowerLayer = this.tilemap.createLayer('lower')
   this.upperLayer = this.tilemap.createLayer('upper')
-
-  this.entityMap = new Chip.EntityMap(this.upperLayer, this.lowerLayer)
-
+  this.entityMap = new EntityMap(game, this.upperLayer, this.lowerLayer)
   this.inventory = this.entityMap.player.inventory
 
   this.bgLayer.resizeWorld()
@@ -15,9 +20,9 @@ var Level = Chip.Level = function (index) {
   this.upperLayer.exists = false
 }
 
-Level.includes({
+extend(Level.prototype, {
   createTilemap: function () {
-    var tilemap = Chip.game.add.tilemap(this.shortName)
+    var tilemap = this.game.add.tilemap(this.shortName)
     tilemap.addTilesetImage('chip-felix', 'tiles')
     return tilemap
   },
@@ -36,7 +41,7 @@ Level.includes({
   },
 
   getTimeAllowed: function () {
-    return _.parseInt(this.tilemap.properties.time)
+    return parseInt(this.tilemap.properties.time)
   },
 
   getChipsNeeded: function () {
@@ -47,3 +52,5 @@ Level.includes({
     return 'HINT\n\n' + this.tilemap.properties.hint
   }
 })
+
+export default Level

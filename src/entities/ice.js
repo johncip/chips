@@ -1,78 +1,81 @@
-(function (Entity, Mixins) {
-  var RIGHT = Chip.Dir.RIGHT
-  var LEFT = Chip.Dir.LEFT
-  var DOWN = Chip.Dir.DOWN
-  var UP = Chip.Dir.UP
+import { extend } from 'lodash'
+import { Dir } from '../static.js'
+import Entity from './entity.js'
+import Floor from './_floor.js'
+import sfx from '../sfx.js'
 
-  /*
-   * Ice makes chip slide unless he has the skates.
-   */
-  var Ice = Chip.Ice = function (tile, emap) {
-    Chip.Entity.call(this, tile, emap)
-  }
+const { UP, DOWN, LEFT, RIGHT } = Dir
 
-  Ice.extends(Entity, Mixins.Floor)
+/*
+ * Ice makes chip slide unless he has the skates.
+ */
+function Ice (tile, emap) {
+  Entity.call(this, tile, emap)
+}
 
-  Ice.includes({
-    noShoes: function (player) {
-      var floor = player.entityBelow().spriteKey
+Ice.extends(Entity, Floor)
 
-      player.marchDelay = 75
-      player.sliding = true
-      player.frozen = true
+extend(Ice.prototype, {
+  noShoes: function (player) {
+    var floor = player.entityBelow().spriteKey
 
-      switch (floor) {
-        case 'ice':
-          player.marchDir = player.lastDir
-          break
-        case 'ice:ne':
-          this.cornerNE(player)
-          break
-        case 'ice:nw':
-          this.cornerNW(player)
-          break
-        case 'ice:se':
-          this.cornerSE(player)
-          break
-        case 'ice:sw':
-          this.cornerSW(player)
-          break
-        default:
-          player.sliding = false
-          Chip.sfx.bump()
-      }
-    },
+    player.marchDelay = 75
+    player.sliding = true
+    player.frozen = true
 
-    cornerSE: function (player) {
-      if (player.isFacing(RIGHT)) {
-        player.marchDir = UP
-      } else if (player.isFacing(DOWN)) {
-        player.marchDir = LEFT
-      }
-    },
-
-    cornerSW: function (player) {
-      if (player.isFacing(LEFT)) {
-        player.marchDir = UP
-      } else if (player.isFacing(DOWN)) {
-        player.marchDir = RIGHT
-      }
-    },
-
-    cornerNW: function (player) {
-      if (player.isFacing(UP)) {
-        player.marchDir = RIGHT
-      } else if (player.isFacing(LEFT)) {
-        player.marchDir = DOWN
-      }
-    },
-
-    cornerNE: function (player) {
-      if (player.isFacing(RIGHT)) {
-        player.marchDir = DOWN
-      } else if (player.isFacing(UP)) {
-        player.marchDir = LEFT
-      }
+    switch (floor) {
+      case 'ice':
+        player.marchDir = player.lastDir
+        break
+      case 'ice:ne':
+        this.cornerNE(player)
+        break
+      case 'ice:nw':
+        this.cornerNW(player)
+        break
+      case 'ice:se':
+        this.cornerSE(player)
+        break
+      case 'ice:sw':
+        this.cornerSW(player)
+        break
+      default:
+        player.sliding = false
+        sfx.bump()
     }
-  })
-})(Chip.Entity, Chip.Mixins)
+  },
+
+  cornerSE: function (player) {
+    if (player.isFacing(RIGHT)) {
+      player.marchDir = UP
+    } else if (player.isFacing(DOWN)) {
+      player.marchDir = LEFT
+    }
+  },
+
+  cornerSW: function (player) {
+    if (player.isFacing(LEFT)) {
+      player.marchDir = UP
+    } else if (player.isFacing(DOWN)) {
+      player.marchDir = RIGHT
+    }
+  },
+
+  cornerNW: function (player) {
+    if (player.isFacing(UP)) {
+      player.marchDir = RIGHT
+    } else if (player.isFacing(LEFT)) {
+      player.marchDir = DOWN
+    }
+  },
+
+  cornerNE: function (player) {
+    if (player.isFacing(RIGHT)) {
+      player.marchDir = DOWN
+    } else if (player.isFacing(UP)) {
+      player.marchDir = LEFT
+    }
+  }
+})
+
+export default Ice

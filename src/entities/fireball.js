@@ -1,30 +1,34 @@
-(function (Entity, Marchable, Dir) {
-  var Fireball = Chip.Fireball = function (tile, emap) {
-    Entity.call(this, tile, emap)
-    Marchable.call(this)
+import { clone, extend } from 'lodash'
+import { Dir } from '../static.js'
+import Entity from './entity.js'
+import Marchable from './_marchable.js'
 
-    this.lastDir = _.clone(Dir.LEFT)
-  }
+function Fireball (tile, emap) {
+  Entity.call(this, tile, emap)
+  Marchable.call(this)
 
-  Fireball.extends(Entity)
-  Fireball.extends(Marchable)
+  this.lastDir = clone(Dir.LEFT)
+}
 
-  Fireball.includes({
-    frames: {
-      '0,-1': 32,
-      '-1,0': 39,
-      '0,1': 46,
-      '1,0': 53
-    },
+Fireball.extends(Entity, Marchable)
 
-    collideWith: function (target) {
-      if (target.type === 'chip') {
-        target.collideWith(this)
-      }
-    },
+extend(Fireball.prototype, {
+  frames: {
+    '0,-1': 32,
+    '-1,0': 39,
+    '0,1': 46,
+    '1,0': 53
+  },
 
-    march: function () {
-      this.moveForward()
+  collideWith: function (target) {
+    if (target.type === 'chip') {
+      target.collideWith(this)
     }
-  })
-})(Chip.Entity, Chip.Mixins.Marchable, Chip.Dir)
+  },
+
+  march: function () {
+    this.moveForward()
+  }
+})
+
+export default Fireball

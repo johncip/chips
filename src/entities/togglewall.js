@@ -1,23 +1,28 @@
-(function () {
-  var ToggleWall = Chip.ToggleWall = function (tile, emap) {
-    Chip.Entity.call(this, tile, emap)
-  }
+import { extend } from 'lodash'
 
-  ToggleWall.extends(Chip.Entity)
+import Entity from './entity.js'
+import sfx from '../sfx.js'
 
-  ToggleWall.includes({
 
-    collideWith: function (target) {
-      if (this.subtype === 'open') {
-        this.moveHere(target)
-      } else {
-        Chip.sfx.bump()
-      }
-    },
+function ToggleWall (tile, emap) {
+  Entity.call(this, tile, emap)
+}
 
-    toggle: function () {
-      this.subtype = (this.subtype === 'open') ? 'closed' : 'open'
-      this.changeFrame(this.type + ':' + this.subtype)
+ToggleWall.extends(Entity)
+
+extend(ToggleWall.prototype, {
+  collideWith: function (target) {
+    if (this.subtype === 'open') {
+      this.moveHere(target)
+    } else {
+      sfx.bump()
     }
-  })
-})()
+  },
+
+  toggle: function () {
+    this.subtype = (this.subtype === 'open') ? 'closed' : 'open'
+    this.changeFrame(this.type + ':' + this.subtype)
+  }
+})
+
+export default ToggleWall

@@ -1,40 +1,46 @@
-(function (Entity, Marchable, Dir) {
-  var Ball = Chip.Ball = function (tile, emap) {
-    Chip.Entity.call(this, tile, emap)
-    Chip.Mixins.Marchable.call(this, tile, emap)
+import { clone, extend } from 'lodash'
 
-    this.lastDir = _.clone(Dir.RIGHT) // TODO: set based on frame
-  }
+import Entity from './entity.js'
+import Marchable from './_marchable.js'
+import { Dir } from '../static.js'
 
-  Ball.extends(Entity)
-  Ball.extends(Marchable)
 
-  Ball.includes({
-    frames: {
-      '0,-1': 60,
-      '-1,0': 67,
-      '0,1': 74,
-      '1,0': 81
-    },
+function Ball (tile, emap) {
+  Entity.call(this, tile, emap)
+  Marchable.call(this, tile, emap)
 
-    collideWith: function (target) {
-      if (target.type === 'chip') {
-        target.collideWith(this)
-      }
-    },
+  this.lastDir = clone(Dir.RIGHT) // TODO: set based on frame
+}
 
-    march: function () {
-      var obstacle = this.neighbor(Dir.FWD)
+Ball.extends(Entity, Marchable)
 
-      if (!obstacle) {
-        this.moveForward()
-      } else if (obstacle.type === 'wall') {
-        this.turnAndMove(2)
-      } else if (obstacle.type === 'togglewall' && obstacle.subtype === 'closed') {
-        this.turnAndMove(2)
-      } else {
-        this.moveForward()
-      }
+extend(Ball.prototype, {
+  frames: {
+    '0,-1': 60,
+    '-1,0': 67,
+    '0,1': 74,
+    '1,0': 81
+  },
+
+  collideWith: function (target) {
+    if (target.type === 'chip') {
+      target.collideWith(this)
     }
-  })
-})(Chip.Entity, Chip.Mixins.Marchable, Chip.Dir)
+  },
+
+  march: function () {
+    var obstacle = this.neighbor(Dir.FWD)
+
+    if (!obstacle) {
+      this.moveForward()
+    } else if (obstacle.type === 'wall') {
+      this.turnAndMove(2)
+    } else if (obstacle.type === 'togglewall' && obstacle.subtype === 'closed') {
+      this.turnAndMove(2)
+    } else {
+      this.moveForward()
+    }
+  }
+})
+
+export default Ball

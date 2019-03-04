@@ -1,26 +1,32 @@
-(function (Entity) {
-  var Wall = Chip.Wall = function (tile, emap) {
-    Chip.Entity.call(this, tile, emap)
-  }
+import { extend } from 'lodash'
 
-  Wall.extends(Entity)
+import Entity from './entity.js'
+import sfx from '../sfx.js'
 
-  Wall.includes({
-    collideWith: function (target) {
-      if (target.type === 'chip') {
-        switch (this.subtype) {
-          case 'basic':
-            Chip.sfx.bump()
-            break
-          case 'invisible':
-            Chip.sfx.bump()
-            break
-          case 'hidden':
-            Chip.sfx.bump()
-            this.changeFrame('wall:basic')
-            break
-        }
+
+function Wall (tile, emap) {
+  Entity.call(this, tile, emap)
+}
+
+Wall.extends(Entity)
+
+extend(Wall.prototype, {
+  collideWith: function (target) {
+    if (target.type === 'chip') {
+      switch (this.subtype) {
+        case 'basic':
+          sfx.bump()
+          break
+        case 'invisible':
+          sfx.bump()
+          break
+        case 'hidden':
+          sfx.bump()
+          this.changeFrame('wall:basic')
+          break
       }
     }
-  })
-})(Chip.Entity)
+  }
+})
+
+export default Wall

@@ -3,7 +3,7 @@ import { extend } from 'lodash'
 /*
  * The attract screen and main menu.
  */
-const MainMenu = function () {}
+function MainMenu () {}
 
 extend(MainMenu.prototype, {
   init: function (score) {

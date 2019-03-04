@@ -1,18 +1,22 @@
-(function (Entity) {
-  var CloneMachine = Chip.CloneMachine = function (tile, emap) {
-    Chip.Entity.call(this, tile, emap)
-    this.template = null // set later by entityMap
+import { extend } from 'lodash'
+import Entity from './entity.js'
+import { spriteIndicesByName } from '../static.js'
+
+function CloneMachine (tile, emap) {
+  Entity.call(this, tile, emap)
+  this.template = null // set later by emap
+}
+
+CloneMachine.extends(Entity)
+
+extend(CloneMachine.prototype, {
+  clone: function () {
+    this.emap.createUpper({
+      x: this.x,
+      y: this.y,
+      index: spriteIndicesByName[this.template] + 1
+    })
   }
+})
 
-  CloneMachine.extends(Entity)
-
-  CloneMachine.includes({
-    clone: function () {
-      this.emap.createUpper({
-        x: this.x,
-        y: this.y,
-        index: Chip.SPRITE_INDICES[this.template] + 1
-      })
-    }
-  })
-})(Chip.Entity)
+export default CloneMachine

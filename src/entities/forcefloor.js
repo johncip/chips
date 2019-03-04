@@ -1,37 +1,37 @@
-(function (Entity, Mixins) {
-  var RIGHT = Chip.Dir.RIGHT
-  var LEFT = Chip.Dir.LEFT
-  var DOWN = Chip.Dir.DOWN
-  var UP = Chip.Dir.UP
+import { extend } from 'lodash'
+import { Dir } from '../static.js'
+import Entity from './entity.js'
+import Floor from './_floor.js'
 
-  /*
-   * Force floors push Chip unless he has the suction boots.
-   */
-  var ForceFloor = Chip.ForceFloor = function (tile, emap) {
-    Chip.Entity.call(this, tile, emap)
-  }
+/*
+ * Force floors push Chip unless he has the suction boots.
+ */
+function ForceFloor (tile, emap) {
+  Entity.call(this, tile, emap)
+}
 
-  ForceFloor.extends(Entity, Mixins.Floor)
+ForceFloor.extends(Entity, Floor)
 
-  ForceFloor.includes({
-    noShoes: function (player) {
-      switch (this.subtype) {
-        case 'left':
-          player.marchDir = LEFT
-          break
-        case 'right':
-          player.marchDir = RIGHT
-          break
-        case 'up':
-          player.marchDir = UP
-          break
-        case 'down':
-          player.marchDir = DOWN
-          break
-        case 'random':
-        // TODO: random
-          break
-      }
+extend(ForceFloor.prototype, {
+  noShoes: function (player) {
+    switch (this.subtype) {
+      case 'left':
+        player.marchDir = Dir.LEFT
+        break
+      case 'right':
+        player.marchDir = Dir.RIGHT
+        break
+      case 'up':
+        player.marchDir = Dir.UP
+        break
+      case 'down':
+        player.marchDir = Dir.DOWN
+        break
+      case 'random':
+      // TODO: random
+        break
     }
-  })
-})(Chip.Entity, Chip.Mixins)
+  }
+})
+
+export default ForceFloor

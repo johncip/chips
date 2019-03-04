@@ -1,26 +1,25 @@
-// TODO: import from Chip:
-// - DisplayPanel
-// - Modal
-// - Level
-
 import Phaser, { Rectangle } from 'phaser'
 import { extend, throttle } from 'lodash'
+
 import config from '../config.js'
 import levels from '../levels.js'
+import DisplayPanel from '../displaypanel.js'
+import Modal from '../modal.js'
+import Level from '../level.js'
 
-const Playing = function () {}
+function Playing () {}
 
 extend(Playing.prototype, {
   init: function () {
     this.game.onBlur.add(this.pause, this)
-    this.game.renderer.resize(14 * config.TILE_SIZE, 9 * config.TILE_SIZE)
-    this.game.bounds = new Rectangle(0, 0, 9 * config.TILE_SIZE, 9 * config.TILE_SIZE)
+    this.game.renderer.resize(14 * config.tsize, 9 * config.tsize)
+    this.game.bounds = new Rectangle(0, 0, 9 * config.tsize, 9 * config.tsize)
     this.game.camera.bounds = null
   },
 
   create: function () {
     this.levelIndex = config.startLevel
-    this.displayPanel = new DisplayPanel()
+    this.displayPanel = new DisplayPanel(this.game)
 
     this.createModals()
     this.createHotkeys()
@@ -30,11 +29,11 @@ extend(Playing.prototype, {
   },
 
   createModals: function () {
-    const tsize = config.TILE_SIZE
-    this.modal = new Modal(new Rectangle(0, 0, 14 * tsize, 9 * tsize))
+    const tsize = config.tsize
+    this.modal = new Modal(this.game, new Rectangle(0, 0, 14 * tsize, 9 * tsize))
 
     var hintBounds = new Rectangle(9.5 * tsize, 0, 5 * tsize, 9 * tsize)
-    this.hintPanel = new Modal(hintBounds, '', {
+    this.hintPanel = new Modal(this.game, hintBounds, '', {
       boundsAlignV: 'top',
       font: '30px Lato',
       wordWrapWidth: hintBounds.width - tsize
@@ -50,12 +49,10 @@ extend(Playing.prototype, {
   },
 
   createHotkeys: function () {
-    const { addHotkey } = this
-
-    addHotkey('F1', this.startLastLevel)
-    addHotkey('F2', this.startCurrentLevel)
-    addHotkey('F3', this.startNextLevel)
-    addHotkey('P', this.pause)
+    this.addHotkey('F1', this.startLastLevel)
+    this.addHotkey('F2', this.startCurrentLevel)
+    this.addHotkey('F3', this.startNextLevel)
+    this.addHotkey('P', this.pause)
   },
 
   addHotkey: function (keyString, callback) {
@@ -83,7 +80,7 @@ extend(Playing.prototype, {
 
   startCurrentLevel: function () {
     this.resetState()
-    this.level = new Level(this.levelIndex)
+    this.level = new Level(this.game, this.levelIndex)
 
     // post-load
     this.displayPanel.setLevel(this.levelIndex + 1)

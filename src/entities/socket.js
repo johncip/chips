@@ -1,28 +1,34 @@
-(function (Config, Entity) {
-  /*
-   * The socket is a special door which can only be opened by collecting
-   * all of the chips.
-   */
-  var Socket = Chip.Socket = function (tile, emap) {
-    Entity.call(this, tile, emap)
-  }
+import { extend } from 'lodash'
 
-  Socket.extends(Entity)
+import Entity from './entity.js'
+import config from '../config.js'
+import sfx from '../sfx.js'
 
-  Socket.includes({
-    collideWith: function (player) {
-      if (player.hasAllChips() || Config.DEBUG) {
-        this.openUp(player)
-      } else {
-        Chip.sfx.bump()
-      }
-    },
 
-    openUp: function (player) {
-      this.retire()
-      Chip.sfx.open()
-      this.moveHere(player)
+/*
+ * The socket is a special door which can only be opened by collecting
+ * all of the chips.
+ */
+function Socket (tile, emap) {
+  Entity.call(this, tile, emap)
+}
+
+Socket.extends(Entity)
+
+extend(Socket.prototype, {
+  collideWith: function (player) {
+    if (player.hasAllChips() || config.debug) {
+      this.openUp(player)
+    } else {
+      sfx.bump()
     }
+  },
 
-  })
-})(Chip.Config, Chip.Entity)
+  openUp: function (player) {
+    this.retire()
+    sfx.open()
+    this.moveHere(player)
+  }
+})
+
+export default Socket
