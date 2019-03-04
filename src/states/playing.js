@@ -19,7 +19,7 @@ extend(Playing.prototype, {
   },
 
   create: function () {
-    this.levelIndex = config.START_LEVEL
+    this.levelIndex = config.startLevel
     this.displayPanel = new DisplayPanel()
 
     this.createModals()
@@ -150,13 +150,13 @@ extend(Playing.prototype, {
   },
 
   playMusic: function () {
-    if (!config.ENABLE_MUSIC) {
+    if (!config.enableMusic) {
       return
     }
 
     this.asyncLoad('forest', 'assets/audio/great_forest.mp3', function () {
       this.game.music = this.game.add.audio('forest')
-      this.game.music.volume = config.MUSIC_VOLUME
+      this.game.music.volume = config.musicVolume
       this.game.music.play()
     })
   },
