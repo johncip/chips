@@ -3,7 +3,6 @@ import { extend } from 'lodash'
 import config from '../config.js'
 import { spriteNamesByIndex, spriteIndicesByName } from '../static.js'
 // import Collidable from './_collidable.js'
-import entities from './entities.js'
 
 /*
  * A game Entity is an item on the tile map -- it could be a wall,
@@ -28,37 +27,6 @@ function Entity (game, tile, emap) {
     'sprites',
     tile.index - 1
   )
-}
-
-var classMap = {
-  key: 'Collectible',
-  shoe: 'Collectible',
-  ic: 'Collectible',
-  force: 'ForceFloor',
-  chip: 'Player',
-  clonemachine: 'CloneMachine',
-  togglewall: 'ToggleWall',
-  bluewall: 'BlueWall'
-}
-
-/*
- * Creates an entity with class based on the type of the given tile.
- * Defaults to Entity.
- */
-Entity.fromTile = function (tile, emap) {
-  var key = spriteNamesByIndex[tile.index - 1]
-  if (!key) {
-    throw new Error('no tile for: ' + (tile.index - 1))
-  }
-
-  var prefix = key.split(':')[0]
-  var constructor = classMap[prefix] || prefix.toTitleCase()
-
-  if (!entities[constructor]) {
-    throw new Error('not a constructor: ' + constructor)
-  }
-
-  return new entities[constructor](tile, emap)
 }
 
 // Entity.extends(Collidable)

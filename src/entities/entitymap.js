@@ -1,8 +1,8 @@
 import { each, extend, flatten, parseInt, where } from 'lodash'
 
 import config from '../config.js'
+import entityFromTile from './entityFromTile.js'
 import { spriteIndicesByName } from '../static.js'
-import Entity from './entity.js'
 
 
 /*
@@ -33,7 +33,7 @@ extend(EntityMap.prototype, {
     tiles.forEach(tile => {
       if (tile.index >= 0) {
         var key = this._key(tile.x, tile.y)
-        res[key] = Entity.fromTile(this.game, tile, this)
+        res[key] = entityFromTile(tile, this)
       }
     })
 
@@ -143,7 +143,7 @@ extend(EntityMap.prototype, {
 
   createEntity: function (tile, layer) {
     var key = this._key(tile.x, tile.y)
-    var entity = Entity.fromTile(this.game, tile, this)
+    var entity = entityFromTile(tile, this)
     layer[key] = entity
 
     return entity

@@ -1,3 +1,5 @@
+import { spriteNamesByIndex } from '../static.js'
+
 import Ball from './ball.js'
 import Block from './block.js'
 import Bluewall from './bluewall.js'
@@ -9,7 +11,6 @@ import Collectible from './collectible.js'
 import Dirt from './dirt.js'
 import Door from './door.js'
 import Entity from './entity.js'
-import Entitymap from './entitymap.js'
 import Exit from './exit.js'
 import Fire from './fire.js'
 import Fireball from './fireball.js'
@@ -25,7 +26,8 @@ import Trap from './trap.js'
 import Wall from './wall.js'
 import Water from './water.js'
 
-export default {
+
+const entities = {
   Ball,
   Block,
   Bluewall,
@@ -37,7 +39,6 @@ export default {
   Dirt,
   Door,
   Entity,
-  Entitymap,
   Exit,
   Fire,
   Fireball,
@@ -52,4 +53,35 @@ export default {
   Trap,
   Wall,
   Water
+}
+
+const classMap = {
+  key: 'Collectible',
+  shoe: 'Collectible',
+  ic: 'Collectible',
+  force: 'ForceFloor',
+  chip: 'Player',
+  clonemachine: 'CloneMachine',
+  togglewall: 'ToggleWall',
+  bluewall: 'BlueWall'
+}
+
+/*
+ * Creates an entity with class based on the type of the given tile.
+ * Defaults to Entity.
+ */
+export default function entityFromTile (tile, emap) {
+  var key = spriteNamesByIndex[tile.index - 1]
+  if (!key) {
+    throw new Error('no tile for: ' + (tile.index - 1))
+  }
+
+  var prefix = key.split(':')[0]
+  var constructor = classMap[prefix] || prefix.toTitleCase()
+
+  if (!entities[constructor]) {
+    throw new Error('not a constructor: ' + constructor)
+  }
+
+  return new entities[constructor](tile, emap)
 }
