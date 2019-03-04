@@ -1,6 +1,6 @@
 import { extend, parseInt } from 'lodash'
 
-import EntityMap from './entities/entitymap.js'
+import EntityMap from './entitymap.js'
 import levels from './levels.js'
 
 

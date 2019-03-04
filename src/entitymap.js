@@ -1,8 +1,8 @@
 import { each, extend, filter, flatten, parseInt } from 'lodash'
 
-import config from '../config.js'
+import config from './config.js'
 import entityFromTile from './entityFromTile.js'
-import { spriteIndicesByName } from '../static.js'
+import { spriteIndicesByName } from './static.js'
 
 
 /*
