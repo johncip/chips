@@ -19,7 +19,7 @@ function Modal (game, bounds, subtext, style) {
   this.group.add(this.subtext)
 
   this.group.fixedToCamera = true
-  this.group.hide()
+  this.hide()
 }
 
 extend(Modal.prototype, {
@@ -78,12 +78,12 @@ extend(Modal.prototype, {
   },
 
   hide: function () {
-    this.group.hide()
+    this.group.forEach(item => { item.exists = false })
   },
 
   show: function () {
     this.game.world.bringToTop(this.group)
-    this.group.show()
+    this.group.forEach(item => { item.exists = true })
   },
 
   destroy: function () {
