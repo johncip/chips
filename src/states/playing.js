@@ -55,14 +55,14 @@ extend(Playing.prototype, {
     this.addHotkey('P', this.pause)
   },
 
-  addHotkey: function (keyString, callback) {
+  addHotkey: function (keyString, fn) {
     var keyObj = this.game.input.keyboard.addKey(Phaser.Keyboard[keyString])
 
     keyObj.onDown.add(() => {
       if (this.game.paused || this.game.halfPaused) {
         return
       }
-      callback.call(this, keyObj)
+      fn.call(this, keyObj)
     })
   },
 

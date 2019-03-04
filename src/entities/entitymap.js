@@ -164,20 +164,20 @@ extend(EntityMap.prototype, {
     })
   },
 
-  eachEntity: function (callback, context) {
+  eachEntity: function (fn, context) {
     context = context || this
-    each(this._lower, callback.bind(context))
-    each(this._upper, callback.bind(context))
+    each(this._lower, fn.bind(context))
+    each(this._upper, fn.bind(context))
   },
 
-  eachOfType: function (type, callback, context) {
+  eachOfType: function (type, fn, context) {
     each(filter(this._lower, {
       type: type
-    }), callback.bind(context))
+    }), fn.bind(context))
 
     each(filter(this._upper, {
       type: type
-    }), callback.bind(context))
+    }), fn.bind(context))
   },
 
   resetTraps: function () {

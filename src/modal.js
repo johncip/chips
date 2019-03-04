@@ -96,18 +96,18 @@ extend(Modal.prototype, {
 
   /*
    * Displays the modal with the given message. Takes an optional delay
-   * (during which time the game is paused) and a callback which should
+   * (during which time the game is paused) and a fn which should
    * hide the modal and unpause the game.
    */
-  flash: function (message, delay, callback) {
-    callback = callback || this._unpause.bind(this)
+  flash: function (message, delay, fn) {
+    fn = fn || this._unpause.bind(this)
     delay = delay || 0
 
     this.setText(message)
     this.game.halfPaused = true
 
     setTimeout(() => {
-      this.game.input.keyboard.onPressCallback = callback
+      this.game.input.keyboard.onPressCallback = fn
       this.show()
       this.game.paused = true
     }, delay)
