@@ -32,7 +32,7 @@ extend(Playing.prototype, {
     const tsize = config.tsize
     this.modal = new Modal(this.game, new Rectangle(0, 0, 14 * tsize, 9 * tsize))
 
-    var hintBounds = new Rectangle(9.5 * tsize, 0, 5 * tsize, 9 * tsize)
+    const hintBounds = new Rectangle(9.5 * tsize, 0, 5 * tsize, 9 * tsize)
     this.hintPanel = new Modal(this.game, hintBounds, '', {
       boundsAlignV: 'top',
       font: '30px lato',
@@ -56,7 +56,7 @@ extend(Playing.prototype, {
   },
 
   addHotkey: function (keyString, fn) {
-    var keyObj = this.game.input.keyboard.addKey(Phaser.Keyboard[keyString])
+    const keyObj = this.game.input.keyboard.addKey(Phaser.Keyboard[keyString])
 
     keyObj.onDown.add(() => {
       if (this.game.paused || this.game.halfPaused) {
@@ -67,13 +67,13 @@ extend(Playing.prototype, {
   },
 
   startLastLevel: function () {
-    var numLevels = levels.length
+    const numLevels = levels.length
     this.levelIndex = (this.levelIndex - 1 + numLevels) % numLevels
     this.startCurrentLevel()
   },
 
   startNextLevel: function () {
-    var numLevels = levels.length
+    const numLevels = levels.length
     this.levelIndex = (this.levelIndex + 1) % numLevels
     this.startCurrentLevel()
   },
@@ -129,7 +129,7 @@ extend(Playing.prototype, {
   },
 
   update: function () {
-    var chipsLeft = this.level.getChipsNeeded() - this.level.inventory.count('ic')
+    const chipsLeft = this.level.getChipsNeeded() - this.level.inventory.count('ic')
 
     this.updateTimeLeft()
     this.displayPanel.setTimeLeft(this.timeLeft)
@@ -162,7 +162,7 @@ extend(Playing.prototype, {
     this.load.audio(cacheKey, path)
     this.load.start()
 
-    var index = window.setInterval(function () {
+    const index = window.setInterval(function () {
       if (this.game.load.isLoading) {
         return
       }

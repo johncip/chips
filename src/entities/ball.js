@@ -29,7 +29,7 @@ extend(Ball.prototype, {
   },
 
   march: function () {
-    var obstacle = this.neighbor(Dir.FWD)
+    const obstacle = this.neighbor(Dir.FWD)
 
     if (!obstacle) {
       this.moveForward()

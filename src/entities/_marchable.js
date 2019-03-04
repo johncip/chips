@@ -35,9 +35,9 @@ extend(Marchable.prototype, {
   },
 
   neighbor: function (dir) {
-    var absDir = this.toAbsolute(dir)
-    var x2 = this.x + absDir[0]
-    var y2 = this.y + absDir[1]
+    const absDir = this.toAbsolute(dir)
+    const x2 = this.x + absDir[0]
+    const y2 = this.y + absDir[1]
     return this.emap.get(x2, y2)
   },
 
@@ -45,17 +45,17 @@ extend(Marchable.prototype, {
    * changes a relative direction (forward) to an absolute one (north)
    */
   toAbsolute: function (dir) {
-    var lastDirIndex = this.findDirIndex(this.lastDir)
+    const lastDirIndex = this.findDirIndex(this.lastDir)
     return this.rotateDir(dir, lastDirIndex)
   },
 
   rotateDir: function (dir, turns) {
-    var idx = this.findDirIndex(dir)
+    const idx = this.findDirIndex(dir)
     return Dir.MOVE_DIRS[(idx + turns) % 4]
   },
 
   findDirIndex: function (dir) {
-    var res = findIndex(Dir.MOVE_DIRS, item => dir[0] === item[0] && dir[1] === item[1])
+    const res = findIndex(Dir.MOVE_DIRS, item => dir[0] === item[0] && dir[1] === item[1])
 
     if (res === -1) {
       throw new Error('Not a valid direction.')
@@ -65,7 +65,7 @@ extend(Marchable.prototype, {
   },
 
   turnAndMove: function (turns) {
-    var dir = this.rotateDir(this.lastDir, turns)
+    const dir = this.rotateDir(this.lastDir, turns)
     this.move(dir[0], dir[1])
   },
 

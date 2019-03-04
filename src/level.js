@@ -22,7 +22,7 @@ function Level (game, index) {
 
 extend(Level.prototype, {
   createTilemap: function () {
-    var tilemap = this.game.add.tilemap(this.shortName)
+    const tilemap = this.game.add.tilemap(this.shortName)
     tilemap.addTilesetImage('chip-felix', 'tiles')
     return tilemap
   },

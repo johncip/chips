@@ -16,7 +16,7 @@ extend(BlueWall.prototype, {
           this.moveHere(target)
           break
         case 'real':
-          var wall = this.replaceWith('wall:basic', false)
+          const wall = this.replaceWith('wall:basic', false)
           wall.collideWith(target)
           break
       }

@@ -35,8 +35,8 @@ Player.extends(Entity, Movable, Marchable, Controllable)
 extend(Player.prototype, {
   march: function () {
     if (this.sliding) {
-      var dx = this.marchDir[0]
-      var dy = this.marchDir[1]
+      const dx = this.marchDir[0]
+      const dy = this.marchDir[1]
       this.move(dx, dy)
     }
   },
@@ -56,12 +56,12 @@ extend(Player.prototype, {
   },
 
   shouldSlide: function () {
-    var floor = this.entityBelow()
+    const floor = this.entityBelow()
     if (!floor) {
       return false
     }
 
-    var slippery = floor.type === 'ice' || floor.type === 'force'
+    const slippery = floor.type === 'ice' || floor.type === 'force'
     return slippery && !floor.hasShoes(this)
   },
 
@@ -70,7 +70,7 @@ extend(Player.prototype, {
   },
 
   collideWith: function (target) {
-    var monsters = ['bug', 'fireball', 'ball', 'glider', 'tank']
+    const monsters = ['bug', 'fireball', 'ball', 'glider', 'tank']
 
     if (contains(monsters, target.type)) {
       sfx.lose()
@@ -92,14 +92,14 @@ extend(Player.prototype, {
   triggerWin: function () {
     this.retire()
     // TODO: hopefully this.game works here
-    var state = this.game.state.getCurrentState()
+    const state = this.game.state.getCurrentState()
     state.win(null, 1500)
   },
 
   triggerLose: function () {
     this.retire()
     // TODO: hopefully this.game works here
-    var state = this.game.state.getCurrentState()
+    const state = this.game.state.getCurrentState()
     state.lose('Oops!', 1500)
   }
 })

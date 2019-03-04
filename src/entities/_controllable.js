@@ -20,7 +20,7 @@ extend(Controllable.prototype, {
 
   createCursorKeys: function () {
     // hopefully this.game works here
-    var keyboard = this.game.input.keyboard
+    const keyboard = this.game.input.keyboard
 
     this.cursors = keyboard.createCursorKeys()
     keyboard.onUpCallback = () => this.enableMove()
@@ -55,8 +55,8 @@ extend(Controllable.prototype, {
 
   updateThrottle: function () {
     // hopefully this.game works here
-    var now = this.game.time.now
-    var waited = (now - this.lastMove) > config.moveDelay
+    const now = this.game.time.now
+    const waited = (now - this.lastMove) > config.moveDelay
 
     if (waited) {
       this.enableMove()
@@ -65,10 +65,10 @@ extend(Controllable.prototype, {
 
   updateCamera: function () {
     // hopefully this.game works here
-    var game = this.game
+    const game = this.game
 
-    var cx = this.sprite.x - 4 * config.tsize
-    var cy = this.sprite.y - 4 * config.tsize
+    let cx = this.sprite.x - 4 * config.tsize
+    let cy = this.sprite.y - 4 * config.tsize
 
     if (cx < 0) {
       cx = 0

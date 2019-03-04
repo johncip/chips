@@ -2,7 +2,7 @@ import { each, extend } from 'lodash'
 import config from './config.js'
 import { spriteIndicesByName } from './static.js'
 
-var ITEMS = [
+const ITEMS = [
   'key:blue', 'key:green', 'key:red', 'key:yellow',
   'shoe:ice', 'shoe:water', 'shoe:force', 'shoe:fire'
 ]
@@ -28,8 +28,8 @@ function Inventory (game) {
 
 extend(Inventory.prototype, {
   createBackground: function () {
-    for (var row = 0; row < 2; row++) {
-      for (var col = 0; col < 4; col++) {
+    for (let row = 0; row < 2; row++) {
+      for (let col = 0; col < 4; col++) {
         this.group.create(
           this.left + col * tsize,
           this.top + row * tsize,
@@ -77,7 +77,7 @@ extend(Inventory.prototype, {
   },
 
   count: function (key) {
-    var num = this.counts[key]
+    const num = this.counts[key]
     return num || 0
   },
 

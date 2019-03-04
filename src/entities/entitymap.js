@@ -11,7 +11,7 @@ import { spriteIndicesByName } from '../static.js'
  */
 function EntityMap (game, upper, lower) {
   this.game = game
-  var tilemap = upper.map
+  const tilemap = upper.map
   this.width = tilemap.width
   this.group = game.add.group(undefined, 'EntityMap')
 
@@ -27,12 +27,12 @@ function EntityMap (game, upper, lower) {
 
 extend(EntityMap.prototype, {
   mapFromLayer: function (layer) {
-    var tiles = flatten(layer.layer.data)
-    var res = {}
+    const tiles = flatten(layer.layer.data)
+    const res = {}
 
     tiles.forEach(tile => {
       if (tile.index >= 0) {
-        var key = this._key(tile.x, tile.y)
+        const key = this._key(tile.x, tile.y)
         res[key] = entityFromTile(this.game, tile, this)
       }
     })
@@ -41,19 +41,19 @@ extend(EntityMap.prototype, {
   },
 
   createConnections: function (tilemap) {
-    var connections = tilemap.objects['connections']
+    const connections = tilemap.objects['connections']
     if (!connections) return
 
     connections.forEach(obj => {
-      var props = obj.properties
+      const props = obj.properties
 
-      var x = obj.x / obj.width
-      var y = obj.y / obj.height
-      var button = this.getLower(x, y)
+      const x = obj.x / obj.width
+      const y = obj.y / obj.height
+      const button = this.getLower(x, y)
 
-      var targetX = parseInt(props.targetX)
-      var targetY = parseInt(props.targetY)
-      var target = this.getLower(targetX, targetY)
+      const targetX = parseInt(props.targetX)
+      const targetY = parseInt(props.targetY)
+      const target = this.getLower(targetX, targetY)
 
       if (!target) {
         throw new Error("Couldn't find button target in entity map.")
@@ -65,7 +65,7 @@ extend(EntityMap.prototype, {
 
   createCloneMachines: function () {
     this.eachOfType('clonemachine', machine => {
-      var above = machine.entityAbove()
+      const above = machine.entityAbove()
 
       // duplicate sprite
       this.group.create(
@@ -90,7 +90,7 @@ extend(EntityMap.prototype, {
     if (properties.chipsNeeded) {
       return parseInt(properties.chipsNeeded)
     } else {
-      var total = 0
+      let total = 0
       this.eachOfType('ic', player => { total++ })
       return total
     }
@@ -101,8 +101,8 @@ extend(EntityMap.prototype, {
   },
 
   getUpper: function (x, y) {
-    var key = this._key(x, y)
-    var res = this._upper[key]
+    const key = this._key(x, y)
+    const res = this._upper[key]
 
     if (res && res.exists()) {
       return res
@@ -110,8 +110,8 @@ extend(EntityMap.prototype, {
   },
 
   getLower: function (x, y) {
-    var key = this._key(x, y)
-    var res = this._lower[key]
+    const key = this._key(x, y)
+    const res = this._lower[key]
 
     if (res && res.exists()) {
       return res
@@ -119,14 +119,14 @@ extend(EntityMap.prototype, {
   },
 
   moveEntity: function (entity, dx, dy) {
-    var destX = entity.x + dx
-    var destY = entity.y + dy
+    const destX = entity.x + dx
+    const destY = entity.y + dy
     this.moveEntityAbs(entity, destX, destY)
   },
 
   moveEntityAbs: function (entity, destX, destY) {
-    var oldKey = this._key(entity.x, entity.y)
-    var newKey = this._key(destX, destY)
+    const oldKey = this._key(entity.x, entity.y)
+    const newKey = this._key(destX, destY)
 
     // var lastResident = this._upper[newKey]
 
@@ -140,8 +140,8 @@ extend(EntityMap.prototype, {
   },
 
   createEntity: function (tile, layer) {
-    var key = this._key(tile.x, tile.y)
-    var entity = entityFromTile(this.game, tile, this)
+    const key = this._key(tile.x, tile.y)
+    const entity = entityFromTile(this.game, tile, this)
     layer[key] = entity
 
     return entity

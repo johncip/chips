@@ -21,7 +21,7 @@ extend(Floor.prototype, {
 
   hasShoes: function (player) {
     // TODO: move this to the player
-    var shoe = 'shoe:' + this.type
+    const shoe = 'shoe:' + this.type
     return player.inventory.contains(shoe)
   },
 

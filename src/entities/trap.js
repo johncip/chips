@@ -22,7 +22,7 @@ extend(Trap.prototype, {
     this.spriteKey = 'trap:open'
     this.changeFrame(this.spriteKey)
 
-    var above = this.entityAbove()
+    const above = this.entityAbove()
 
     if (above) {
       above.frozen = false
@@ -34,7 +34,7 @@ extend(Trap.prototype, {
     this.spriteKey = 'trap:closed'
     this.changeFrame(this.spriteKey)
 
-    var above = this.entityAbove()
+    const above = this.entityAbove()
     if (above) {
       above.frozen = true
     }

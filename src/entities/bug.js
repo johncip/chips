@@ -21,8 +21,8 @@ extend(Bug.prototype, {
   },
 
   march: function () {
-    var leftNeighbor = this.neighbor(Dir.LEFT)
-    var fwdNeighbor = this.neighbor(Dir.UP)
+    const leftNeighbor = this.neighbor(Dir.LEFT)
+    const fwdNeighbor = this.neighbor(Dir.UP)
 
     if (!leftNeighbor) {
       this.turnAndMove(3)

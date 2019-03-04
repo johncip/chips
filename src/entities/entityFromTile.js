@@ -71,13 +71,13 @@ const classMap = {
  * Defaults to Entity.
  */
 export default function entityFromTile (game, tile, emap) {
-  var key = spriteNamesByIndex[tile.index - 1]
+  const key = spriteNamesByIndex[tile.index - 1]
   if (!key) {
     throw new Error('no tile for: ' + (tile.index - 1))
   }
 
-  var prefix = key.split(':')[0]
-  var constructor = classMap[prefix] || prefix.toTitleCase()
+  const prefix = key.split(':')[0]
+  const constructor = classMap[prefix] || prefix.toTitleCase()
 
   if (!entities[constructor]) {
     throw new Error('not a constructor: ' + constructor)

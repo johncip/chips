@@ -16,7 +16,7 @@ extend(Movable.prototype, {
 
     this.lastDir = [dx, dy]
     this.changeFrameDir([dx, dy])
-    var resident = this.emap.get(this.x + dx, this.y + dy)
+    const resident = this.emap.get(this.x + dx, this.y + dy)
 
     if (resident) {
       resident.collideWith(this)

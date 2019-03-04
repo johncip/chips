@@ -25,7 +25,7 @@ extend(Glider.prototype, {
   },
 
   march: function () {
-    var fwdNeighbor = this.neighbor(Dir.UP)
+    const fwdNeighbor = this.neighbor(Dir.UP)
 
     if (fwdNeighbor && fwdNeighbor.type === 'wall') {
       this.turnAndMove(3)

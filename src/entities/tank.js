@@ -33,8 +33,8 @@ extend(Tank.prototype, {
   },
 
   march: function () {
-    var dx = this.marchDir[0]
-    var dy = this.marchDir[1]
+    const dx = this.marchDir[0]
+    const dy = this.marchDir[1]
     this.move(dx, dy)
   }
 })

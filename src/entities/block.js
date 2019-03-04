@@ -26,9 +26,9 @@ extend(Block.prototype, {
    */
   collideWith: function (target) {
     if (target.type === 'chip') {
-      var dir = target.lastDir
-      var dx = dir[0]
-      var dy = dir[1]
+      const dir = target.lastDir
+      const dx = dir[0]
+      const dy = dir[1]
 
       if (this.isPushable(dx, dy)) {
         this.move(dx, dy)
@@ -44,7 +44,7 @@ extend(Block.prototype, {
    * "flat" in the way.
    */
   isPushable: function (dx, dy) {
-    var resident = this.emap.get(this.x + dx, this.y + dy)
+    const resident = this.emap.get(this.x + dx, this.y + dy)
     return resident === undefined || resident.isFlat
   }
 })

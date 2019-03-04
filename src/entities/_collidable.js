@@ -15,14 +15,14 @@ const classMap = {
 }
 
 const typeOf = function (entity) {
-  var prefix = entity.type
+  const prefix = entity.type
   return classMap[prefix] || prefix.toTitleCase()
 }
 
 // eslint-disable-next-line no-unused-vars
 const joinedTypes = function (entity, intruder) {
-  var types = [typeOf(entity), typeOf(intruder)]
-  var res = types.sort().join(' + ')
+  const types = [typeOf(entity), typeOf(intruder)]
+  const res = types.sort().join(' + ')
 
   return res
 }

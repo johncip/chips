@@ -127,7 +127,7 @@ export const spriteNamesByIndex = {
  * Convert integer-strings to integers for convenience.
  */
 const invert = obj => {
-  var res = {}
+  const res = {}
   each(obj, (val, key) => {
     res[val] = isNaN(key) ? key : parseInt(key)
   })
@@ -138,7 +138,7 @@ export const spriteIndicesByName = invert(spriteNamesByIndex)
 
 // eslint-disable-next-line no-extend-native
 Function.prototype.extends = function () {
-  var args = Array.prototype.slice.call(arguments)
+  const args = Array.prototype.slice.call(arguments)
   each(args, a => extend(this.prototype, a.prototype))
 }
 

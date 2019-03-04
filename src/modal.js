@@ -26,7 +26,7 @@ extend(Modal.prototype, {
   setBounds: function (bounds) {
     this.bounds = bounds
 
-    var props = ['left', 'top', 'height', 'width', 'halfHeight']
+    const props = ['left', 'top', 'height', 'width', 'halfHeight']
     each(props, property => {
       this[property] = bounds[property]
     })
@@ -51,7 +51,7 @@ extend(Modal.prototype, {
   },
 
   createBackground: function () {
-    var bgSprite = this.group.create(this.left, this.top, 'black')
+    const bgSprite = this.group.create(this.left, this.top, 'black')
     return extend(bgSprite, {
       width: this.width,
       height: this.height,
@@ -60,18 +60,18 @@ extend(Modal.prototype, {
   },
 
   createMainText: function () {
-    var main = this.game.add.text(0, 0, '', this.style)
+    const main = this.game.add.text(0, 0, '', this.style)
     main.setTextBounds(this.left, this.top, this.width, this.height)
     return main
   },
 
   createSubtext: function () {
-    var subStyle = extend({}, this.style, {
+    const subStyle = extend({}, this.style, {
       fontSize: 24,
       fill: '#ccd'
     })
 
-    var sub = this.game.add.text(0, 0, this.subtext, subStyle)
+    const sub = this.game.add.text(0, 0, this.subtext, subStyle)
     sub.setTextBounds(this.left, this.halfHeight, this.width, this.halfHeight)
 
     return sub

@@ -11,20 +11,20 @@ extend(MainMenu.prototype, {
   },
 
   create: function () {
-    var width = this.game.cache.getImage('boxart').width
-    var left = (this.game.width - width) / 2
+    const width = this.game.cache.getImage('boxart').width
+    const left = (this.game.width - width) / 2
     this.boxart = this.add.image(left, 0, 'boxart')
     this.createStartText()
   },
 
   createStartText: function () {
-    var text = 'Click to continue!'
-    var style = {
+    const text = 'Click to continue!'
+    const style = {
       font: '30px lato',
       fill: '#fff',
       align: 'center'
     }
-    var t = this.game.add.text(
+    const t = this.game.add.text(
       this.game.width / 2,
       this.game.height - 50,
       text,

@@ -17,7 +17,7 @@ Ice.extends(Entity, Floor)
 
 extend(Ice.prototype, {
   noShoes: function (player) {
-    var floor = player.entityBelow().spriteKey
+    const floor = player.entityBelow().spriteKey
 
     player.marchDelay = 75
     player.sliding = true

@@ -17,7 +17,7 @@ function Entity (game, tile, emap) {
 
   this.spriteKey = spriteNamesByIndex[tile.index - 1]
 
-  var parts = this.spriteKey.split(':')
+  const parts = this.spriteKey.split(':')
   this.type = parts[0]
   this.subtype = parts[1]
 
@@ -48,12 +48,12 @@ extend(Entity.prototype, {
   },
 
   replaceWith: function (type, isUpper) {
-    var tile = {
+    const tile = {
       x: this.x,
       y: this.y,
       index: spriteIndicesByName[type] + 1
     }
-    var createFunc = isUpper ? 'createUpper' : 'createLower'
+    const createFunc = isUpper ? 'createUpper' : 'createLower'
 
     this.retire()
     return this.emap[createFunc](tile)
@@ -80,11 +80,11 @@ extend(Entity.prototype, {
   },
 
   spriteTo: function (tileX, tileY) {
-    var x = tileX * config.tsize
-    var y = tileY * config.tsize
+    const x = tileX * config.tsize
+    const y = tileY * config.tsize
 
     if (config.animateMoves) {
-      var duration = config.floorDelay * 1.1
+      const duration = config.floorDelay * 1.1
       this.game.add.tween(this.sprite).to(
         { x, y },
         duration,
