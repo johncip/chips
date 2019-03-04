@@ -5,6 +5,8 @@ import Phaser from 'phaser'
 import config from './config'
 import { Preload, MainMenu, Playing } from './states/index'
 
+require('./music')
+
 const game = new Phaser.Game(
   config.width,
   config.height,
