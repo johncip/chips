@@ -13,7 +13,8 @@ module.exports = {
   devtool: 'eval-source-map',
 
   devServer: {
-    contentBase: path.join(__dirname, 'assets')
+    contentBase: path.join(__dirname, 'assets'),
+    stats: 'minimal'
   },
 
   entry: {
