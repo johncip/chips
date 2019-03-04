@@ -6,14 +6,15 @@ const { DefinePlugin } = require('webpack')
 
 const phaserPath = path.join(__dirname, '/node_modules/phaser-ce/')
 
+
 module.exports = {
   mode: 'development',
+
+  devtool: 'eval-source-map',
 
   devServer: {
     contentBase: path.join(__dirname, 'assets')
   },
-
-  devtool: 'source-map',
 
   entry: {
     index: './src/index.js'
