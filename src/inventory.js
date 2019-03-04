@@ -53,10 +53,7 @@ extend(Inventory.prototype, {
 
   reset: function () {
     this.counts = {}
-
-    each(this.sprites, function (item) {
-      item.exists = false
-    })
+    each(this.sprites, item => { item.exists = false })
   },
 
   add: function (key) {

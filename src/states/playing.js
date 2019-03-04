@@ -58,12 +58,12 @@ extend(Playing.prototype, {
   addHotkey: function (keyString, callback) {
     var keyObj = this.game.input.keyboard.addKey(Phaser.Keyboard[keyString])
 
-    keyObj.onDown.add(function () {
+    keyObj.onDown.add(() => {
       if (this.game.paused || this.game.halfPaused) {
         return
       }
       callback.call(this, keyObj)
-    }.bind(this))
+    })
   },
 
   startLastLevel: function () {

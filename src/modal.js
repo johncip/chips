@@ -87,9 +87,7 @@ extend(Modal.prototype, {
   },
 
   destroy: function () {
-    this.group.forEach(function (sprite) {
-      sprite.destroy()
-    })
+    this.group.forEach(sprite => { sprite.destroy() })
   },
 
   setText: function (text) {
@@ -108,11 +106,11 @@ extend(Modal.prototype, {
     this.setText(message)
     this.game.halfPaused = true
 
-    setTimeout(function () {
+    setTimeout(() => {
       this.game.input.keyboard.onPressCallback = callback
       this.show()
       this.game.paused = true
-    }.bind(this), delay)
+    }, delay)
   },
 
   _unpause: function () {

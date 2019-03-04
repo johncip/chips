@@ -91,7 +91,7 @@ extend(EntityMap.prototype, {
       return parseInt(properties.chipsNeeded)
     } else {
       var total = 0
-      this.eachOfType('ic', function (player) {
+      this.eachOfType('ic', player => {
         total++
       }, this)
       return total
@@ -181,7 +181,7 @@ extend(EntityMap.prototype, {
   },
 
   resetTraps: function () {
-    this.eachOfType('button', function (button) {
+    this.eachOfType('button', button => {
       if (button.subtype !== 'brown') {
         return
       }

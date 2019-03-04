@@ -27,7 +27,7 @@ extend(Button.prototype, {
   },
 
   moveTanks: function () {
-    this.emap.eachOfType('tank', function (tank) {
+    this.emap.eachOfType('tank', tank => {
       tank.marchDir = clone(tank.marchDir)
       tank.marchDir[0] *= -1
       tank.marchDir[1] *= -1
@@ -35,9 +35,7 @@ extend(Button.prototype, {
   },
 
   toggleTheWalls: function () {
-    this.emap.eachOfType('togglewall', function (wall) {
-      wall.toggle()
-    })
+    this.emap.eachOfType('togglewall', wall => wall.toggle())
   }
 })
 

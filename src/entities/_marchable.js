@@ -55,9 +55,7 @@ extend(Marchable.prototype, {
   },
 
   findDirIndex: function (dir) {
-    var res = findIndex(Dir.MOVE_DIRS, function (item) {
-      return dir[0] === item[0] && dir[1] === item[1]
-    })
+    var res = findIndex(Dir.MOVE_DIRS, item => dir[0] === item[0] && dir[1] === item[1])
 
     if (res === -1) {
       throw new Error('Not a valid direction.')

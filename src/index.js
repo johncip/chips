@@ -25,15 +25,11 @@ extend(Group.prototype, {
   },
 
   hide: function () {
-    this.forEach(function (item) {
-      item.exists = false
-    })
+    this.forEach(item => { item.exists = false })
   },
 
   show: function () {
-    this.forEach(function (item) {
-      item.exists = true
-    })
+    this.forEach(item => { item.exists = true })
   }
 })
 

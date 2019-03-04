@@ -128,10 +128,9 @@ export const spriteNamesByIndex = {
  */
 const invert = obj => {
   var res = {}
-  each(obj, function (value, key) {
-    res[value] = isNaN(key) ? key : parseInt(key)
+  each(obj, (val, key) => {
+    res[val] = isNaN(key) ? key : parseInt(key)
   })
-
   return res
 }
 
@@ -145,7 +144,7 @@ Function.prototype.extends = function () {
 
 // eslint-disable-next-line no-extend-native
 String.prototype.toTitleCase = function (str) {
-  return this.replace(/\w\S*/g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-  })
+  return this.replace(/\w\S*/g, txt => (
+    txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+  ))
 }

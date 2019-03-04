@@ -20,10 +20,7 @@ extend(Collectible.prototype, {
     player.inventory.add(this.spriteKey)
     sfx.collect()
     this.moveHere(player)
-
-    setTimeout(function () {
-      this.retire()
-    }.bind(this), 75)
+    setTimeout(() => this.retire(), 75)
   }
 })
 
