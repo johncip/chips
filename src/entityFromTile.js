@@ -2,11 +2,11 @@ import { spriteNamesByIndex } from './constants'
 
 import Ball from './entities/ball'
 import Block from './entities/block'
-import Bluewall from './entities/bluewall'
+import BlueWall from './entities/bluewall'
 import Bomb from './entities/bomb'
 import Bug from './entities/bug'
 import Button from './entities/button'
-import Clonemachine from './entities/clonemachine'
+import CloneMachine from './entities/clonemachine'
 import Collectible from './entities/collectible'
 import Dirt from './entities/dirt'
 import Door from './entities/door'
@@ -14,14 +14,14 @@ import Entity from './entities/entity'
 import Exit from './entities/exit'
 import Fire from './entities/fire'
 import Fireball from './entities/fireball'
-import Forcefloor from './entities/forcefloor'
+import ForceFloor from './entities/forcefloor'
 import Glider from './entities/glider'
 import Hint from './entities/hint'
 import Ice from './entities/ice'
 import Player from './entities/player'
 import Socket from './entities/socket'
 import Tank from './entities/tank'
-import Togglewall from './entities/togglewall'
+import ToggleWall from './entities/togglewall'
 import Trap from './entities/trap'
 import Wall from './entities/wall'
 import Water from './entities/water'
@@ -30,11 +30,11 @@ import Water from './entities/water'
 const entities = {
   Ball,
   Block,
-  Bluewall,
+  BlueWall,
   Bomb,
   Bug,
   Button,
-  Clonemachine,
+  CloneMachine,
   Collectible,
   Dirt,
   Door,
@@ -42,14 +42,14 @@ const entities = {
   Exit,
   Fire,
   Fireball,
-  Forcefloor,
+  ForceFloor,
   Glider,
   Hint,
   Ice,
   Player,
   Socket,
   Tank,
-  Togglewall,
+  ToggleWall,
   Trap,
   Wall,
   Water
