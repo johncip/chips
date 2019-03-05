@@ -1,18 +1,18 @@
-import { each, extend } from 'lodash'
+import { each } from 'lodash'
 
 import config from './config'
 import LCD from './lcd'
 
-function Sidebar (game) {
-  this.game = game
-  this.group = game.add.group()
-  this.group.fixedToCamera = true
-  this.createMask()
-  this.createLcds()
-}
+export default class Sidebar {
+  constructor (game) {
+    this.game = game
+    this.group = game.add.group()
+    this.group.fixedToCamera = true
+    this.createMask()
+    this.createLcds()
+  }
 
-extend(Sidebar.prototype, {
-  createLcds: function () {
+  createLcds () {
     const { tsize } = config
 
     this.lcds = {
@@ -28,27 +28,25 @@ extend(Sidebar.prototype, {
       top += tsize * 2.25
       this.group.add(lcd.group)
     })
-  },
+  }
 
-  createMask: function () {
+  createMask () {
     const { tsize, bgColor } = config
     const mask = this.game.add.graphics()
     mask.beginFill(bgColor, 1.0)
     mask.drawRect(9 * tsize, 0, 5 * tsize, 9 * tsize)
     this.group.add(mask)
-  },
+  }
 
-  setChipsLeft: function (val) {
-    this.lcds.chips.display = val
-  },
-
-  setLevel: function (val) {
-    this.lcds.level.display = val
-  },
-
-  setTimeLeft: function (val) {
+  setChipsLeft (val) {
     this.lcds.chips.display = val
   }
-})
 
-export default Sidebar
+  setLevel (val) {
+    this.lcds.level.display = val
+  }
+
+  setTimeLeft (val) {
+    this.lcds.chips.display = val
+  }
+}

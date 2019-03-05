@@ -1,4 +1,4 @@
-import { each, extend, filter, flatten, parseInt } from 'lodash'
+import { each, filter, flatten, parseInt } from 'lodash'
 
 import config from './config'
 import entityFromTile from './entityFromTile'
@@ -9,24 +9,24 @@ import { spriteIndicesByName } from './constants'
  * The EntityMap is a map from tile coordinate to a game entity.
  * It is a model of the given level, and the sprites are the view.
  */
-function EntityMap (game, upper, lower) {
-  this.game = game
-  const tilemap = upper.map
-  this.width = tilemap.width
-  this.group = game.add.group(undefined, 'EntityMap')
+export default class EntityMap {
+  constructor (game, upper, lower) {
+    this.game = game
+    const tilemap = upper.map
+    this.width = tilemap.width
+    this.group = game.add.group(undefined, 'EntityMap')
 
-  this._lower = this.mapFromLayer(lower)
-  this._upper = this.mapFromLayer(upper)
+    this._lower = this.mapFromLayer(lower)
+    this._upper = this.mapFromLayer(upper)
 
-  // post
-  this.chipsNeeded = this.getChipsNeeded(tilemap.properties)
-  this.createConnections(tilemap)
-  this.createCloneMachines()
-  this.promoteChip()
-}
+    // post
+    this.chipsNeeded = this.getChipsNeeded(tilemap.properties)
+    this.createConnections(tilemap)
+    this.createCloneMachines()
+    this.promoteChip()
+  }
 
-extend(EntityMap.prototype, {
-  mapFromLayer: function (layer) {
+  mapFromLayer (layer) {
     const tiles = flatten(layer.layer.data)
     const res = {}
 
@@ -38,9 +38,9 @@ extend(EntityMap.prototype, {
     })
 
     return res
-  },
+  }
 
-  createConnections: function (tilemap) {
+  createConnections (tilemap) {
     const connections = tilemap.objects['connections']
     if (!connections) return
 
@@ -61,9 +61,9 @@ extend(EntityMap.prototype, {
 
       button.target = target
     })
-  },
+  }
 
-  createCloneMachines: function () {
+  createCloneMachines () {
     this.eachOfType('clonemachine', machine => {
       const above = machine.entityAbove()
 
@@ -78,15 +78,15 @@ extend(EntityMap.prototype, {
       machine.template = above.spriteKey
       above.retire()
     })
-  },
+  }
 
-  promoteChip: function () {
+  promoteChip () {
     this.eachOfType('chip', player => {
       this.group.bringToTop(player.sprite)
     })
-  },
+  }
 
-  getChipsNeeded: function (properties) {
+  getChipsNeeded (properties) {
     if (properties.chipsNeeded) {
       return parseInt(properties.chipsNeeded)
     } else {
@@ -94,37 +94,37 @@ extend(EntityMap.prototype, {
       this.eachOfType('ic', player => { total++ })
       return total
     }
-  },
+  }
 
-  get: function (x, y) {
+  get (x, y) {
     return this.getUpper(x, y) || this.getLower(x, y)
-  },
+  }
 
-  getUpper: function (x, y) {
+  getUpper (x, y) {
     const key = this._key(x, y)
     const res = this._upper[key]
 
     if (res && res.exists()) {
       return res
     }
-  },
+  }
 
-  getLower: function (x, y) {
+  getLower (x, y) {
     const key = this._key(x, y)
     const res = this._lower[key]
 
     if (res && res.exists()) {
       return res
     }
-  },
+  }
 
-  moveEntity: function (entity, dx, dy) {
+  moveEntity (entity, dx, dy) {
     const destX = entity.x + dx
     const destY = entity.y + dy
     this.moveEntityAbs(entity, destX, destY)
-  },
+  }
 
-  moveEntityAbs: function (entity, destX, destY) {
+  moveEntityAbs (entity, destX, destY) {
     const oldKey = this._key(entity.x, entity.y)
     const newKey = this._key(destX, destY)
 
@@ -137,42 +137,42 @@ extend(EntityMap.prototype, {
     entity.y = destY
 
     entity.spriteTo(destX, destY)
-  },
+  }
 
-  createEntity: function (tile, layer) {
+  createEntity (tile, layer) {
     const key = this._key(tile.x, tile.y)
     const entity = entityFromTile(this.game, tile, this)
     layer[key] = entity
 
     return entity
-  },
+  }
 
-  createUpper: function (tile) {
+  createUpper (tile) {
     return this.createEntity(tile, this._upper)
-  },
+  }
 
-  createLower: function (tile) {
+  createLower (tile) {
     return this.createEntity(tile, this._lower)
-  },
+  }
 
-  update: function () {
+  update () {
     this.eachEntity(entity => {
       if (!entity) return
       entity.update()
     })
-  },
+  }
 
-  eachEntity: function (fn) {
+  eachEntity (fn) {
     each(this._lower, ent => fn(ent))
     each(this._upper, ent => fn(ent))
-  },
+  }
 
-  eachOfType: function (type, fn) {
+  eachOfType (type, fn) {
     each(filter(this._lower, { type: type }), ent => fn(ent))
     each(filter(this._upper, { type: type }), ent => fn(ent))
-  },
+  }
 
-  resetTraps: function () {
+  resetTraps () {
     this.eachOfType('button', button => {
       if (button.subtype !== 'brown') {
         return
@@ -183,11 +183,9 @@ extend(EntityMap.prototype, {
         button.target.open()
       }
     })
-  },
+  }
 
-  _key: function (x, y) {
+  _key (x, y) {
     return y * this.width + x
   }
-})
-
-export default EntityMap
+}
