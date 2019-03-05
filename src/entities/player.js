@@ -1,4 +1,4 @@
-import { contains, extend } from 'lodash'
+import { includes, extend } from 'lodash'
 
 import Controllable from './_controllable'
 import Entity from './entity'
@@ -31,7 +31,6 @@ Player.FRAMES = {
 extend(
   Player.prototype,
   Entity.prototype,
-  Movable.prototype, // TODO: might not need Movable
   Marchable.prototype,
   Controllable.prototype
 )
@@ -72,7 +71,7 @@ extend(Player.prototype, {
   collideWith: function (target) {
     const monsters = ['bug', 'fireball', 'ball', 'glider', 'tank']
 
-    if (contains(monsters, target.type)) {
+    if (includes(monsters, target.type)) {
       sfx.lose()
       this.triggerLose()
     }
