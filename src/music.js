@@ -1,3 +1,4 @@
+import config from './config'
 import kamel from 'Assets/music/my_dirty_old_kamel.xm'
 require('jsxm/xmeffects.js')
 require('jsxm/xm.js')
@@ -22,5 +23,5 @@ fetch(kamel)
 
 
 window.onclick = () => {
-  XMPlayer.play()
+  if (config.enableMusic) XMPlayer.play()
 }

@@ -2,7 +2,7 @@ export default {
   animateMoves: true,
   bgColor: 0x333344,
   debug: false,
-  enableMusic: true,
+  enableMusic: false,
   floorDelay: (1000 / 10),
   height: 576,
   lcdBgColor: 0x301010,
