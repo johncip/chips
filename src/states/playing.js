@@ -26,7 +26,6 @@ extend(Playing.prototype, {
     this.createHotkeys()
 
     this.startCurrentLevel()
-    this.playMusic()
   },
 
   createModals: function () {
@@ -110,10 +109,6 @@ extend(Playing.prototype, {
       return
     }
 
-    if (this.game.music) {
-      this.game.music.pause()
-    }
-
     this.modal.flash('Paused...')
   },
 
@@ -145,18 +140,6 @@ extend(Playing.prototype, {
   win: function (msg, delay) {
     msg = msg || 'Yowzer! You win!'
     this.modal.flash(msg, delay, () => this.startNextLevel())
-  },
-
-  playMusic: function () {
-    if (!config.enableMusic) {
-      return
-    }
-
-    this.asyncLoad('forest', 'assets/audio/great_forest.mp3', function () {
-      this.game.music = this.game.add.audio('forest')
-      this.game.music.volume = config.musicVolume
-      this.game.music.play()
-    })
   },
 
   asyncLoad: function (cacheKey, path, onLoad) {
