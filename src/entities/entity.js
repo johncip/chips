@@ -82,7 +82,7 @@ extend(Entity.prototype, {
     const x = tileX * config.tsize
     const y = tileY * config.tsize
 
-    if (config.animateMoves) {
+    if (config.smoothMoves) {
       const duration = config.floorDelay * 1.1
       this.game.add.tween(this.sprite).to(
         { x, y },

@@ -1,5 +1,4 @@
 export default {
-  animateMoves: true,
   bgColor: 0x333344,
   debug: false,
   enableMusic: false,
@@ -9,6 +8,7 @@ export default {
   lcdBgColor: 0x301010,
   moveDelay: (1000 / 3),
   musicVolume: 0.25,
+  smoothMoves: true,
   startLevel: 0,
   startState: 'Playing',
   tsize: 64,
