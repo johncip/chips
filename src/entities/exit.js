@@ -1,6 +1,7 @@
 import { extend } from 'lodash'
 import Entity from './entity'
 import sfx from '../sfx'
+import config from '../config'
 
 /*
  * The exit triggers the win screen and takes the player to the next level.
@@ -9,12 +10,10 @@ function Exit (game, tile, emap) {
   Entity.call(this, game, tile, emap)
   this.emap.exit = this // TODO: don't do these here
   this.pulse = this.sprite.animations.add('pulse', [73, 80])
-  this.pulse.play(Exit.PULSE_FPS, true)
+  this.pulse.play(config.exitFps, true)
 }
 
 extend(Exit.prototype, Entity.prototype)
-
-Exit.PULSE_FPS = 2
 
 extend(Exit.prototype, {
   collideWith: function (target) {
