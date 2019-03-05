@@ -3,7 +3,7 @@ import { extend, throttle } from 'lodash'
 
 import config from '../config'
 import levels from '../levels'
-import DisplayPanel from '../displaypanel'
+import Sidebar from '../sidebar'
 import Modal from '../modal'
 import Level from '../level'
 
@@ -20,7 +20,7 @@ extend(Playing.prototype, {
 
   create: function () {
     this.levelIndex = config.startLevel
-    this.displayPanel = new DisplayPanel(this.game)
+    this.sidebar = new Sidebar(this.game)
 
     this.createModals()
     this.createHotkeys()
@@ -83,7 +83,7 @@ extend(Playing.prototype, {
     this.level = new Level(this.game, this.levelIndex)
 
     // post-load
-    this.displayPanel.setLevel(this.levelIndex + 1)
+    this.sidebar.setLevel(this.levelIndex + 1)
     this.hintPanel.setText(this.level.getHint())
     this.timeLeft = this.level.getTimeAllowed()
     this.fixLayering()
@@ -100,7 +100,7 @@ extend(Playing.prototype, {
   },
 
   fixLayering: function () {
-    this.game.world.bringToTop(this.displayPanel.group)
+    this.game.world.bringToTop(this.sidebar.group)
     this.game.world.bringToTop(this.level.inventory.group)
   },
 
@@ -128,8 +128,8 @@ extend(Playing.prototype, {
     const chipsLeft = this.level.getChipsNeeded() - this.level.inventory.count('ic')
 
     this.updateTimeLeft()
-    this.displayPanel.setTimeLeft(this.timeLeft)
-    this.displayPanel.setChipsLeft(chipsLeft)
+    this.sidebar.setTimeLeft(this.timeLeft)
+    this.sidebar.setChipsLeft(chipsLeft)
     this.level.update()
   },
 

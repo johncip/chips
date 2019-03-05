@@ -1,17 +1,20 @@
-import config from './config'
 import { extend } from 'lodash'
 import sprintf from 'sprintf'
 
-function LCD (game, label, left, top, group) {
-  this.label = label
-  this.left = left
-  this.top = top
+import config from './config'
+
+const { tsize, lcdBgColor } = config
+const headingStyle = {
+  font: '20px lato',
+  fill: '#ddddee'
+}
+
+function LCD (game, labelText) {
   this.game = game
-
   this.font = game.add.retroFont('lcd', 64, 100, '0123456789', 0)
-  this.group = group
+  this.group = game.add.group()
 
-  this.createLabel()
+  this.createLabel(labelText)
   this.createBackground()
   this.createDigits()
 
@@ -19,50 +22,25 @@ function LCD (game, label, left, top, group) {
 }
 
 extend(LCD.prototype, {
-  createLabel: function () {
-    const label = this.game.add.text(this.left, this.top, this.label, {
-      font: '20px lato',
-      fill: '#dde'
-    })
-
+  createLabel: function (text) {
+    const label = this.game.add.text(0, 0, text, headingStyle)
     this.group.add(label)
   },
 
   createBackground: function () {
+    const padding = tsize / 4
     const g = this.game.add.graphics()
-    const padding = config.tsize / 4
-
-    const left = this.left - (padding / 2)
-    const top = this.top + (config.tsize / 1.9) - (padding / 2)
-    const width = config.tsize * 3 + padding
-    const height = config.tsize * 1.5 + padding
-    const radius = config.tsize / 12
-
-    this.roundRect(g, left, top, width, height, radius)
-
+    const left = padding * -0.5
+    const top = tsize * 0.4
+    const width = tsize * 3 + padding
+    const height = tsize * 1.5 + padding
+    const radius = tsize / 12
+    roundRect(g, left, top, width, height, radius)
     this.group.add(g)
   },
 
-  roundRect: function (g, left, top, width, height, rad) {
-    g.beginFill(config.lcdBgColor, 1.0)
-
-    g.moveTo(left + rad, top)
-    g.lineTo(left + width - rad, top)
-    g.quadraticCurveTo(left + width, top, left + width, top + rad)
-    g.lineTo(left + width, top + height - rad)
-    g.quadraticCurveTo(left + width, top + height, left + width - rad, top + height)
-    g.lineTo(left + rad, top + height)
-    g.quadraticCurveTo(left, top + height, left, top + height - rad)
-    g.lineTo(left, top + rad)
-    g.quadraticCurveTo(left, top, left + rad, top)
-
-    g.endFill()
-  },
-
   createDigits: function () {
-    const middle = this.top + (config.tsize / 2)
-    const digits = this.game.add.image(this.left, middle, this.font)
-
+    const digits = this.game.add.image(0, tsize * 0.5, this.font)
     this.group.add(digits)
   }
 })
@@ -76,5 +54,19 @@ Object.defineProperty(LCD.prototype, 'display', {
     this.font.text = sprintf('%03d', num)
   }
 })
+
+function roundRect (g, left, top, width, height, rad) {
+  g.beginFill(lcdBgColor, 1.0)
+  g.moveTo(left + rad, top)
+  g.lineTo(left + width - rad, top)
+  g.quadraticCurveTo(left + width, top, left + width, top + rad)
+  g.lineTo(left + width, top + height - rad)
+  g.quadraticCurveTo(left + width, top + height, left + width - rad, top + height)
+  g.lineTo(left + rad, top + height)
+  g.quadraticCurveTo(left, top + height, left, top + height - rad)
+  g.lineTo(left, top + rad)
+  g.quadraticCurveTo(left, top, left + rad, top)
+  g.endFill()
+}
 
 export default LCD
