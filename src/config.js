@@ -1,6 +1,6 @@
 export default {
   bgColor: 0x333344,
-  debug: false,
+  debug: true,
   enableMusic: false,
   exitFps: 2,
   floorDelay: (1000 / 10),
@@ -8,7 +8,7 @@ export default {
   lcdBgColor: 0x301010,
   moveDelay: (1000 / 3),
   musicVolume: 0.25,
-  smoothMoves: true,
+  smoothMoves: false,
   startLevel: 0,
   startState: 'Playing',
   tsize: 64,
