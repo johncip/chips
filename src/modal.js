@@ -1,106 +1,51 @@
 import { each, extend } from 'lodash'
 
-function Modal (game, bounds, subtext, style) {
-  if (subtext === undefined) {
-    subtext = 'Press SPACE to continue'
+/*
+ * Translucent modal that is used for the hint as well as pause screen, level end, etc.
+ *
+ * Given styles are applied as overrides to the default.
+ */
+export default class Modal {
+  constructor (game, bounds, subtext = 'Press SPACE to continue', style = {}) {
+    const { width } = bounds
+
+    this.game = game
+    this.group = game.add.group()
+    this.mainText = createText(game, bounds, mainTextStyle(width, style))
+
+    const bg = createBg(this.group, bounds)
+    const subtext_ = createSubtext(game, bounds, subtextStyle(width, style))
+
+    each([bg, this.mainText, subtext_], x => this.group.add(x))
+    this.group.fixedToCamera = true
+
+    this.hide()
   }
-  this.game = game
-  this.setBounds(bounds)
-  this.setStyle(style)
-  this.subtext = subtext
-  this.group = game.add.group(undefined, 'Modal')
 
-  this.background = this.createBackground()
-  this.mainText = this.createMainText()
-  this.subtext = this.createSubtext()
+  setText (text) {
+    this.mainText.text = text
+  }
 
-  this.group.add(this.background)
-  this.group.add(this.mainText)
-  this.group.add(this.subtext)
-
-  this.group.fixedToCamera = true
-  this.hide()
-}
-
-extend(Modal.prototype, {
-  setBounds: function (bounds) {
-    this.bounds = bounds
-
-    const props = ['left', 'top', 'height', 'width', 'halfHeight']
-    each(props, property => {
-      this[property] = bounds[property]
-    })
-  },
-
-  setStyle: function (style) {
-    if (style === undefined) {
-      style = {}
-    }
-
-    this.style = {
-      font: '48px lato',
-      fill: '#dde',
-      boundsAlignH: 'center',
-      boundsAlignV: 'middle',
-      wordWrap: 'true',
-      align: 'center',
-      wordWrapWidth: this.width
-    }
-
-    extend(this.style, style)
-  },
-
-  createBackground: function () {
-    const bgSprite = this.group.create(this.left, this.top, 'black')
-    return extend(bgSprite, {
-      width: this.width,
-      height: this.height,
-      alpha: 0.8
-    })
-  },
-
-  createMainText: function () {
-    const main = this.game.add.text(0, 0, '', this.style)
-    main.setTextBounds(this.left, this.top, this.width, this.height)
-    return main
-  },
-
-  createSubtext: function () {
-    const subStyle = extend({}, this.style, {
-      fontSize: 24,
-      fill: '#ccd'
-    })
-
-    const sub = this.game.add.text(0, 0, this.subtext, subStyle)
-    sub.setTextBounds(this.left, this.halfHeight, this.width, this.halfHeight)
-
-    return sub
-  },
-
-  hide: function () {
-    this.group.forEach(item => { item.exists = false })
-  },
-
-  show: function () {
+  show () {
     this.game.world.bringToTop(this.group)
     this.group.forEach(item => { item.exists = true })
-  },
+  }
 
-  destroy: function () {
+  hide () {
+    this.group.forEach(item => { item.exists = false })
+  }
+
+  destroy () {
     this.group.forEach(sprite => { sprite.destroy() })
-  },
-
-  setText: function (text) {
-    this.mainText.text = text
-  },
+  }
 
   /*
    * Displays the modal with the given message. Takes an optional delay
    * (during which time the game is paused) and a fn which should
    * hide the modal and unpause the game.
    */
-  flash: function (message, delay, fn) {
-    fn = fn || (() => this._unpause())
+  flash (message, delay, fn) {
+    fn = fn || (() => unpause(this.game, this))
     delay = delay || 0
 
     this.setText(message)
@@ -111,17 +56,72 @@ extend(Modal.prototype, {
       this.show()
       this.game.paused = true
     }, delay)
-  },
-
-  _unpause: function () {
-    if (this.game.music) {
-      this.game.music.resume()
-    }
-
-    this.hide()
-    this.game.paused = false
-    this.game.halfPaused = false
   }
-})
+}
 
-export default Modal
+/*
+ * Default style for text within the modal.
+ */
+function mainTextStyle (width, overrides = {}) {
+  return {
+    font: '48px lato',
+    fill: '#dde',
+    boundsAlignH: 'center',
+    boundsAlignV: 'middle',
+    align: 'center',
+    wordWrap: 'true',
+    wordWrapWidth: width,
+    ...overrides
+  }
+}
+
+/*
+ * Default style for text within the modal.
+ */
+function subtextStyle (width, overrides = {}) {
+  return {
+    ...mainTextStyle(width),
+    fontSize: 24,
+    fill: '#ccd',
+    ...overrides
+  }
+}
+
+/*
+ * Adds and returns a translucent black background sprite.
+ */
+function createBg (group, { left, top, width, height }) {
+  const bg = group.create(left, top, 'black')
+  return extend(bg, { width, height, alpha: 0.8 })
+}
+
+/*
+ * Adds and returns a blank text sprite.
+ */
+function createText (game, { left, top, width, height }, style) {
+  const sprite = game.add.text(0, 0, '', style)
+  sprite.setTextBounds(left, top, width, height)
+  return sprite
+}
+
+/*
+ * Adds and returns a text sprite that's half the size.
+ */
+function createSubtext (game, text, { left, halfHeight, width }, style) {
+  const sprite = game.add.text(0, 0, text, style)
+  sprite.setTextBounds(left, halfHeight, width, halfHeight)
+  return sprite
+}
+
+/*
+ * Resume the game and music and hide the modal.
+ */
+function unpause (game, modal) {
+  if (game.music) {
+    game.music.resume()
+  }
+
+  modal.hide()
+  game.paused = false
+  game.halfPaused = false
+}
