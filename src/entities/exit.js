@@ -1,7 +1,7 @@
 import { extend } from 'lodash'
+import config from '../config'
 import Entity from './entity'
 import sfx from '../sfx'
-import config from '../config'
 
 /*
  * The exit triggers the win screen and takes the player to the next level.
