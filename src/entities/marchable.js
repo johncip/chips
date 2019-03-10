@@ -25,10 +25,6 @@ export default class Marchable extends Movable {
     }
   }
 
-  hasNeighbor (dir) {
-    return !!this.neighbor(dir)
-  }
-
   neighbor (dir) {
     const absDir = this.toAbsolute(dir)
     const x2 = this.x + absDir[0]
