@@ -1,12 +1,19 @@
 import { extend } from 'lodash'
+
 import config from '../config'
+import Entity from './entity'
+
 
 /*
  * Mixin for floor types (fire, water, ice, force floor).
  *
  * Expects the presence of an this.noShoes function.
  */
-function Floor () {}
+function Floor (game, tile, emap) {
+  Entity.call(this, game, tile, emap)
+}
+
+extend(Floor.prototype, Entity.prototype)
 
 extend(Floor.prototype, {
   collideWith: function (target) {

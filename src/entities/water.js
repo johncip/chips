@@ -1,7 +1,6 @@
 import { extend } from 'lodash'
 
-import Entity from './entity'
-import Floor from './_floor'
+import Floor from './floor'
 import sfx from '../sfx'
 
 
@@ -10,15 +9,11 @@ import sfx from '../sfx'
  * When dirt collides with water, they make mud.
  */
 function Water (game, tile, emap) {
-  Entity.call(this, game, tile, emap)
+  Floor.call(this, game, tile, emap)
   this.isFlat = true
 }
 
-extend(
-  Water.prototype,
-  Entity.prototype,
-  Floor.prototype
-)
+extend(Water.prototype, Floor.prototype)
 
 extend(Water.prototype, {
   /*

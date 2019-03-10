@@ -1,7 +1,6 @@
 import { extend } from 'lodash'
 
-import Entity from './entity'
-import Floor from './_floor'
+import Floor from './floor'
 import sfx from '../sfx'
 
 
@@ -9,17 +8,11 @@ import sfx from '../sfx'
  * Doors can only be opened when the right key is in the inventory.
  */
 function Fire (game, tile, emap) {
-  Entity.call(this, game, tile, emap)
+  Floor.call(this, game, tile, emap)
   this.burn = this.sprite.animations.add('burn', [31, 38])
 }
 
-Fire.BURN_FPS = 2
-
-extend(
-  Fire.prototype,
-  Entity.prototype,
-  Floor.prototype
-)
+extend(Fire.prototype, Floor.prototype)
 
 extend(Fire.prototype, {
   collideWith: function (target) {
@@ -36,5 +29,7 @@ extend(Fire.prototype, {
     player.triggerLose()
   }
 })
+
+Fire.BURN_FPS = 2
 
 export default Fire
