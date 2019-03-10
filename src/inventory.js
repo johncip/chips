@@ -1,4 +1,4 @@
-import { each, extend } from 'lodash'
+import { each } from 'lodash'
 import config from './config'
 import { spriteIndicesByName } from './constants'
 
@@ -7,7 +7,7 @@ const itemKeys = [
   'shoe:ice', 'shoe:water', 'shoe:force', 'shoe:fire'
 ]
 
-const { tsize } = config
+const { debug, tsize } = config
 
 /*
  * A record of each item the player has collected, and the sprites to
@@ -43,15 +43,14 @@ export default class Inventory {
     }
   }
 
-  createSprite (spriteKey, idx) {
-    this.sprites[spriteKey] = this.group.create(0, 0, 'sprites',
-      spriteIndicesByName[spriteKey])
+  createSprite (key, idx) {
+    const sprite = this.group.create(0, 0, 'sprites', spriteIndicesByName[key])
 
-    extend(this.sprites[spriteKey], {
-      x: this.left + (idx % 4) * tsize,
-      y: this.top + Math.floor(idx / 4) * tsize,
-      exists: false
-    })
+    sprite.x = this.left + (idx % 4) * tsize
+    sprite.y = this.top + Math.floor(idx / 4) * tsize
+    sprite.exists = !!this.counts[key]
+
+    this.sprites[key] = sprite
   }
 
   reset () {
@@ -60,10 +59,6 @@ export default class Inventory {
   }
 
   add (key) {
-    if (!this.counts[key]) {
-      this.counts[key] = 0
-    }
-
     this.counts[key] += 1
 
     if (key !== 'ic') {
