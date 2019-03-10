@@ -1,6 +1,7 @@
 import Floor from './floor'
 import sfx from '../sfx'
 
+const BURN_FPS = 2
 
 /*
  * Doors can only be opened when the right key is in the inventory.
@@ -20,10 +21,9 @@ export default class Fire extends Floor {
   }
 
   noShoes (player) {
-    this.burn.play(Fire.BURN_FPS, false)
+    this.burn.play(BURN_FPS, false)
     sfx.splash()
     player.triggerLose()
   }
 }
 
-Fire.BURN_FPS = 2
