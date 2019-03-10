@@ -1,7 +1,6 @@
 import { extend } from 'lodash'
 
-import Entity from './entity'
-import Movable from './_movable'
+import Movable from './movable'
 import sfx from '../sfx'
 
 
@@ -9,14 +8,10 @@ import sfx from '../sfx'
  * Blocks can be pushed. They become dirt after colliding with water.
  */
 function Block (game, tile, emap) {
-  Entity.call(this, game, tile, emap)
+  Movable.call(this, game, tile, emap)
 }
 
-extend(
-  Block.prototype,
-  Entity.prototype,
-  Movable.prototype
-)
+extend(Block.prototype, Movable.prototype)
 
 extend(Block.prototype, {
   frames: {

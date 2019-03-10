@@ -1,22 +1,15 @@
 import { clone, extend } from 'lodash'
 
 import { Dir } from '../constants'
-import Entity from './entity'
-import Marchable from './_marchable'
+import Marchable from './marchable'
 
 
 function Bug (game, tile, emap) {
-  Entity.call(this, game, tile, emap)
-  Marchable.call(this)
-
+  Marchable.call(this, game, tile, emap)
   this.lastDir = clone(Dir.UP)
 }
 
-extend(
-  Bug.prototype,
-  Entity.prototype,
-  Marchable.prototype
-)
+extend(Bug.prototype, Marchable.prototype)
 
 extend(Bug.prototype, {
   frames: {

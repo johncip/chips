@@ -1,6 +1,6 @@
 import { extend, findIndex } from 'lodash'
 
-import Movable from './_movable'
+import Movable from './movable'
 import config from '../config'
 import { Dir } from '../constants'
 
@@ -8,11 +8,9 @@ import { Dir } from '../constants'
 /*
  * Marchable entities can be moved one tile according to their AI on a
  * specific time increment.
- *
- * Marchable depends on Movable.
  */
-function Marchable () {
-  Movable.call(this)
+function Marchable (game, tile, emap) {
+  Movable.call(this, game, tile, emap)
   this.timeSinceTick = 0
   this.marchDelay = config.moveDelay
 }

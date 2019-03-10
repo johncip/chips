@@ -1,24 +1,16 @@
 import { extend } from 'lodash'
 
 import { Dir } from '../constants'
-import Entity from './entity'
-import Marchable from './_marchable'
-import Movable from './_movable'
+import Marchable from './marchable'
 
 
 function Glider (game, tile, emap) {
-  Entity.call(this, game, tile, emap)
-  Marchable.call(this)
+  Marchable.call(this, game, tile, emap)
   this.lastDir = [0, -1] // TODO: set based on frame
   this.marchDelay = 300
 }
 
-extend(
-  Glider.prototype,
-  Entity.prototype,
-  Movable.prototype, // TODO: might not need Movable
-  Marchable.prototype
-)
+extend(Glider.prototype, Marchable.prototype)
 
 extend(Glider.prototype, {
   frames: {

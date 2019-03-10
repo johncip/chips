@@ -1,23 +1,18 @@
 import { clone, extend } from 'lodash'
 
 import Entity from './entity'
-import Marchable from './_marchable'
+import Marchable from './marchable'
 import { Dir } from '../constants'
 
 
 function Tank (game, tile, emap) {
-  Entity.call(this, game, tile, emap)
-  Marchable.call(this, tile, emap)
+  Marchable.call(this, game, tile, emap)
 
   this.marchDir = clone(Dir.UP)
   this.marchDelay = 300
 }
 
-extend(
-  Tank.prototype,
-  Entity.prototype,
-  Marchable.prototype
-)
+extend(Tank.prototype, Marchable.prototype)
 
 extend(Tank.prototype, {
   frames: {
