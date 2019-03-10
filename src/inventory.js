@@ -24,7 +24,10 @@ export default class Inventory {
     this.sprites = {}
 
     this.createBackground()
-    itemKeys.forEach(key => this.createSprite(key))
+    itemKeys.forEach((key, idx) => {
+      this.counts[key] = debug ? 99 : 0
+      this.createSprite(key, idx)
+    })
   }
 
   createBackground () {
