@@ -1,6 +1,5 @@
 import { clone, extend } from 'lodash'
 
-import Entity from './entity'
 import Marchable from './marchable'
 import { Dir } from '../constants'
 
@@ -18,7 +17,7 @@ export default class Tank extends Marchable {
       target.collideWith(this)
     } else {
       // TODO: what does this mean? is it just reversing who collides with who?
-      Entity.prototype.collideWith.call(this, target)
+      super.collideWith.call(this, target)
     }
   }
 

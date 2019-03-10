@@ -35,7 +35,7 @@ export default class Movable extends Entity {
 
   retire () {
     this.frozen = true
-    Entity.prototype.retire.call(this)
+    super.retire.call(this)
   }
 
   isFacing (dir) {

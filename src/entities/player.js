@@ -36,7 +36,7 @@ export default class Player extends Marchable {
     this.frames = FRAMES
     this.game.hintPanel.hide()
     this.frozen = false
-    Marchable.prototype.move.call(this, dx, dy)
+    super.move.call(this, dx, dy)
 
     // TODO: this might apply to all movables
     this.sliding = this.shouldSlide()
@@ -66,12 +66,12 @@ export default class Player extends Marchable {
   }
 
   destroy () {
-    Marchable.prototype.destroy.call(this)
+    super.destroy.call(this)
     this.inventory.destroy()
   }
 
   update () {
-    Marchable.prototype.update.call(this)
+    super.update.call(this)
     this.updatePosition()
     this.updateCamera()
   }

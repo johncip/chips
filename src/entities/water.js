@@ -13,7 +13,7 @@ export default class Water extends Floor {
 
   collideWith (target) {
     if (target.type === 'chip') {
-      Floor.prototype.collideWith.call(this, target)
+      super.collideWith.call(this, target)
 
       target.frames = {
         '0,-1': 87,
