@@ -2,7 +2,7 @@ import { extend, isEqual } from 'lodash'
 import Entity from './entity'
 
 
-function Movable (game, tile, emap) {
+export default function Movable (game, tile, emap) {
   Entity.call(this, game, tile, emap)
   // TODO: get movement dir
   this.lastDir = [0, 0]
@@ -44,5 +44,3 @@ extend(Movable.prototype, {
     return isEqual(this.lastDir, dir)
   }
 })
-
-export default Movable

@@ -4,7 +4,7 @@ import Entity from './entity'
 import sfx from '../sfx'
 
 
-function Wall (game, tile, emap) {
+export default function Wall (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
@@ -28,5 +28,3 @@ extend(Wall.prototype, {
     }
   }
 })
-
-export default Wall

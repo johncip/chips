@@ -4,7 +4,7 @@ import Entity from './entity'
 import sfx from '../sfx'
 
 
-function Bomb (game, tile, emap) {
+export default function Bomb (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
@@ -21,5 +21,3 @@ extend(Bomb.prototype, {
     }
   }
 })
-
-export default Bomb

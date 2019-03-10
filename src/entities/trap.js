@@ -2,7 +2,7 @@ import { extend } from 'lodash'
 import Entity from './entity'
 
 
-function Trap (game, tile, emap) {
+export default function Trap (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
@@ -40,5 +40,3 @@ extend(Trap.prototype, {
     }
   }
 })
-
-export default Trap

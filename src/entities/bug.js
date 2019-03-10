@@ -4,7 +4,7 @@ import { Dir } from '../constants'
 import Marchable from './marchable'
 
 
-function Bug (game, tile, emap) {
+export default function Bug (game, tile, emap) {
   Marchable.call(this, game, tile, emap)
   this.lastDir = clone(Dir.UP)
 }
@@ -44,5 +44,3 @@ extend(Bug.prototype, {
     }
   }
 })
-
-export default Bug

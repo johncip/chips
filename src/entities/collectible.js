@@ -8,7 +8,7 @@ import sfx from '../sfx'
  * A Collectible entity can be put into inventory.
  * ICs, shoes, and keys are collectible.
  */
-function Collectible (game, tile, emap) {
+export default function Collectible (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
@@ -25,5 +25,3 @@ extend(Collectible.prototype, {
     this.retire()
   }
 })
-
-export default Collectible

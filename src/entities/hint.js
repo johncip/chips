@@ -4,7 +4,7 @@ import Entity from './entity'
 /*
  * The hint tile offers a hint when the player steps on it.
  */
-function Hint (game, tile, emap) {
+export default function Hint (game, tile, emap) {
   Entity.call(this, game, tile, emap)
   this.isFlat = true
 }
@@ -17,5 +17,3 @@ extend(Hint.prototype, {
     this.game.hintPanel.show()
   }
 })
-
-export default Hint

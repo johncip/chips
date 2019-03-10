@@ -9,7 +9,7 @@ import { spriteNamesByIndex, spriteIndicesByName } from '../constants'
  * A game Entity is an item on the tile map -- it could be a wall,
  * a key, a monster, etc.
  */
-function Entity (game, tile, emap) {
+export default function Entity (game, tile, emap) {
   this.game = game
   this.emap = emap
   this.isFlat = false
@@ -100,5 +100,3 @@ extend(Entity.prototype, {
     this.sprite.destroy()
   }
 })
-
-export default Entity

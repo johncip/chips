@@ -5,7 +5,7 @@ import Entity from './entity'
  * Dirt is produced when blocks and water collide. It disappears when Chip
  * collides with it.
  */
-function Dirt (game, tile, emap) {
+export default function Dirt (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
@@ -17,5 +17,3 @@ extend(Dirt.prototype, {
     this.moveHere(player)
   }
 })
-
-export default Dirt

@@ -4,7 +4,7 @@ import Entity from './entity'
 import sfx from '../sfx'
 
 
-function ToggleWall (game, tile, emap) {
+export default function ToggleWall (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
@@ -24,5 +24,3 @@ extend(ToggleWall.prototype, {
     this.changeFrame(this.type + ':' + this.subtype)
   }
 })
-
-export default ToggleWall

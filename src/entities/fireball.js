@@ -4,7 +4,7 @@ import { Dir } from '../constants'
 import Marchable from './marchable'
 
 
-function Fireball (game, tile, emap) {
+export default function Fireball (game, tile, emap) {
   Marchable.call(this, game, tile, emap)
   this.lastDir = clone(Dir.LEFT)
 }
@@ -29,5 +29,3 @@ extend(Fireball.prototype, {
     this.moveForward()
   }
 })
-
-export default Fireball

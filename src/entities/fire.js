@@ -7,7 +7,7 @@ import sfx from '../sfx'
 /*
  * Doors can only be opened when the right key is in the inventory.
  */
-function Fire (game, tile, emap) {
+export default function Fire (game, tile, emap) {
   Floor.call(this, game, tile, emap)
   this.burn = this.sprite.animations.add('burn', [31, 38])
 }
@@ -31,5 +31,3 @@ extend(Fire.prototype, {
 })
 
 Fire.BURN_FPS = 2
-
-export default Fire

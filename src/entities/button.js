@@ -4,7 +4,7 @@ import Entity from './entity'
 import sfx from '../sfx'
 
 
-function Button (game, tile, emap) {
+export default function Button (game, tile, emap) {
   Entity.call(this, game, tile, emap)
   this.target = null
 }
@@ -40,5 +40,3 @@ extend(Button.prototype, {
     this.emap.eachOfType('togglewall', wall => wall.toggle())
   }
 })
-
-export default Button

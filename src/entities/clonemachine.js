@@ -4,7 +4,7 @@ import Entity from './entity'
 import { spriteIndicesByName } from '../constants'
 
 
-function CloneMachine (game, tile, emap) {
+export default function CloneMachine (game, tile, emap) {
   Entity.call(this, game, tile, emap)
   this.template = null // set later by emap
 }
@@ -20,5 +20,3 @@ extend(CloneMachine.prototype, {
     })
   }
 })
-
-export default CloneMachine

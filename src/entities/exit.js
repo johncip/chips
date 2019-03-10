@@ -6,7 +6,7 @@ import sfx from '../sfx'
 /*
  * The exit triggers the win screen and takes the player to the next level.
  */
-function Exit (game, tile, emap) {
+export default function Exit (game, tile, emap) {
   Entity.call(this, game, tile, emap)
   this.emap.exit = this // TODO: don't do these here
   this.pulse = this.sprite.animations.add('pulse', [73, 80])
@@ -27,5 +27,3 @@ extend(Exit.prototype, {
     }
   }
 })
-
-export default Exit

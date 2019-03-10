@@ -1,7 +1,7 @@
 import { extend } from 'lodash'
 import Entity from './entity'
 
-function BlueWall (game, tile, emap) {
+export default function BlueWall (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
@@ -23,5 +23,3 @@ extend(BlueWall.prototype, {
     }
   }
 })
-
-export default BlueWall

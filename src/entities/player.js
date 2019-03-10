@@ -6,7 +6,7 @@ import config from '../config'
 import sfx from '../sfx'
 
 
-function Player (game, tile, emap) {
+export default function Player (game, tile, emap) {
   Marchable.call(this, game, tile, emap)
   this.createCursorKeys()
 
@@ -165,5 +165,3 @@ extend(Player.prototype, {
     game.camera.view.y = cy
   }
 })
-
-export default Player

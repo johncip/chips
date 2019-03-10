@@ -8,7 +8,7 @@ import sfx from '../sfx'
 /*
  * Doors can only be opened when the right key is in the inventory.
  */
-function Door (game, tile, emap) {
+export default function Door (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
@@ -43,5 +43,3 @@ extend(Door.prototype, {
     sfx.open()
   }
 })
-
-export default Door

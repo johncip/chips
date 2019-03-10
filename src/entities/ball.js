@@ -4,7 +4,7 @@ import Marchable from './marchable'
 import { Dir } from '../constants'
 
 
-function Ball (game, tile, emap) {
+export default function Ball (game, tile, emap) {
   Marchable.call(this, game, tile, emap)
   this.lastDir = clone(Dir.RIGHT) // TODO: set based on frame
 }
@@ -39,5 +39,3 @@ extend(Ball.prototype, {
     }
   }
 })
-
-export default Ball

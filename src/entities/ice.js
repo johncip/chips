@@ -10,7 +10,7 @@ const { UP, DOWN, LEFT, RIGHT } = Dir
 /*
  * Ice makes chip slide unless he has the skates.
  */
-function Ice (game, tile, emap) {
+export default function Ice (game, tile, emap) {
   Floor.call(this, game, tile, emap)
 }
 
@@ -78,5 +78,3 @@ extend(Ice.prototype, {
     }
   }
 })
-
-export default Ice

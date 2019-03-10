@@ -8,7 +8,7 @@ import sfx from '../sfx'
  * Water kills Chip unless he has the right footgear.
  * When dirt collides with water, they make mud.
  */
-function Water (game, tile, emap) {
+export default function Water (game, tile, emap) {
   Floor.call(this, game, tile, emap)
   this.isFlat = true
 }
@@ -49,5 +49,3 @@ extend(Water.prototype, {
     player.triggerLose()
   }
 })
-
-export default Water

@@ -9,7 +9,7 @@ import sfx from '../sfx'
  * The socket is a special door which can only be opened by collecting
  * all of the chips.
  */
-function Socket (game, tile, emap) {
+export default function Socket (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
@@ -30,5 +30,3 @@ extend(Socket.prototype, {
     this.moveHere(player)
   }
 })
-
-export default Socket

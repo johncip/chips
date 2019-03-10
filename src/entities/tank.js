@@ -5,7 +5,7 @@ import Marchable from './marchable'
 import { Dir } from '../constants'
 
 
-function Tank (game, tile, emap) {
+export default function Tank (game, tile, emap) {
   Marchable.call(this, game, tile, emap)
 
   this.marchDir = clone(Dir.UP)
@@ -37,5 +37,3 @@ extend(Tank.prototype, {
     this.move(dx, dy)
   }
 })
-
-export default Tank

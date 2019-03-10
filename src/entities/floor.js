@@ -7,9 +7,9 @@ import Entity from './entity'
 /*
  * Mixin for floor types (fire, water, ice, force floor).
  *
- * Expects the presence of an this.noShoes function.
+ * Expects the presence of an this.noShoes export default function.
  */
-function Floor (game, tile, emap) {
+export default function Floor (game, tile, emap) {
   Entity.call(this, game, tile, emap)
 }
 
@@ -34,5 +34,3 @@ extend(Floor.prototype, {
 
   noShoes: function (player) {}
 })
-
-export default Floor

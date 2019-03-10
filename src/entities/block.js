@@ -7,7 +7,7 @@ import sfx from '../sfx'
 /*
  * Blocks can be pushed. They become dirt after colliding with water.
  */
-function Block (game, tile, emap) {
+export default function Block (game, tile, emap) {
   Movable.call(this, game, tile, emap)
 }
 
@@ -48,5 +48,3 @@ extend(Block.prototype, {
     return resident === undefined || resident.isFlat
   }
 })
-
-export default Block

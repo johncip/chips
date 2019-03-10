@@ -9,7 +9,7 @@ import { Dir } from '../constants'
  * Marchable entities can be moved one tile according to their AI on a
  * specific time increment.
  */
-function Marchable (game, tile, emap) {
+export default function Marchable (game, tile, emap) {
   Movable.call(this, game, tile, emap)
   this.timeSinceTick = 0
   this.marchDelay = config.moveDelay
@@ -70,5 +70,3 @@ extend(Marchable.prototype, {
     this.move(this.lastDir[0], this.lastDir[1])
   }
 })
-
-export default Marchable
