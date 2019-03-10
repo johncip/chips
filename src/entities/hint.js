@@ -1,4 +1,3 @@
-import { extend } from 'lodash'
 import Entity from './entity'
 
 /*

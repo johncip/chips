@@ -1,4 +1,3 @@
-import { extend } from 'lodash'
 import config from '../config'
 import Entity from './entity'
 import sfx from '../sfx'

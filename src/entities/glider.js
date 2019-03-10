@@ -1,5 +1,3 @@
-import { extend } from 'lodash'
-
 import { Dir } from '../constants'
 import Marchable from './marchable'
 
@@ -31,11 +29,9 @@ export default class Glider extends Marchable {
   }
 }
 
-extend(Glider.prototype, {
-  frames: {
-    '0,-1': 5,
-    '-1,0': 12,
-    '0,1': 19,
-    '1,0': 26
-  }
-})
+Glider.prototype.frames = {
+  '0,-1': 5,
+  '-1,0': 12,
+  '0,1': 19,
+  '1,0': 26
+}

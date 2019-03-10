@@ -1,5 +1,3 @@
-import { extend } from 'lodash'
-
 import Entity from './entity'
 import config from '../config'
 import sfx from '../sfx'
@@ -10,10 +8,6 @@ import sfx from '../sfx'
  * all of the chips.
  */
 export default class Socket extends Entity {
-  constructor (game, tile, emap) {
-    super(game, tile, emap)
-  }
-
   collideWith (player) {
     if (player.hasAllChips() || config.debug) {
       this.openUp(player)

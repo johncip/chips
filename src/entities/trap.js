@@ -1,12 +1,6 @@
-import { extend } from 'lodash'
 import Entity from './entity'
 
-
 export default class Trap extends Entity {
-  constructor (game, tile, emap) {
-    super(game, tile, emap)
-  }
-
   collideWith (target) {
     this.moveHere(target)
 

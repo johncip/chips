@@ -1,10 +1,16 @@
-import { includes, extend } from 'lodash'
+import { includes } from 'lodash'
 
 import Marchable from './marchable'
 import Inventory from '../inventory'
 import config from '../config'
 import sfx from '../sfx'
 
+const FRAMES = {
+  '0,-1': 90,
+  '-1,0': 97,
+  '0,1': 104,
+  '1,0': 111
+}
 
 export default class Player extends Marchable {
   constructor (game, tile, emap) {
@@ -27,7 +33,7 @@ export default class Player extends Marchable {
   }
 
   move (dx, dy) {
-    this.frames = Player.FRAMES
+    this.frames = FRAMES
     this.game.hintPanel.hide()
     this.frozen = false
     Marchable.prototype.move.call(this, dx, dy)
@@ -136,13 +142,9 @@ export default class Player extends Marchable {
     let cx = this.sprite.x - 4 * config.tsize
     let cy = this.sprite.y - 4 * config.tsize
 
-    if (cx < 0) {
-      cx = 0
-    }
+    if (cx < 0) { cx = 0 }
 
-    if (cy < 0) {
-      cy = 0
-    }
+    if (cy < 0) { cy = 0 }
 
     if (cx > game.world.width - 9 * config.tsize) {
       cx = game.world.width - 9 * config.tsize
@@ -155,11 +157,4 @@ export default class Player extends Marchable {
     game.camera.view.x = cx
     game.camera.view.y = cy
   }
-}
-
-Player.FRAMES = {
-  '0,-1': 90,
-  '-1,0': 97,
-  '0,1': 104,
-  '1,0': 111
 }

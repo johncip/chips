@@ -1,5 +1,3 @@
-import { extend } from 'lodash'
-
 import Floor from './floor'
 import sfx from '../sfx'
 

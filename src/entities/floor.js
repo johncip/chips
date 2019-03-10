@@ -1,8 +1,5 @@
-import { extend } from 'lodash'
-
 import config from '../config'
 import Entity from './entity'
-
 
 /*
  * Mixin for floor types (fire, water, ice, force floor).
@@ -10,10 +7,6 @@ import Entity from './entity'
  * Expects the presence of an this.noShoes export default function.
  */
 export default class Floor extends Entity {
-  constructor (game, tile, emap) {
-    super(game, tile, emap)
-  }
-
   collideWith (target) {
     if (target.type === 'chip') {
       this.moveHere(target)

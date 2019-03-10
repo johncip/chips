@@ -1,8 +1,5 @@
-import { extend } from 'lodash'
-
 import Floor from './floor'
 import sfx from '../sfx'
-
 
 /*
  * Water kills Chip unless he has the right footgear.

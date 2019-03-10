@@ -1,5 +1,3 @@
-import { extend } from 'lodash'
-
 import { Dir } from '../constants'
 import Floor from './floor'
 import sfx from '../sfx'
@@ -11,10 +9,6 @@ const { UP, DOWN, LEFT, RIGHT } = Dir
  * Ice makes chip slide unless he has the skates.
  */
 export default class Ice extends Floor {
-  constructor (game, tile, emap) {
-    super(game, tile, emap)
-  }
-
   noShoes (player) {
     const floor = player.entityBelow().spriteKey
 

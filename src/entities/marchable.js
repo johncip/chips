@@ -1,4 +1,4 @@
-import { extend, findIndex } from 'lodash'
+import { findIndex } from 'lodash'
 
 import Movable from './movable'
 import config from '../config'
