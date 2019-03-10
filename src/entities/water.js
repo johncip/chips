@@ -8,19 +8,13 @@ import sfx from '../sfx'
  * Water kills Chip unless he has the right footgear.
  * When dirt collides with water, they make mud.
  */
-export default function Water (game, tile, emap) {
-  Floor.call(this, game, tile, emap)
-  this.isFlat = true
-}
+export default class Water extends Floor {
+  constructor (game, tile, emap) {
+    super(game, tile, emap)
+    this.isFlat = true
+  }
 
-extend(Water.prototype, Floor.prototype)
-
-extend(Water.prototype, {
-  /*
-   * On collide with player, player loses.
-   * On collide with block, dirt gets made.
-   */
-  collideWith: function (target) {
+  collideWith (target) {
     if (target.type === 'chip') {
       Floor.prototype.collideWith.call(this, target)
 
@@ -36,16 +30,16 @@ extend(Water.prototype, {
     } else if (target.type === 'block') {
       this.makeDirt(target)
     }
-  },
+  }
 
-  makeDirt: function (target) {
+  makeDirt (target) {
     target.retire()
     this.replaceWith('dirt')
-  },
+  }
 
-  noShoes: function (player) {
+  noShoes (player) {
     sfx.splash()
     this.changeFrame('splash')
     player.triggerLose()
   }
-})
+}

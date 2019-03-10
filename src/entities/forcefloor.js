@@ -7,14 +7,12 @@ import Floor from './floor'
 /*
  * Force floors push Chip unless he has the suction boots.
  */
-export default function ForceFloor (game, tile, emap) {
-  Floor.call(this, game, tile, emap)
-}
+export default class ForceFloor extends Floor {
+  constructor (game, tile, emap) {
+    super(game, tile, emap)
+  }
 
-extend(ForceFloor.prototype, Floor.prototype)
-
-extend(ForceFloor.prototype, {
-  noShoes: function (player) {
+  noShoes (player) {
     switch (this.subtype) {
       case 'left':
         player.marchDir = Dir.LEFT
@@ -33,4 +31,4 @@ extend(ForceFloor.prototype, {
         break
     }
   }
-})
+}

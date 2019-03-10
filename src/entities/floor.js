@@ -9,14 +9,12 @@ import Entity from './entity'
  *
  * Expects the presence of an this.noShoes export default function.
  */
-export default function Floor (game, tile, emap) {
-  Entity.call(this, game, tile, emap)
-}
+export default class Floor extends Entity {
+  constructor (game, tile, emap) {
+    super(game, tile, emap)
+  }
 
-extend(Floor.prototype, Entity.prototype)
-
-extend(Floor.prototype, {
-  collideWith: function (target) {
+  collideWith (target) {
     if (target.type === 'chip') {
       this.moveHere(target)
 
@@ -24,13 +22,13 @@ extend(Floor.prototype, {
         this.noShoes(target)
       }
     }
-  },
+  }
 
-  hasShoes: function (player) {
+  hasShoes (player) {
     // TODO: move this to the player
     const shoe = 'shoe:' + this.type
     return player.inventory.contains(shoe)
-  },
+  }
 
-  noShoes: function (player) {}
-})
+  noShoes (player) {}
+}

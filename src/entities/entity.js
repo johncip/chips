@@ -1,52 +1,49 @@
 import { Easing } from 'phaser'
-import { extend } from 'lodash'
-
 import config from '../config'
 import { spriteNamesByIndex, spriteIndicesByName } from '../constants'
-
 
 /*
  * A game Entity is an item on the tile map -- it could be a wall,
  * a key, a monster, etc.
  */
-export default function Entity (game, tile, emap) {
-  this.game = game
-  this.emap = emap
-  this.isFlat = false
-  this.x = tile.x
-  this.y = tile.y
+export default class Entity {
+  constructor (game, tile, emap) {
+    this.game = game
+    this.emap = emap
+    this.isFlat = false
+    this.x = tile.x
+    this.y = tile.y
 
-  this.spriteKey = spriteNamesByIndex[tile.index - 1]
+    this.spriteKey = spriteNamesByIndex[tile.index - 1]
 
-  const parts = this.spriteKey.split(':')
-  this.type = parts[0]
-  this.subtype = parts[1]
+    const parts = this.spriteKey.split(':')
+    this.type = parts[0]
+    this.subtype = parts[1]
 
-  this.sprite = this.emap.group.create(
-    tile.x * config.tsize,
-    tile.y * config.tsize,
-    'sprites',
-    tile.index - 1
-  )
-}
+    this.sprite = this.emap.group.create(
+      tile.x * config.tsize,
+      tile.y * config.tsize,
+      'sprites',
+      tile.index - 1
+    )
+  }
 
-extend(Entity.prototype, {
-  retire: function () {
+  retire () {
     this.sprite.exists = false
-  },
+  }
 
-  update: function () {
-  },
+  update () {
+  }
 
-  reset: function () {
+  reset () {
     this.timeSinceTick = 0
-  },
+  }
 
-  exists: function () {
+  exists () {
     return this.sprite.exists
-  },
+  }
 
-  replaceWith: function (type, isUpper) {
+  replaceWith (type, isUpper) {
     const tile = {
       x: this.x,
       y: this.y,
@@ -56,29 +53,29 @@ extend(Entity.prototype, {
 
     this.retire()
     return this.emap[createFunc](tile)
-  },
+  }
 
-  changeFrame: function (frame) {
+  changeFrame (frame) {
     if (isNaN(frame)) {
       this.sprite.frame = spriteIndicesByName[frame]
     } else {
       this.sprite.frame = frame
     }
-  },
+  }
 
-  entityAbove: function () {
+  entityAbove () {
     return this.emap.getUpper(this.x, this.y)
-  },
+  }
 
-  entityBelow: function () {
+  entityBelow () {
     return this.emap.getLower(this.x, this.y)
-  },
+  }
 
-  moveHere: function (entity) {
+  moveHere (entity) {
     this.emap.moveEntityAbs(entity, this.x, this.y)
-  },
+  }
 
-  spriteTo: function (tileX, tileY) {
+  spriteTo (tileX, tileY) {
     const x = tileX * config.tsize
     const y = tileY * config.tsize
 
@@ -94,9 +91,9 @@ extend(Entity.prototype, {
       this.sprite.x = x
       this.sprite.y = y
     }
-  },
+  }
 
-  destroy: function () {
+  destroy () {
     this.sprite.destroy()
   }
-})
+}

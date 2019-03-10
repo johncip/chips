@@ -2,17 +2,15 @@ import { extend, isEqual } from 'lodash'
 import Entity from './entity'
 
 
-export default function Movable (game, tile, emap) {
-  Entity.call(this, game, tile, emap)
-  // TODO: get movement dir
-  this.lastDir = [0, 0]
-  this.frozen = false
-}
+export default class Movable extends Entity {
+  constructor (game, tile, emap) {
+    super(game, tile, emap)
+    // TODO: get movement dir
+    this.lastDir = [0, 0]
+    this.frozen = false
+  }
 
-extend(Movable.prototype, Entity.prototype)
-
-extend(Movable.prototype, {
-  move: function (dx, dy) {
+  move (dx, dy) {
     // TODO: this should be a list of valid moves
     if (this.frozen) {
       return
@@ -29,18 +27,18 @@ extend(Movable.prototype, {
     }
 
     this.emap.resetTraps()
-  },
+  }
 
-  changeFrameDir: function (dir) {
+  changeFrameDir (dir) {
     this.sprite.frame = this.frames[dir.toString()]
-  },
+  }
 
-  retire: function () {
+  retire () {
     this.frozen = true
     Entity.prototype.retire.call(this)
-  },
+  }
 
-  isFacing: function (dir) {
+  isFacing (dir) {
     return isEqual(this.lastDir, dir)
   }
-})
+}

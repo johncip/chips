@@ -1,18 +1,14 @@
-import { clone, extend } from 'lodash'
-
 import Entity from './entity'
 import sfx from '../sfx'
 
 
-export default function Button (game, tile, emap) {
-  Entity.call(this, game, tile, emap)
-  this.target = null
-}
+export default class Button extends Entity {
+  constructor (game, tile, emap) {
+    super(game, tile, emap)
+    this.target = null
+  }
 
-extend(Button.prototype, Entity.prototype)
-
-extend(Button.prototype, {
-  collideWith: function (target) {
+  collideWith (target) {
     sfx.press()
     this.moveHere(target)
 
@@ -26,17 +22,17 @@ extend(Button.prototype, {
       case 'red':
         return this.target.clone()
     }
-  },
+  }
 
-  moveTanks: function () {
+  moveTanks () {
     this.emap.eachOfType('tank', tank => {
-      tank.marchDir = clone(tank.marchDir)
+      tank.marchDir = [...tank.marchDir]
       tank.marchDir[0] *= -1
       tank.marchDir[1] *= -1
     })
-  },
+  }
 
-  toggleTheWalls: function () {
+  toggleTheWalls () {
     this.emap.eachOfType('togglewall', wall => wall.toggle())
   }
-})
+}

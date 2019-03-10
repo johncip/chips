@@ -4,14 +4,12 @@ import Entity from './entity'
 import sfx from '../sfx'
 
 
-export default function Wall (game, tile, emap) {
-  Entity.call(this, game, tile, emap)
-}
+export default class Wall extends Entity {
+  constructor (game, tile, emap) {
+    super(game, tile, emap)
+  }
 
-extend(Wall.prototype, Entity.prototype)
-
-extend(Wall.prototype, {
-  collideWith: function (target) {
+  collideWith (target) {
     if (target.type === 'chip') {
       switch (this.subtype) {
         case 'basic':
@@ -27,4 +25,4 @@ extend(Wall.prototype, {
       }
     }
   }
-})
+}

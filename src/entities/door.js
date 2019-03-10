@@ -1,5 +1,3 @@
-import { extend } from 'lodash'
-
 import Entity from './entity'
 import config from '../config'
 import sfx from '../sfx'
@@ -8,17 +6,8 @@ import sfx from '../sfx'
 /*
  * Doors can only be opened when the right key is in the inventory.
  */
-export default function Door (game, tile, emap) {
-  Entity.call(this, game, tile, emap)
-}
-
-extend(Door.prototype, Entity.prototype)
-
-extend(Door.prototype, {
-  /*
-   * On collide, doors check if Chip has the right key.
-   */
-  collideWith: function (player) {
+export default class Door extends Entity {
+  collideWith (player) {
     const inventory = player.inventory
     const key = 'key:' + this.subtype
 
@@ -28,12 +17,9 @@ extend(Door.prototype, {
     } else {
       sfx.bump()
     }
-  },
+  }
 
-  /*
-   * Opens the door and removes non-green keys from inventory.
-   */
-  useKey: function (key, inventory) {
+  useKey (key, inventory) {
     this.retire()
 
     if (key !== 'key:green') {
@@ -42,4 +28,4 @@ extend(Door.prototype, {
 
     sfx.open()
   }
-})
+}

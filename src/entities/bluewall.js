@@ -1,14 +1,10 @@
-import { extend } from 'lodash'
 import Entity from './entity'
 
-export default function BlueWall (game, tile, emap) {
-  Entity.call(this, game, tile, emap)
-}
-
-extend(BlueWall.prototype, Entity.prototype)
-
-extend(BlueWall.prototype, {
-  collideWith: function (target) {
+/*
+ * Blue walls turn into either floor wall tiles when Chip pushes them.
+ */
+export default class BlueWall extends Entity {
+  collideWith (target) {
     if (target.type === 'chip') {
       switch (this.subtype) {
         case 'fake':
@@ -22,4 +18,4 @@ extend(BlueWall.prototype, {
       }
     }
   }
-})
+}

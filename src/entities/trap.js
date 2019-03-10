@@ -2,22 +2,20 @@ import { extend } from 'lodash'
 import Entity from './entity'
 
 
-export default function Trap (game, tile, emap) {
-  Entity.call(this, game, tile, emap)
-}
+export default class Trap extends Entity {
+  constructor (game, tile, emap) {
+    super(game, tile, emap)
+  }
 
-extend(Trap.prototype, Entity.prototype)
-
-extend(Trap.prototype, {
-  collideWith: function (target) {
+  collideWith (target) {
     this.moveHere(target)
 
     if (this.subtype === 'closed') {
       target.frozen = true
     }
-  },
+  }
 
-  open: function () {
+  open () {
     this.subtype = 'open'
     this.spriteKey = 'trap:open'
     this.changeFrame(this.spriteKey)
@@ -27,9 +25,9 @@ extend(Trap.prototype, {
     if (above) {
       above.frozen = false
     }
-  },
+  }
 
-  close: function () {
+  close () {
     this.subtype = 'closed'
     this.spriteKey = 'trap:closed'
     this.changeFrame(this.spriteKey)
@@ -39,4 +37,4 @@ extend(Trap.prototype, {
       above.frozen = true
     }
   }
-})
+}

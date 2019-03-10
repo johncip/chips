@@ -10,14 +10,12 @@ const { UP, DOWN, LEFT, RIGHT } = Dir
 /*
  * Ice makes chip slide unless he has the skates.
  */
-export default function Ice (game, tile, emap) {
-  Floor.call(this, game, tile, emap)
-}
+export default class Ice extends Floor {
+  constructor (game, tile, emap) {
+    super(game, tile, emap)
+  }
 
-extend(Ice.prototype, Floor.prototype)
-
-extend(Ice.prototype, {
-  noShoes: function (player) {
+  noShoes (player) {
     const floor = player.entityBelow().spriteKey
 
     player.marchDelay = 75
@@ -44,37 +42,37 @@ extend(Ice.prototype, {
         player.sliding = false
         sfx.bump()
     }
-  },
+  }
 
-  cornerSE: function (player) {
+  cornerSE (player) {
     if (player.isFacing(RIGHT)) {
       player.marchDir = UP
     } else if (player.isFacing(DOWN)) {
       player.marchDir = LEFT
     }
-  },
+  }
 
-  cornerSW: function (player) {
+  cornerSW (player) {
     if (player.isFacing(LEFT)) {
       player.marchDir = UP
     } else if (player.isFacing(DOWN)) {
       player.marchDir = RIGHT
     }
-  },
+  }
 
-  cornerNW: function (player) {
+  cornerNW (player) {
     if (player.isFacing(UP)) {
       player.marchDir = RIGHT
     } else if (player.isFacing(LEFT)) {
       player.marchDir = DOWN
     }
-  },
+  }
 
-  cornerNE: function (player) {
+  cornerNE (player) {
     if (player.isFacing(RIGHT)) {
       player.marchDir = DOWN
     } else if (player.isFacing(UP)) {
       player.marchDir = LEFT
     }
   }
-})
+}

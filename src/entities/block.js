@@ -1,30 +1,11 @@
-import { extend } from 'lodash'
-
 import Movable from './movable'
 import sfx from '../sfx'
 
-
 /*
- * Blocks can be pushed. They become dirt after colliding with water.
+ * Blocks can be pushed by Chip. They become dirt after colliding with water.
  */
-export default function Block (game, tile, emap) {
-  Movable.call(this, game, tile, emap)
-}
-
-extend(Block.prototype, Movable.prototype)
-
-extend(Block.prototype, {
-  frames: {
-    '0,-1': 1,
-    '-1,0': 1,
-    '0,1': 1,
-    '1,0': 1
-  },
-
-  /*
-   * Blocks gets pushed on collide, depending on neighbors.
-   */
-  collideWith: function (target) {
+export default class Block extends Movable {
+  collideWith (target) {
     if (target.type === 'chip') {
       const dir = target.lastDir
       const dx = dir[0]
@@ -37,14 +18,17 @@ extend(Block.prototype, {
         sfx.bump()
       }
     }
-  },
+  }
 
-  /*
-   * Blocks are only pushable if there's nothing in the way, or something
-   * "flat" in the way.
-   */
-  isPushable: function (dx, dy) {
+  isPushable (dx, dy) {
     const resident = this.emap.get(this.x + dx, this.y + dy)
     return resident === undefined || resident.isFlat
   }
-})
+}
+
+Block.prototype.frames = {
+  '0,-1': 1,
+  '-1,0': 1,
+  '0,1': 1,
+  '1,0': 1
+}

@@ -1,17 +1,12 @@
-import { extend } from 'lodash'
-
 import Entity from './entity'
 import sfx from '../sfx'
 
 
-export default function Bomb (game, tile, emap) {
-  Entity.call(this, game, tile, emap)
-}
-
-extend(Bomb.prototype, Entity.prototype)
-
-extend(Bomb.prototype, {
-  collideWith: function (target) {
+/**
+ * Bombs destroy anything that collide with them.
+ */
+export default class Bomb extends Entity {
+  collideWith (target) {
     if (target.type === 'chip') {
       sfx.explode()
       target.triggerLose()
@@ -20,4 +15,4 @@ extend(Bomb.prototype, {
       this.retire()
     }
   }
-})
+}

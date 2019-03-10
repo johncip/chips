@@ -6,36 +6,27 @@ import config from '../config'
 import sfx from '../sfx'
 
 
-export default function Player (game, tile, emap) {
-  Marchable.call(this, game, tile, emap)
-  this.createCursorKeys()
+export default class Player extends Marchable {
+  constructor (game, tile, emap) {
+    super(game, tile, emap)
+    this.createCursorKeys()
 
-  this.inventory = new Inventory(this.game)
-  this.marchDelay = config.floorDelay
+    this.inventory = new Inventory(this.game)
+    this.marchDelay = config.floorDelay
 
-  // exports
-  emap.player = this
-}
+    // exports
+    emap.player = this
+  }
 
-Player.FRAMES = {
-  '0,-1': 90,
-  '-1,0': 97,
-  '0,1': 104,
-  '1,0': 111
-}
-
-extend(Player.prototype, Marchable.prototype)
-
-extend(Player.prototype, {
-  march: function () {
+  march () {
     if (this.sliding) {
       const dx = this.marchDir[0]
       const dy = this.marchDir[1]
       this.move(dx, dy)
     }
-  },
+  }
 
-  move: function (dx, dy) {
+  move (dx, dy) {
     this.frames = Player.FRAMES
     this.game.hintPanel.hide()
     this.frozen = false
@@ -43,9 +34,9 @@ extend(Player.prototype, {
 
     // TODO: this might apply to all movables
     this.sliding = this.shouldSlide()
-  },
+  }
 
-  shouldSlide: function () {
+  shouldSlide () {
     const floor = this.entityBelow()
     if (!floor) {
       return false
@@ -53,59 +44,59 @@ extend(Player.prototype, {
 
     const slippery = floor.type === 'ice' || floor.type === 'force'
     return slippery && !floor.hasShoes(this)
-  },
+  }
 
-  hasAllChips: function () {
+  hasAllChips () {
     return this.inventory.count('ic') === this.emap.chipsNeeded
-  },
+  }
 
-  collideWith: function (target) {
+  collideWith (target) {
     const monsters = ['bug', 'fireball', 'ball', 'glider', 'tank']
 
     if (includes(monsters, target.type)) {
       sfx.lose()
       this.triggerLose()
     }
-  },
+  }
 
-  destroy: function () {
+  destroy () {
     Marchable.prototype.destroy.call(this)
     this.inventory.destroy()
-  },
+  }
 
-  update: function () {
+  update () {
     Marchable.prototype.update.call(this)
     this.updatePosition()
     this.updateCamera()
-  },
+  }
 
-  triggerWin: function () {
+  triggerWin () {
     this.retire()
     const state = this.game.state.getCurrentState()
     state.win(null, 1500)
-  },
+  }
 
-  triggerLose: function () {
+  triggerLose () {
     this.retire()
     const state = this.game.state.getCurrentState()
     state.lose('Oops!', 1500)
-  },
+  }
 
-  createCursorKeys: function () {
+  createCursorKeys () {
     const keyboard = this.game.input.keyboard
 
     this.cursors = keyboard.createCursorKeys()
     keyboard.onUpCallback = () => this.enableMove()
 
     this.enableMove()
-  },
+  }
 
-  enableMove: function () {
+  enableMove () {
     this.moveSafe = true
     this.lastMove = this.game.time.now
-  },
+  }
 
-  updatePosition: function () {
+  updatePosition () {
     this.updateThrottle()
 
     if (!this.exists() || !this.moveSafe || this.frozen) {
@@ -128,18 +119,18 @@ extend(Player.prototype, {
       this.move(1, 0)
       this.moveSafe = false
     }
-  },
+  }
 
-  updateThrottle: function () {
+  updateThrottle () {
     const now = this.game.time.now
     const waited = (now - this.lastMove) > config.moveDelay
 
     if (waited) {
       this.enableMove()
     }
-  },
+  }
 
-  updateCamera: function () {
+  updateCamera () {
     const game = this.game
 
     let cx = this.sprite.x - 4 * config.tsize
@@ -164,4 +155,11 @@ extend(Player.prototype, {
     game.camera.view.x = cx
     game.camera.view.y = cy
   }
-})
+}
+
+Player.FRAMES = {
+  '0,-1': 90,
+  '-1,0': 97,
+  '0,1': 104,
+  '1,0': 111
+}

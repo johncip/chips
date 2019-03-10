@@ -9,24 +9,22 @@ import sfx from '../sfx'
  * The socket is a special door which can only be opened by collecting
  * all of the chips.
  */
-export default function Socket (game, tile, emap) {
-  Entity.call(this, game, tile, emap)
-}
+export default class Socket extends Entity {
+  constructor (game, tile, emap) {
+    super(game, tile, emap)
+  }
 
-extend(Socket.prototype, Entity.prototype)
-
-extend(Socket.prototype, {
-  collideWith: function (player) {
+  collideWith (player) {
     if (player.hasAllChips() || config.debug) {
       this.openUp(player)
     } else {
       sfx.bump()
     }
-  },
+  }
 
-  openUp: function (player) {
+  openUp (player) {
     this.retire()
     sfx.open()
     this.moveHere(player)
   }
-})
+}
