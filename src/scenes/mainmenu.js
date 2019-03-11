@@ -1,7 +1,9 @@
+import Phaser from 'phaser'
+
 /*
  * The attract screen and main menu.
  */
-export default class MainMenu {
+export default class MainMenu extends Phaser.Scene {
   init (score) {
     this.startTime = this.time.now
   }

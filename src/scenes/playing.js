@@ -8,7 +8,11 @@ import DisplayPanel from '../displaypanel'
 import Modal from '../modal'
 import Level from '../level'
 
-class Playing {
+export default class Playing extends Phaser.Scene {
+  constructor () {
+    super('Playing')
+  }
+
   init () {
     this.game.onBlur.add(this.pause, this)
     this.game.renderer.resize(14 * config.tsize, 9 * config.tsize)
@@ -160,5 +164,3 @@ class Playing {
 }
 
 Playing.prototype.updateTimeLeft = throttle(Playing.prototype.countDown, 1000)
-
-export default Playing

@@ -1,15 +1,19 @@
-import Phaser from 'phaser' // eslint-disable-line import/no-extraneous-dependencies
+import Phaser from 'phaser'
 import { each } from 'lodash'
 
 import config from '../config'
 import images from '../images'
 import tilemaps from '../tilemaps'
 
-export default class Preload {
-  preload () {
-    const { tsize } = config
+export default class Preload extends Phaser.Scene {
+  constructor () {
+    super('Preload')
+  }
 
-    this.game.stage.backgroundColor = config.bgColor
+  preload () {
+    const { tsize, bgColor } = config
+
+    this.game.stage.backgroundColor = bgColor
 
     each(images, (fname, key) => this.load.image(key, fname))
     each(tilemaps, (val, key) => {
@@ -20,6 +24,6 @@ export default class Preload {
   }
 
   create () {
-    this.state.start(config.startState)
+    this.scene.start(config.startState)
   }
 }
