@@ -21,6 +21,8 @@ export default class Button extends Entity {
         return this.target.open()
       case 'red':
         return this.target.clone()
+      default:
+        throw new Error('missing button type')
     }
   }
 

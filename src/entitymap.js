@@ -89,11 +89,11 @@ export default class EntityMap {
   getChipsNeeded (properties) {
     if (properties.chipsNeeded) {
       return parseInt(properties.chipsNeeded)
-    } else {
-      let total = 0
-      this.eachOfType('ic', player => { total++ })
-      return total
     }
+
+    let total = 0
+    this.eachOfType('ic', player => { total++ })
+    return total
   }
 
   get (x, y) {
@@ -168,8 +168,8 @@ export default class EntityMap {
   }
 
   eachOfType (type, fn) {
-    each(filter(this._lower, { type: type }), ent => fn(ent))
-    each(filter(this._upper, { type: type }), ent => fn(ent))
+    each(filter(this._lower, { type }), ent => fn(ent))
+    each(filter(this._upper, { type }), ent => fn(ent))
   }
 
   resetTraps () {

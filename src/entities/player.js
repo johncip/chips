@@ -127,8 +127,8 @@ export default class Player extends Marchable {
   }
 
   updateThrottle () {
-    const waited = (now - this.lastMove) > config.moveDelay
     const { now } = this.game.time
+    const waited = now - this.lastMove > config.moveDelay
 
     if (waited) {
       this.enableMove()

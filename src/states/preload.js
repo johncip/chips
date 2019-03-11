@@ -1,6 +1,4 @@
-import PIXI from 'pixi' // eslint-disable-line no-unused-vars
-import p2 from 'p2' // eslint-disable-line no-unused-vars
-import Phaser from 'phaser'
+import Phaser from 'phaser' // eslint-disable-line import/no-extraneous-dependencies
 import { each } from 'lodash'
 
 import config from '../config'
