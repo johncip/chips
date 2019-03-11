@@ -14,9 +14,9 @@ export default class Modal {
     this.mainText = createText(game, bounds, mainTextStyle(width, style))
 
     const bg = createBg(this.group, bounds)
-    createSubtext(game, bounds, subtextStyle(width, style))
+    const subtext_ = createSubtext(game, subtext, bounds, subtextStyle(width, style))
 
-    each([bg, this.mainText], x => this.group.add(x))
+    each([bg, this.mainText, subtext_], x => this.group.add(x))
     this.group.fixedToCamera = true
 
     this.hide()
