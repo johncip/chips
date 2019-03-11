@@ -38,7 +38,8 @@
     "style-loader": "^0.23.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.2.1"
+    "webpack-dev-server": "^3.2.1",
+    "xo": "^0.24.0"
   },
   "dependencies": {
     "jsxm": "^1.0.1",
@@ -46,5 +47,15 @@
     "loov-jsfx": "^1.2.0",
     "phaser-ce": "^2.12.0",
     "sprintf": "^0.1.5"
+  },
+  "xo": {
+    "space": true,
+    "semicolon": false,
+    "extends": "standard",
+    "rules": {
+      "no-multiple-empty-lines": 0,
+      "capitalized-comments": 0,
+      "no-warning-comments": 0
+    }
   }
 }
