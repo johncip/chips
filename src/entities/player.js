@@ -1,9 +1,8 @@
 import { includes } from 'lodash'
-
-import Marchable from './marchable'
 import Inventory from '../inventory'
 import config from '../config'
 import sfx from '../sfx'
+import Marchable from './marchable'
 
 const FRAMES = {
   '0,-1': 90,
@@ -89,7 +88,7 @@ export default class Player extends Marchable {
   }
 
   createCursorKeys () {
-    const keyboard = this.game.input.keyboard
+    const { keyboard } = this.game.input
 
     this.cursors = keyboard.createCursorKeys()
     keyboard.onUpCallback = () => this.enableMove()
@@ -128,8 +127,8 @@ export default class Player extends Marchable {
   }
 
   updateThrottle () {
-    const now = this.game.time.now
-    const waited = (now - this.lastMove) > config.moveDelay
+    const { now } = this.game.time
+    const waited = now - this.lastMove > config.moveDelay
 
     if (waited) {
       this.enableMove()
@@ -137,24 +136,32 @@ export default class Player extends Marchable {
   }
 
   updateCamera () {
-    const game = this.game
+    const {
+      game: { world, camera },
+      sprite
+    } = this
+    const { tsize } = config
 
-    let cx = this.sprite.x - 4 * config.tsize
-    let cy = this.sprite.y - 4 * config.tsize
+    let cx = sprite.x - 4 * tsize
+    let cy = sprite.y - 4 * tsize
 
-    if (cx < 0) { cx = 0 }
-
-    if (cy < 0) { cy = 0 }
-
-    if (cx > game.world.width - 9 * config.tsize) {
-      cx = game.world.width - 9 * config.tsize
+    if (cx < 0) {
+      cx = 0
     }
 
-    if (cy > game.world.height - 9 * config.tsize) {
-      cy = game.world.height - 9 * config.tsize
+    if (cy < 0) {
+      cy = 0
     }
 
-    game.camera.view.x = cx
-    game.camera.view.y = cy
+    if (cx > world.width - 9 * tsize) {
+      cx = world.width - 9 * tsize
+    }
+
+    if (cy > world.height - 9 * tsize) {
+      cy = world.height - 9 * tsize
+    }
+
+    camera.view.x = cx
+    camera.view.y = cy
   }
 }

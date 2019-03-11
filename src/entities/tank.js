@@ -1,6 +1,5 @@
-import Marchable from './marchable'
 import { Dir } from '../constants'
-
+import Marchable from './marchable'
 
 export default class Tank extends Marchable {
   constructor (game, tile, entityMap) {

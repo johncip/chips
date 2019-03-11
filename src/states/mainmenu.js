@@ -7,7 +7,7 @@ export default class MainMenu {
   }
 
   create () {
-    const width = this.game.cache.getImage('boxart').width
+    const { width } = this.game.cache.getImage('boxart')
     const left = (this.game.width - width) / 2
     this.boxart = this.add.image(left, 0, 'boxart')
     this.createStartText()

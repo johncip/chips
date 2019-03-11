@@ -1,9 +1,10 @@
 import config from './config'
 import kamel from 'Assets/music/my_dirty_old_kamel.xm'
+
 require('jsxm/xmeffects.js')
 require('jsxm/xm.js')
 
-const { XMPlayer } = window
+const { XMPlayer, fetch } = window
 
 function trapLogging (fn) {
   const old = console.log
@@ -21,7 +22,6 @@ fetch(kamel)
     })
   })
 
-
-window.onclick = () => {
+window.addEventListener('click', () => {
   if (config.enableMusic) XMPlayer.play()
-}
+})

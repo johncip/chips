@@ -1,14 +1,13 @@
-import Entity from './entity'
 import config from '../config'
 import sfx from '../sfx'
-
+import Entity from './entity'
 
 /*
  * Doors can only be opened when the right key is in the inventory.
  */
 export default class Door extends Entity {
   collideWith (player) {
-    const inventory = player.inventory
+    const { inventory } = player
     const key = 'key:' + this.subtype
 
     if (inventory.contains(key) || config.debug) {

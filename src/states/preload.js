@@ -1,6 +1,4 @@
-import PIXI from 'pixi' // eslint-disable-line no-unused-vars
-import p2 from 'p2' // eslint-disable-line no-unused-vars
-import Phaser from 'phaser'
+import Phaser from 'phaser' // eslint-disable-line import/no-extraneous-dependencies
 import { each } from 'lodash'
 
 import config from '../config'
@@ -13,9 +11,7 @@ export default class Preload {
 
     this.game.stage.backgroundColor = config.bgColor
 
-    each(images, (fname, key) =>
-      this.load.image(key, fname)
-    )
+    each(images, (fname, key) => this.load.image(key, fname))
     each(tilemaps, (val, key) => {
       this.load.tilemap(key, null, val, Phaser.Tilemap.TILED_JSON)
     })

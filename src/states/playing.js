@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import Phaser, { Rectangle } from 'phaser'
 import { throttle } from 'lodash'
 
@@ -26,7 +27,7 @@ class Playing {
   }
 
   createModals () {
-    const tsize = config.tsize
+    const { tsize } = config
     this.modal = new Modal(
       this.game,
       new Rectangle(0, 0, 14 * tsize, 9 * tsize)

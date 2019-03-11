@@ -1,7 +1,6 @@
 import sprintf from 'sprintf'
 import config from './config'
 
-
 /*
  * A 3-digit LCD display with a heading above it.
  */
@@ -40,32 +39,35 @@ function heading (game, text) {
 }
 
 function background (game) {
+  const { tsize, lcdBgColor } = config
   const g = game.add.graphics()
-  const { tsize } = config
   const padding = tsize / 4
-  const left = padding * -0.5
-  const top = tsize * 0.4
-  const width = tsize * 3 + padding
-  const height = tsize * 1.5 + padding
-  const radius = tsize / 12
-  roundRect(g, left, top, width, height, radius, config.lcdBgColor)
+
+  roundRect(g, {
+    left: padding * -0.5,
+    top: tsize * 0.4,
+    width: tsize * 3 + padding,
+    height: tsize * 1.5 + padding,
+    radius: tsize / 12,
+    color: lcdBgColor
+  })
+
   return g
 }
 
-
 /*
- * Returns a rounded rectangle.
+ * Draws a rounded rectangle in the given graphics context.
  */
-function roundRect (g, left, top, width, height, rad, color) {
+function roundRect (g, { left, top, width, height, radius, color }) {
   g.beginFill(color, 1.0)
-  g.moveTo(left + rad, top)
-  g.lineTo(left + width - rad, top)
-  g.quadraticCurveTo(left + width, top, left + width, top + rad)
-  g.lineTo(left + width, top + height - rad)
-  g.quadraticCurveTo(left + width, top + height, left + width - rad, top + height)
-  g.lineTo(left + rad, top + height)
-  g.quadraticCurveTo(left, top + height, left, top + height - rad)
-  g.lineTo(left, top + rad)
-  g.quadraticCurveTo(left, top, left + rad, top)
+  g.moveTo(left + radius, top)
+  g.lineTo(left + width - radius, top)
+  g.quadraticCurveTo(left + width, top, left + width, top + radius)
+  g.lineTo(left + width, top + height - radius)
+  g.quadraticCurveTo(left + width, top + height, left + width - radius, top + height)
+  g.lineTo(left + radius, top + height)
+  g.quadraticCurveTo(left, top + height, left, top + height - radius)
+  g.lineTo(left, top + radius)
+  g.quadraticCurveTo(left, top, left + radius, top)
   g.endFill()
 }

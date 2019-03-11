@@ -1,6 +1,5 @@
-import Entity from './entity'
 import sfx from '../sfx'
-
+import Entity from './entity'
 
 export default class ToggleWall extends Entity {
   collideWith (target) {
@@ -12,7 +11,7 @@ export default class ToggleWall extends Entity {
   }
 
   toggle () {
-    this.subtype = (this.subtype === 'open') ? 'closed' : 'open'
+    this.subtype = this.subtype === 'open' ? 'closed' : 'open'
     this.changeFrame(this.type + ':' + this.subtype)
   }
 }

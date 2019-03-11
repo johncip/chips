@@ -1,6 +1,6 @@
 import config from '../config'
-import Entity from './entity'
 import sfx from '../sfx'
+import Entity from './entity'
 
 /*
  * The exit triggers the win screen and takes the player to the next level.

@@ -11,10 +11,13 @@ export default class BlueWall extends Entity {
           this.retire()
           this.moveHere(target)
           break
-        case 'real':
+        case 'real': {
           const wall = this.replaceWith('wall:basic', false)
           wall.collideWith(target)
           break
+        }
+        default:
+          throw new Error('missing blue wall type')
       }
     }
   }

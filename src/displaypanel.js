@@ -59,4 +59,3 @@ function createLcds (game) {
 
   return lcds
 }
-

@@ -3,7 +3,6 @@ import { parseInt } from 'lodash'
 import EntityMap from './entitymap'
 import levels from './levels'
 
-
 export default class Level {
   constructor (game, index) {
     this.game = game

@@ -1,6 +1,5 @@
-import Entity from './entity'
 import sfx from '../sfx'
-
+import Entity from './entity'
 
 export default class Button extends Entity {
   constructor (game, tile, entityMap) {
@@ -21,6 +20,8 @@ export default class Button extends Entity {
         return this.target.open()
       case 'red':
         return this.target.clone()
+      default:
+        throw new Error('missing button type')
     }
   }
 

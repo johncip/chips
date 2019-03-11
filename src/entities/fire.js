@@ -1,5 +1,5 @@
-import Floor from './floor'
 import sfx from '../sfx'
+import Floor from './floor'
 
 const BURN_FPS = 2
 
@@ -26,4 +26,3 @@ export default class Fire extends Floor {
     player.triggerLose()
   }
 }
-

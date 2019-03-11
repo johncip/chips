@@ -20,7 +20,7 @@ export default class ForceFloor extends Floor {
         player.marchDir = Dir.DOWN
         break
       case 'random':
-      // TODO: random
+        // TODO: random
         break
     }
   }

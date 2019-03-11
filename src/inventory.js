@@ -3,8 +3,14 @@ import config from './config'
 import { spriteIndicesByName } from './constants'
 
 const itemKeys = [
-  'key:blue', 'key:green', 'key:red', 'key:yellow',
-  'shoe:ice', 'shoe:water', 'shoe:force', 'shoe:fire'
+  'key:blue',
+  'key:green',
+  'key:red',
+  'key:yellow',
+  'shoe:ice',
+  'shoe:water',
+  'shoe:force',
+  'shoe:fire'
 ]
 
 const { debug, tsize } = config
@@ -29,7 +35,7 @@ export default class Inventory {
       this.createSprite(key, idx)
     })
 
-    this.counts['ic'] = 0
+    this.counts.ic = 0
   }
 
   createBackground () {
@@ -39,7 +45,7 @@ export default class Inventory {
           this.left + col * tsize,
           this.top + row * tsize,
           'sprites',
-          spriteIndicesByName['floor']
+          spriteIndicesByName.floor
         )
       }
     }
@@ -50,14 +56,16 @@ export default class Inventory {
 
     sprite.x = this.left + (idx % 4) * tsize
     sprite.y = this.top + Math.floor(idx / 4) * tsize
-    sprite.exists = !!this.counts[key]
+    sprite.exists = Boolean(this.counts[key])
 
     this.sprites[key] = sprite
   }
 
   reset () {
     this.counts = {}
-    each(this.sprites, item => { item.exists = false })
+    each(this.sprites, item => {
+      item.exists = false
+    })
   }
 
   add (key) {

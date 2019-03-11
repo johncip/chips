@@ -1,7 +1,6 @@
 import { Dir } from '../constants'
 import Marchable from './marchable'
 
-
 export default class Glider extends Marchable {
   constructor (game, tile, entityMap) {
     super(game, tile, entityMap)

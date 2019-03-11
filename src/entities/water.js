@@ -1,5 +1,5 @@
-import Floor from './floor'
 import sfx from '../sfx'
+import Floor from './floor'
 
 /*
  * Water kills Chip unless he has the right footgear.
