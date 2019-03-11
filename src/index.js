@@ -4,16 +4,14 @@ import { Preload, MainMenu, Playing } from './states'
 
 import 'Assets/style/style.css'
 
-const game = new Phaser.Game(
-  config.width,
-  config.height,
-  Phaser.AUTO,
-  'gameContainer',
-  null
-)
-game.state.add('Preload', Preload)
-game.state.add('MainMenu', MainMenu)
-game.state.add('Playing', Playing)
-game.state.start('Preload')
+var gameConfig = {
+  type: Phaser.AUTO,
+  width: config.width,
+  height: config.height,
+  parent: 'gameContainer',
+  scenes: [Preload, MainMenu, Playing]
+}
+
+new Phaser.Game(gameConfig) // eslint-disable-line no-new
 
 require('./music')
