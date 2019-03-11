@@ -41,7 +41,7 @@ export default class EntityMap {
   }
 
   createConnections (tilemap) {
-    const connections = tilemap.objects['connections']
+    const { connections } = tilemap.objects
     if (!connections) return
 
     connections.forEach(obj => {
