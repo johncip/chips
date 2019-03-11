@@ -1,5 +1,5 @@
-import Entity from './entity'
 import sfx from '../sfx'
+import Entity from './entity'
 
 
 export default class Button extends Entity {

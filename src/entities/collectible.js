@@ -1,5 +1,5 @@
-import Entity from './entity'
 import sfx from '../sfx'
+import Entity from './entity'
 
 /*
  * A Collectible entity can be put into inventory.

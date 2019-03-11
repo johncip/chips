@@ -1,5 +1,5 @@
-import Marchable from './marchable'
 import { Dir } from '../constants'
+import Marchable from './marchable'
 
 /**
  * The (pink) ball is a monster which moves in a straight line.

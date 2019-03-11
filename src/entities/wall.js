@@ -1,5 +1,5 @@
-import Entity from './entity'
 import sfx from '../sfx'
+import Entity from './entity'
 
 
 export default class Wall extends Entity {
@@ -16,6 +16,8 @@ export default class Wall extends Entity {
           sfx.bump()
           this.changeFrame('wall:basic')
           break
+        default:
+          throw new Error('missing wall type')
       }
     }
   }

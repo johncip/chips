@@ -1,5 +1,5 @@
-import Movable from './movable'
 import sfx from '../sfx'
+import Movable from './movable'
 
 /*
  * Blocks can be pushed by Chip. They become dirt after colliding with water.

@@ -1,9 +1,8 @@
 import { includes } from 'lodash'
-
-import Marchable from './marchable'
 import Inventory from '../inventory'
 import config from '../config'
 import sfx from '../sfx'
+import Marchable from './marchable'
 
 const FRAMES = {
   '0,-1': 90,

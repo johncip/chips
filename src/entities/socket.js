@@ -1,6 +1,6 @@
-import Entity from './entity'
 import config from '../config'
 import sfx from '../sfx'
+import Entity from './entity'
 
 
 /*

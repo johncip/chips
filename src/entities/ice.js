@@ -1,6 +1,6 @@
 import { Dir } from '../constants'
-import Floor from './floor'
 import sfx from '../sfx'
+import Floor from './floor'
 
 
 const { UP, DOWN, LEFT, RIGHT } = Dir

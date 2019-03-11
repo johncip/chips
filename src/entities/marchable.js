@@ -1,8 +1,8 @@
 import { findIndex } from 'lodash'
 
-import Movable from './movable'
 import config from '../config'
 import { Dir } from '../constants'
+import Movable from './movable'
 
 
 /*
