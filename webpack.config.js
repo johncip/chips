@@ -1,19 +1,21 @@
 const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const GoogleFontsPlugin = require('@beyonk/google-fonts-webpack-plugin')
 const { DefinePlugin } = require('webpack')
 
 const phaserPath = path.join(__dirname, '/node_modules/phaser-ce/')
 
+
 module.exports = {
   mode: 'development',
 
-  devServer: {
-    contentBase: path.join(__dirname, 'dist')
-  },
+  devtool: 'eval-source-map',
 
-  devtool: 'source-map',
+  devServer: {
+    contentBase: path.join(__dirname, 'assets'),
+    stats: 'minimal'
+  },
 
   entry: {
     index: './src/index.js'
@@ -26,6 +28,10 @@ module.exports = {
 
   module: {
     rules: [
+      {
+        test: /\.(png|jpg|xm)$/,
+        use: ['file-loader']
+      },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
@@ -47,6 +53,7 @@ module.exports = {
 
   resolve: {
     alias: {
+      Assets: path.resolve(__dirname, 'assets'),
       phaser: path.join(phaserPath, 'build/custom/phaser-split.js'),
       pixi: path.join(phaserPath, 'build/custom/pixi.js'),
       p2: path.join(phaserPath, 'build/custom/p2.js')
@@ -56,14 +63,14 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      filename: 'index.html'
+      filename: 'index.html',
+      template: './src/template.html'
     }),
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(__dirname, 'assets', 'tilemaps', '**', '*'),
-        to: path.resolve(__dirname, 'build')
-      }
-    ]),
+    new GoogleFontsPlugin({
+      fonts: [
+        { family: 'Lato', subsets: ['latin'] }
+      ]
+    }),
     new DefinePlugin({
       'typeof CANVAS_RENDERER': JSON.stringify(true),
       'typeof WEBGL_RENDERER': JSON.stringify(true)

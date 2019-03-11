@@ -9,5 +9,4 @@ parserOptions:
   ecmaVersion: 2018
   sourceType: module
 rules:
-  space-before-function-paren: 'off'
-  no-new: 'off'
+  no-multiple-empty-lines: 0

@@ -1,15 +1,22 @@
+import PIXI from 'pixi' // eslint-disable-line no-unused-vars
+import p2 from 'p2'// eslint-disable-line no-unused-vars
 import Phaser from 'phaser'
 
-class Sup extends Phaser.Scene {
-  create() {
-    this.add.text(300, 200, 'sup', { fill: 'red' })
-  }
-}
+import config from './config'
+import { Preload, MainMenu, Playing } from './states/index'
 
-const config = {
-  width: 680,
-  height: 400,
-  scene: Sup
-}
+import 'Assets/style/style.css'
 
-new Phaser.Game(config)
+const game = new Phaser.Game(
+  config.width,
+  config.height,
+  Phaser.AUTO,
+  'gameContainer',
+  null
+)
+game.state.add('Preload', Preload)
+game.state.add('MainMenu', MainMenu)
+game.state.add('Playing', Playing)
+game.state.start('Preload')
+
+require('./music')
