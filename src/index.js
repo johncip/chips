@@ -1,9 +1,11 @@
-import PIXI from 'pixi' // eslint-disable-line no-unused-vars
-import p2 from 'p2'// eslint-disable-line no-unused-vars
+/* eslint-disable no-unused-vars, import/order, import/no-extraneous-dependencies */
+import PIXI from 'pixi'
+import p2 from 'p2'
 import Phaser from 'phaser'
+/* eslint-enable */
 
 import config from './config'
-import { Preload, MainMenu, Playing } from './states/index'
+import { Preload, MainMenu, Playing } from './states'
 
 import 'Assets/style/style.css'
 
