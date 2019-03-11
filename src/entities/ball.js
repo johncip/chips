@@ -23,7 +23,10 @@ export default class Ball extends Marchable {
       this.moveForward()
     } else if (obstacle.type === 'wall') {
       this.turnAndMove(2)
-    } else if (obstacle.type === 'togglewall' && obstacle.subtype === 'closed') {
+    } else if (
+      obstacle.type === 'togglewall' &&
+      obstacle.subtype === 'closed'
+    ) {
       this.turnAndMove(2)
     } else {
       this.moveForward()

@@ -1,7 +1,6 @@
 import sfx from '../sfx'
 import Entity from './entity'
 
-
 export default class Wall extends Entity {
   collideWith (target) {
     if (target.type === 'chip') {

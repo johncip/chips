@@ -1,7 +1,6 @@
 import { isEqual } from 'lodash'
 import Entity from './entity'
 
-
 export default class Movable extends Entity {
   constructor (game, tile, entityMap) {
     super(game, tile, entityMap)

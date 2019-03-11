@@ -2,7 +2,6 @@ import config from '../config'
 import sfx from '../sfx'
 import Entity from './entity'
 
-
 /*
  * The socket is a special door which can only be opened by collecting
  * all of the chips.

@@ -32,8 +32,7 @@ export default class Entity {
     this.sprite.exists = false
   }
 
-  update () {
-  }
+  update () {}
 
   reset () {
     this.timeSinceTick = 0
@@ -81,12 +80,9 @@ export default class Entity {
 
     if (config.smoothMoves) {
       const duration = config.floorDelay * 1.1
-      this.game.add.tween(this.sprite).to(
-        { x, y },
-        duration,
-        Easing.Quadratic.Out,
-        true
-      )
+      this.game.add
+        .tween(this.sprite)
+        .to({ x, y }, duration, Easing.Quadratic.Out, true)
     } else {
       this.sprite.x = x
       this.sprite.y = y

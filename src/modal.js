@@ -14,7 +14,12 @@ export default class Modal {
     this.mainText = createText(game, bounds, mainTextStyle(width, style))
 
     const bg = createBg(this.group, bounds)
-    const subtext_ = createSubtext(game, subtext, bounds, subtextStyle(width, style))
+    const subtext_ = createSubtext(
+      game,
+      subtext,
+      bounds,
+      subtextStyle(width, style)
+    )
 
     each([bg, this.mainText, subtext_], x => this.group.add(x))
     this.group.fixedToCamera = true
@@ -28,15 +33,21 @@ export default class Modal {
 
   show () {
     this.game.world.bringToTop(this.group)
-    this.group.forEach(item => { item.exists = true })
+    this.group.forEach(item => {
+      item.exists = true
+    })
   }
 
   hide () {
-    this.group.forEach(item => { item.exists = false })
+    this.group.forEach(item => {
+      item.exists = false
+    })
   }
 
   destroy () {
-    this.group.forEach(sprite => { sprite.destroy() })
+    this.group.forEach(sprite => {
+      sprite.destroy()
+    })
   }
 
   /*

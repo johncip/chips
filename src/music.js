@@ -22,7 +22,6 @@ fetch(kamel)
     })
   })
 
-
 window.addEventListener('click', () => {
   if (config.enableMusic) XMPlayer.play()
 })

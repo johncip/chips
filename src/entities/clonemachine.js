@@ -1,7 +1,6 @@
 import { spriteIndicesByName } from '../constants'
 import Entity from './entity'
 
-
 export default class CloneMachine extends Entity {
   constructor (game, tile, entityMap) {
     super(game, tile, entityMap)

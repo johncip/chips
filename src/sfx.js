@@ -62,7 +62,7 @@ const exit = {
     Min: 504
   },
   Vibrato: {
-    Depth: 0.610,
+    Depth: 0.61,
     Frequency: 21.01
   },
   Generator: {
@@ -118,7 +118,7 @@ const lose = {
     LP: 1
   },
   Volume: {
-    Sustain: 0.01040,
+    Sustain: 0.0104,
     Decay: 0.29212,
     Master: 0.15,
     Attack: 0.22
@@ -215,7 +215,6 @@ const splash = {
     Punch: 0.363
   }
 }
-
 
 export default jsfx.Sounds({
   bump,

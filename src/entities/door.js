@@ -2,7 +2,6 @@ import config from '../config'
 import sfx from '../sfx'
 import Entity from './entity'
 
-
 /*
  * Doors can only be opened when the right key is in the inventory.
  */

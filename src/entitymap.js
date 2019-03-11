@@ -4,7 +4,6 @@ import config from './config'
 import entityFromTile from './entityfromtile'
 import { spriteIndicesByName } from './constants'
 
-
 /*
  * The EntityMap is a map from tile coordinate to a game entity.
  * It is a model of the given level, and the sprites are the view.

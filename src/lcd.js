@@ -1,7 +1,6 @@
 import sprintf from 'sprintf'
 import config from './config'
 
-
 /*
  * A 3-digit LCD display with a heading above it.
  */

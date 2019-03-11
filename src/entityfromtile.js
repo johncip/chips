@@ -26,7 +26,6 @@ import Trap from './entities/trap'
 import Wall from './entities/wall'
 import Water from './entities/water'
 
-
 const entities = {
   Ball,
   Block,
@@ -67,9 +66,10 @@ const classMap = {
 }
 
 function titleCase (str) {
-  return str.replace(/\w\S*/g, s => (
-    s.charAt(0).toUpperCase() + s.substr(1).toLowerCase()
-  ))
+  return str.replace(
+    /\w\S*/g,
+    s => s.charAt(0).toUpperCase() + s.substr(1).toLowerCase()
+  )
 }
 
 /*

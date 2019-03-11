@@ -4,7 +4,6 @@ import config from '../config'
 import { Dir } from '../constants'
 import Movable from './movable'
 
-
 /*
  * Marchable entities can be moved one tile according to their AI on a
  * specific time increment.
@@ -43,7 +42,10 @@ export default class Marchable extends Movable {
   }
 
   findDirIndex (dir) {
-    const res = findIndex(Dir.MOVE_DIRS, item => dir[0] === item[0] && dir[1] === item[1])
+    const res = findIndex(
+      Dir.MOVE_DIRS,
+      item => dir[0] === item[0] && dir[1] === item[1]
+    )
 
     if (res === -1) {
       throw new Error('Not a valid direction.')

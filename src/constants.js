@@ -9,12 +9,7 @@ export const Dir = {
   BACK: [0, 1]
 }
 
-Dir.MOVE_DIRS = [
-  Dir.UP,
-  Dir.RIGHT,
-  Dir.DOWN,
-  Dir.LEFT
-]
+Dir.MOVE_DIRS = [Dir.UP, Dir.RIGHT, Dir.DOWN, Dir.LEFT]
 
 export const spriteNamesByIndex = {
   0: 'floor',
