@@ -28,6 +28,8 @@ export default class Inventory {
       this.counts[key] = debug ? 99 : 0
       this.createSprite(key, idx)
     })
+
+    this.counts['ic'] = 0
   }
 
   createBackground () {
@@ -67,7 +69,9 @@ export default class Inventory {
   }
 
   remove (key) {
-    this.counts[key] -= 1
+    if (key !== 'key:green') {
+      this.counts[key] -= 1
+    }
 
     if (key !== 'ic' && !this.counts[key]) {
       this.sprites[key].exists = false

@@ -21,11 +21,7 @@ export default class Door extends Entity {
 
   useKey (key, inventory) {
     this.retire()
-
-    if (key !== 'key:green') {
-      inventory.remove(key)
-    }
-
+    inventory.remove(key)
     sfx.open()
   }
 }
