@@ -3,7 +3,7 @@ import { throttle } from 'lodash'
 
 import config from '../config'
 import levels from '../levels'
-import Sidebar from '../sidebar'
+import DisplayPanel from '../displaypanel'
 import Modal from '../modal'
 import Level from '../level'
 
@@ -17,7 +17,7 @@ class Playing {
 
   create () {
     this.levelIndex = config.startLevel
-    this.sidebar = new Sidebar(this.game)
+    this.displayPanel = new DisplayPanel(this.game)
 
     this.createModals()
     this.createHotkeys()
@@ -83,7 +83,7 @@ class Playing {
     this.level = new Level(this.game, this.levelIndex)
 
     // post-load
-    this.sidebar.setLevel(this.levelIndex + 1)
+    this.displayPanel.setLevel(this.levelIndex + 1)
     this.hintPanel.setText(this.level.getHint())
     this.timeLeft = this.level.getTimeAllowed()
     this.fixLayering()
@@ -100,7 +100,7 @@ class Playing {
   }
 
   fixLayering () {
-    this.game.world.bringToTop(this.sidebar.group)
+    this.game.world.bringToTop(this.displayPanel.group)
     this.game.world.bringToTop(this.level.inventory.group)
   }
 
@@ -129,8 +129,8 @@ class Playing {
       this.level.getChipsNeeded() - this.level.inventory.count('ic')
 
     this.updateTimeLeft()
-    this.sidebar.setTimeLeft(this.timeLeft)
-    this.sidebar.setChipsLeft(chipsLeft)
+    this.displayPanel.setTimeLeft(this.timeLeft)
+    this.displayPanel.setChipsLeft(chipsLeft)
     this.level.update()
   }
 
