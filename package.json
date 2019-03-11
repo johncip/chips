@@ -59,7 +59,10 @@
     "rules": {
       "no-multiple-empty-lines": 0,
       "capitalized-comments": 0,
-      "no-warning-comments": 0
+      "no-warning-comments": 0,
+      "max-statements-per-line": 0,
+      "import/no-unassigned-import": 0,
+      "padding-line-between-statements": 0
     }
   }
 }
