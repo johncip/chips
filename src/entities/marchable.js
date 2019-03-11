@@ -10,8 +10,8 @@ import { Dir } from '../constants'
  * specific time increment.
  */
 export default class Marchable extends Movable {
-  constructor (game, tile, emap) {
-    super(game, tile, emap)
+  constructor (game, tile, entityMap) {
+    super(game, tile, entityMap)
     this.timeSinceTick = 0
     this.marchDelay = config.moveDelay
   }
@@ -29,7 +29,7 @@ export default class Marchable extends Movable {
     const absDir = this.toAbsolute(dir)
     const x2 = this.x + absDir[0]
     const y2 = this.y + absDir[1]
-    return this.emap.get(x2, y2)
+    return this.entityMap.get(x2, y2)
   }
 
   toAbsolute (dir) {

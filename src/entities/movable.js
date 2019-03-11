@@ -3,8 +3,8 @@ import Entity from './entity'
 
 
 export default class Movable extends Entity {
-  constructor (game, tile, emap) {
-    super(game, tile, emap)
+  constructor (game, tile, entityMap) {
+    super(game, tile, entityMap)
     // TODO: get movement dir
     this.lastDir = [0, 0]
     this.frozen = false
@@ -18,15 +18,15 @@ export default class Movable extends Entity {
 
     this.lastDir = [dx, dy]
     this.changeFrameDir([dx, dy])
-    const resident = this.emap.get(this.x + dx, this.y + dy)
+    const resident = this.entityMap.get(this.x + dx, this.y + dy)
 
     if (resident) {
       resident.collideWith(this)
     } else {
-      this.emap.moveEntity(this, dx, dy)
+      this.entityMap.moveEntity(this, dx, dy)
     }
 
-    this.emap.resetTraps()
+    this.entityMap.resetTraps()
   }
 
   changeFrameDir (dir) {

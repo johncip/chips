@@ -7,9 +7,9 @@ import { spriteNamesByIndex, spriteIndicesByName } from '../constants'
  * a key, a monster, etc.
  */
 export default class Entity {
-  constructor (game, tile, emap) {
+  constructor (game, tile, entityMap) {
     this.game = game
-    this.emap = emap
+    this.entityMap = entityMap
     this.isFlat = false
     this.x = tile.x
     this.y = tile.y
@@ -20,7 +20,7 @@ export default class Entity {
     this.type = parts[0]
     this.subtype = parts[1]
 
-    this.sprite = this.emap.group.create(
+    this.sprite = this.entityMap.group.create(
       tile.x * config.tsize,
       tile.y * config.tsize,
       'sprites',
@@ -52,7 +52,7 @@ export default class Entity {
     const createFunc = isUpper ? 'createUpper' : 'createLower'
 
     this.retire()
-    return this.emap[createFunc](tile)
+    return this.entityMap[createFunc](tile)
   }
 
   changeFrame (frame) {
@@ -64,15 +64,15 @@ export default class Entity {
   }
 
   entityAbove () {
-    return this.emap.getUpper(this.x, this.y)
+    return this.entityMap.getUpper(this.x, this.y)
   }
 
   entityBelow () {
-    return this.emap.getLower(this.x, this.y)
+    return this.entityMap.getLower(this.x, this.y)
   }
 
   moveHere (entity) {
-    this.emap.moveEntityAbs(entity, this.x, this.y)
+    this.entityMap.moveEntityAbs(entity, this.x, this.y)
   }
 
   spriteTo (tileX, tileY) {

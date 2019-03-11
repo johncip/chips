@@ -3,13 +3,13 @@ import { spriteIndicesByName } from '../constants'
 
 
 export default class CloneMachine extends Entity {
-  constructor (game, tile, emap) {
-    super(game, tile, emap)
-    this.template = null // set later by emap
+  constructor (game, tile, entityMap) {
+    super(game, tile, entityMap)
+    this.template = null // set later by the EntityMap
   }
 
   clone () {
-    this.emap.createUpper({
+    this.entityMap.createUpper({
       x: this.x,
       y: this.y,
       index: spriteIndicesByName[this.template] + 1

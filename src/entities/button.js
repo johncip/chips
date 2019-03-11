@@ -3,8 +3,8 @@ import sfx from '../sfx'
 
 
 export default class Button extends Entity {
-  constructor (game, tile, emap) {
-    super(game, tile, emap)
+  constructor (game, tile, entityMap) {
+    super(game, tile, entityMap)
     this.target = null
   }
 
@@ -25,7 +25,7 @@ export default class Button extends Entity {
   }
 
   moveTanks () {
-    this.emap.eachOfType('tank', tank => {
+    this.entityMap.eachOfType('tank', tank => {
       tank.marchDir = [...tank.marchDir]
       tank.marchDir[0] *= -1
       tank.marchDir[1] *= -1
@@ -33,6 +33,6 @@ export default class Button extends Entity {
   }
 
   toggleTheWalls () {
-    this.emap.eachOfType('togglewall', wall => wall.toggle())
+    this.entityMap.eachOfType('togglewall', wall => wall.toggle())
   }
 }

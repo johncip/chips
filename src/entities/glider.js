@@ -3,8 +3,8 @@ import Marchable from './marchable'
 
 
 export default class Glider extends Marchable {
-  constructor (game, tile, emap) {
-    super(game, tile, emap)
+  constructor (game, tile, entityMap) {
+    super(game, tile, entityMap)
     this.lastDir = [0, -1] // TODO: set based on frame
     this.marchDelay = 300
   }

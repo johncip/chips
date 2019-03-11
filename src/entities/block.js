@@ -21,7 +21,7 @@ export default class Block extends Movable {
   }
 
   isPushable (dx, dy) {
-    const resident = this.emap.get(this.x + dx, this.y + dy)
+    const resident = this.entityMap.get(this.x + dx, this.y + dy)
     return resident === undefined || resident.isFlat
   }
 }

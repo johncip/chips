@@ -13,15 +13,15 @@ const FRAMES = {
 }
 
 export default class Player extends Marchable {
-  constructor (game, tile, emap) {
-    super(game, tile, emap)
+  constructor (game, tile, entityMap) {
+    super(game, tile, entityMap)
     this.createCursorKeys()
 
     this.inventory = new Inventory(this.game)
     this.marchDelay = config.floorDelay
 
     // exports
-    emap.player = this
+    entityMap.player = this // TODO: don't do this here
   }
 
   march () {
@@ -53,7 +53,7 @@ export default class Player extends Marchable {
   }
 
   hasAllChips () {
-    return this.inventory.count('ic') === this.emap.chipsNeeded
+    return this.inventory.count('ic') === this.entityMap.chipsNeeded
   }
 
   collideWith (target) {

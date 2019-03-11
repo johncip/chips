@@ -6,8 +6,8 @@ import sfx from '../sfx'
  * When dirt collides with water, they make mud.
  */
 export default class Water extends Floor {
-  constructor (game, tile, emap) {
-    super(game, tile, emap)
+  constructor (game, tile, entityMap) {
+    super(game, tile, entityMap)
     this.isFlat = true
   }
 
