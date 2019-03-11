@@ -1,17 +1,14 @@
 import PIXI from 'pixi' // eslint-disable-line no-unused-vars
 import p2 from 'p2' // eslint-disable-line no-unused-vars
 import Phaser from 'phaser'
-import { each, extend } from 'lodash'
+import { each } from 'lodash'
 
 import config from '../config'
 import images from '../images'
 import tilemaps from '../tilemaps'
 
-
-function Preload () {}
-
-extend(Preload.prototype, {
-  preload: function () {
+export default class Preload {
+  preload () {
     const { tsize } = config
 
     this.game.stage.backgroundColor = config.bgColor
@@ -24,11 +21,9 @@ extend(Preload.prototype, {
     })
     this.load.image('tiles', images.spriteSheet)
     this.load.spritesheet('sprites', images.spriteSheet, tsize, tsize, 112)
-  },
+  }
 
-  create: function () {
+  create () {
     this.state.start(config.startState)
   }
-})
-
-export default Preload
+}

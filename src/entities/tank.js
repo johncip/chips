@@ -1,5 +1,3 @@
-import { clone, extend } from 'lodash'
-
 import Marchable from './marchable'
 import { Dir } from '../constants'
 
@@ -8,7 +6,7 @@ export default class Tank extends Marchable {
   constructor (game, tile, emap) {
     super(game, tile, emap)
 
-    this.marchDir = clone(Dir.UP)
+    this.marchDir = [...Dir.UP]
     this.marchDelay = 300
   }
 
@@ -28,11 +26,9 @@ export default class Tank extends Marchable {
   }
 }
 
-extend(Tank.prototype, {
-  frames: {
-    '0,-1': 88,
-    '-1,0': 95,
-    '0,1': 102,
-    '1,0': 109
-  }
-})
+Tank.prototype.frames = {
+  '0,-1': 88,
+  '-1,0': 95,
+  '0,1': 102,
+  '1,0': 109
+}

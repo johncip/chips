@@ -1,5 +1,5 @@
 import Phaser, { Rectangle } from 'phaser'
-import { extend, throttle } from 'lodash'
+import { throttle } from 'lodash'
 
 import config from '../config'
 import levels from '../levels'
@@ -7,18 +7,15 @@ import Sidebar from '../sidebar'
 import Modal from '../modal'
 import Level from '../level'
 
-
-function Playing () {}
-
-extend(Playing.prototype, {
-  init: function () {
+class Playing {
+  init () {
     this.game.onBlur.add(this.pause, this)
     this.game.renderer.resize(14 * config.tsize, 9 * config.tsize)
     this.game.bounds = new Rectangle(0, 0, 9 * config.tsize, 9 * config.tsize)
     this.game.camera.bounds = null
-  },
+  }
 
-  create: function () {
+  create () {
     this.levelIndex = config.startLevel
     this.sidebar = new Sidebar(this.game)
 
@@ -26,11 +23,14 @@ extend(Playing.prototype, {
     this.createHotkeys()
 
     this.startCurrentLevel()
-  },
+  }
 
-  createModals: function () {
+  createModals () {
     const tsize = config.tsize
-    this.modal = new Modal(this.game, new Rectangle(0, 0, 14 * tsize, 9 * tsize))
+    this.modal = new Modal(
+      this.game,
+      new Rectangle(0, 0, 14 * tsize, 9 * tsize)
+    )
 
     const hintBounds = new Rectangle(9.5 * tsize, 0, 5 * tsize, 9 * tsize)
     this.hintPanel = new Modal(this.game, hintBounds, '', {
@@ -46,16 +46,16 @@ extend(Playing.prototype, {
 
     // exports
     this.game.hintPanel = this.hintPanel
-  },
+  }
 
-  createHotkeys: function () {
+  createHotkeys () {
     this.addHotkey('F1', this.startLastLevel)
     this.addHotkey('F2', this.startCurrentLevel)
     this.addHotkey('F3', this.startNextLevel)
     this.addHotkey('P', this.pause)
-  },
+  }
 
-  addHotkey: function (keyString, fn) {
+  addHotkey (keyString, fn) {
     const keyObj = this.game.input.keyboard.addKey(Phaser.Keyboard[keyString])
 
     keyObj.onDown.add(() => {
@@ -64,21 +64,21 @@ extend(Playing.prototype, {
       }
       fn.call(this, keyObj)
     })
-  },
+  }
 
-  startLastLevel: function () {
+  startLastLevel () {
     const numLevels = levels.length
     this.levelIndex = (this.levelIndex - 1 + numLevels) % numLevels
     this.startCurrentLevel()
-  },
+  }
 
-  startNextLevel: function () {
+  startNextLevel () {
     const numLevels = levels.length
     this.levelIndex = (this.levelIndex + 1) % numLevels
     this.startCurrentLevel()
-  },
+  }
 
-  startCurrentLevel: function () {
+  startCurrentLevel () {
     this.resetState()
     this.level = new Level(this.game, this.levelIndex)
 
@@ -87,9 +87,9 @@ extend(Playing.prototype, {
     this.hintPanel.setText(this.level.getHint())
     this.timeLeft = this.level.getTimeAllowed()
     this.fixLayering()
-  },
+  }
 
-  resetState: function () {
+  resetState () {
     if (this.level) {
       this.level.destroy()
     }
@@ -97,22 +97,22 @@ extend(Playing.prototype, {
     this.game.paused = false
     this.game.halfPaused = false
     this.input.keyboard.onPressCallback = null
-  },
+  }
 
-  fixLayering: function () {
+  fixLayering () {
     this.game.world.bringToTop(this.sidebar.group)
     this.game.world.bringToTop(this.level.inventory.group)
-  },
+  }
 
-  pause: function () {
+  pause () {
     if (this.game.paused) {
       return
     }
 
     this.modal.flash('Paused...')
-  },
+  }
 
-  countDown: function () {
+  countDown () {
     if (this.game.halfPaused || this.game.paused || this.timeLeft === 0) {
       return
     }
@@ -122,27 +122,28 @@ extend(Playing.prototype, {
     if (this.timeLeft === 0) {
       this.lose("Time's Up!")
     }
-  },
+  }
 
-  update: function () {
-    const chipsLeft = this.level.getChipsNeeded() - this.level.inventory.count('ic')
+  update () {
+    const chipsLeft =
+      this.level.getChipsNeeded() - this.level.inventory.count('ic')
 
     this.updateTimeLeft()
     this.sidebar.setTimeLeft(this.timeLeft)
     this.sidebar.setChipsLeft(chipsLeft)
     this.level.update()
-  },
+  }
 
-  lose: function (msg, delay) {
+  lose (msg, delay) {
     this.modal.flash(msg, delay, () => this.startCurrentLevel())
-  },
+  }
 
-  win: function (msg, delay) {
+  win (msg, delay) {
     msg = msg || 'Yowzer! You win!'
     this.modal.flash(msg, delay, () => this.startNextLevel())
-  },
+  }
 
-  asyncLoad: function (cacheKey, path, onLoad) {
+  asyncLoad (cacheKey, path, onLoad) {
     this.load.audio(cacheKey, path)
     this.load.start()
 
@@ -155,7 +156,7 @@ extend(Playing.prototype, {
       window.clearInterval(index)
     }, 1000)
   }
-})
+}
 
 Playing.prototype.updateTimeLeft = throttle(Playing.prototype.countDown, 1000)
 

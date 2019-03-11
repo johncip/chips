@@ -1,4 +1,4 @@
-import { each, extend } from 'lodash'
+import { each } from 'lodash'
 
 /*
  * Translucent modal that is used for the hint as well as pause screen, level end, etc.
@@ -92,7 +92,11 @@ function subtextStyle (width, overrides = {}) {
  */
 function createBg (group, { left, top, width, height }) {
   const bg = group.create(left, top, 'black')
-  return extend(bg, { width, height, alpha: 0.8 })
+  bg.width = width
+  bg.height = height
+  bg.alpha = 0.8
+
+  return bg
 }
 
 /*

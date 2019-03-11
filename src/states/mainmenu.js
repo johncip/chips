@@ -1,23 +1,19 @@
-import { extend } from 'lodash'
-
 /*
  * The attract screen and main menu.
  */
-function MainMenu () {}
-
-extend(MainMenu.prototype, {
-  init: function (score) {
+export default class MainMenu {
+  init (score) {
     this.startTime = this.time.now
-  },
+  }
 
-  create: function () {
+  create () {
     const width = this.game.cache.getImage('boxart').width
     const left = (this.game.width - width) / 2
     this.boxart = this.add.image(left, 0, 'boxart')
     this.createStartText()
-  },
+  }
 
-  createStartText: function () {
+  createStartText () {
     const text = 'Click to continue!'
     const style = {
       font: '30px lato',
@@ -31,9 +27,9 @@ extend(MainMenu.prototype, {
       style
     )
     t.anchor.set(0.5)
-  },
+  }
 
-  update: function () {
+  update () {
     if (this.time.now - this.startTime > 600) {
       this.boxart.y -= this.game.time.elapsed / 25
 
@@ -46,6 +42,4 @@ extend(MainMenu.prototype, {
       this.game.state.start('Playing')
     }
   }
-})
-
-export default MainMenu
+}
