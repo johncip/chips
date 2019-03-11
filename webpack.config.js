@@ -4,8 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const GoogleFontsPlugin = require('@beyonk/google-fonts-webpack-plugin')
 const { DefinePlugin } = require('webpack')
 
-const phaserPath = path.join(__dirname, '/node_modules/phaser-ce/')
-
 
 module.exports = {
   mode: 'development',
@@ -35,28 +33,13 @@ module.exports = {
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
-      },
-      {
-        test: /pixi\.js$/,
-        use: [{ loader: 'expose-loader', options: 'PIXI' }]
-      },
-      {
-        test: /phaser-split\.js$/,
-        use: [{ loader: 'expose-loader', options: 'Phaser' }]
-      },
-      {
-        test: /p2\.js$/,
-        use: [{ loader: 'expose-loader', options: 'p2' }]
       }
     ]
   },
 
   resolve: {
     alias: {
-      Assets: path.resolve(__dirname, 'assets'),
-      phaser: path.join(phaserPath, 'build/custom/phaser-split.js'),
-      pixi: path.join(phaserPath, 'build/custom/pixi.js'),
-      p2: path.join(phaserPath, 'build/custom/p2.js')
+      Assets: path.resolve(__dirname, 'assets')
     }
   },
 
