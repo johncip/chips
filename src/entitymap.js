@@ -1,7 +1,7 @@
 import { each, filter, flatten, parseInt } from 'lodash'
 
 import config from './config'
-import entityFromTile from './entityFromTile'
+import entityFromTile from './entityfromtile'
 import { spriteIndicesByName } from './constants'
 
 
