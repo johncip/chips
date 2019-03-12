@@ -1,6 +1,7 @@
 const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const GoogleFontsPlugin = require('@beyonk/google-fonts-webpack-plugin')
 const { DefinePlugin } = require('webpack')
 
@@ -31,6 +32,11 @@ module.exports = {
         use: ['file-loader']
       },
       {
+        type: 'javascript/auto',
+        test: /\.json$/,
+        use: ['file-loader']
+      },
+      {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
       }
@@ -49,11 +55,19 @@ module.exports = {
       filename: 'index.html',
       template: './src/template.html'
     }),
+    // TODO: see if tile set works without this
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, 'assets', 'tilemaps', '**', '*'),
+        to: path.resolve(__dirname, 'dist', 'tilemaps')
+      }
+    ]),
     new GoogleFontsPlugin({
       fonts: [
         { family: 'Lato', subsets: ['latin'] }
       ]
     }),
+    // TODO: is this needed?
     new DefinePlugin({
       'typeof CANVAS_RENDERER': JSON.stringify(true),
       'typeof WEBGL_RENDERER': JSON.stringify(true)
