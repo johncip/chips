@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Phaser, { Rectangle } from 'phaser'
 import { throttle } from 'lodash'
 
