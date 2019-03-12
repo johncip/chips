@@ -10,7 +10,7 @@ new Phaser.Game({
   width: config.width,
   height: config.height,
   parent: 'gameContainer',
-  scenes: [Preload, MainMenu, Playing]
+  scene: [Preload, MainMenu, Playing]
 })
 
 require('./music')
