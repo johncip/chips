@@ -1,6 +1,7 @@
 import { each } from 'lodash'
 import config from './config'
 import { spriteIndicesByName } from './constants'
+import depths from './depths'
 
 const itemKeys = [
   'key:blue',
@@ -20,43 +21,49 @@ const { debug, tsize } = config
  * display them.
  */
 export default class Inventory {
-  constructor (game) {
-    this.group = game.add.group(undefined, 'Inventory')
-    this.group.fixedToCamera = true
+  constructor (scene) {
+    this.group = scene.add.group()
 
-    this.left = 9.75 * tsize
-    this.top = 7 * tsize
+    // this.left = 9.75 * tsize
+    // this.top = 7 * tsize
+    this.left = 10.25 * tsize
+    this.top = 7.5 * tsize
     this.counts = {}
     this.sprites = {}
 
     this.createBackground()
     itemKeys.forEach((key, idx) => {
       this.counts[key] = debug ? 99 : 0
-      this.createSprite(key, idx)
+      this.createItem(key, idx)
     })
-
     this.counts.ic = 0
+
+    this.group.children.each(child => {
+      child.setScrollFactor(0)
+    })
   }
 
   createBackground () {
     for (let row = 0; row < 2; row++) {
       for (let col = 0; col < 4; col++) {
-        this.group.create(
+        const sprite = this.group.create(
           this.left + col * tsize,
           this.top + row * tsize,
           'sprites',
           spriteIndicesByName.floor
         )
+        sprite.depth = depths.inventoryBack
       }
     }
   }
 
-  createSprite (key, idx) {
+  createItem (key, idx) {
     const sprite = this.group.create(0, 0, 'sprites', spriteIndicesByName[key])
 
     sprite.x = this.left + (idx % 4) * tsize
     sprite.y = this.top + Math.floor(idx / 4) * tsize
-    sprite.exists = Boolean(this.counts[key])
+    sprite.setVisible(this.counts[key])
+    sprite.depth = depths.inventoryFront
 
     this.sprites[key] = sprite
   }
@@ -64,7 +71,7 @@ export default class Inventory {
   reset () {
     this.counts = {}
     each(this.sprites, item => {
-      item.exists = false
+      item.setVisible(false)
     })
   }
 
@@ -72,7 +79,7 @@ export default class Inventory {
     this.counts[key] += 1
 
     if (key !== 'ic') {
-      this.sprites[key].exists = true
+      this.sprites[key].setVisible(true)
     }
   }
 
@@ -82,7 +89,7 @@ export default class Inventory {
     }
 
     if (key !== 'ic' && !this.counts[key]) {
-      this.sprites[key].exists = false
+      this.sprites[key].setVisible(false)
     }
   }
 
@@ -93,5 +100,9 @@ export default class Inventory {
 
   contains (key) {
     return this.count(key) > 0
+  }
+
+  each (fn) {
+    this.group.children.each(child => fn(child))
   }
 }

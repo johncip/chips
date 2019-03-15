@@ -11,16 +11,38 @@ export default class Preload extends Phaser.Scene {
   }
 
   preload () {
-    const { tsize, bgColor } = config
+    // const { tsize, bgColor, height, width } = config
+    // const camera = this.cameras.add(0, 0, height, width)
+    // camera.setBackgroundColor(bgColor)
 
-    this.game.stage.backgroundColor = bgColor
-
-    each(images, (fname, key) => this.load.image(key, fname))
-    each(tilemaps, (val, key) => {
-      this.load.tilemap(key, null, val, Phaser.Tilemap.TILED_JSON)
+    // individual images
+    each(images, (val, key) => {
+      this.load.image(key, val)
     })
+
+    // level tilemaps
     this.load.image('tiles', images.spriteSheet)
-    this.load.spritesheet('sprites', images.spriteSheet, tsize, tsize, 112)
+    each(tilemaps, (val, key) => {
+      this.load.tilemapTiledJSON(key, val)
+    })
+
+    // sprites
+    const { tsize } = config
+    this.load.spritesheet(
+      'sprites',
+      images.spriteSheet,
+      { frameWidth: tsize, frameHeight: tsize }
+    )
+
+    // lcd font
+    const lcdFontConfig = {
+      image: 'lcd',
+      width: 64,
+      height: 100,
+      chars: '0123456789',
+      charsPerRow: 10
+    }
+    this.cache.bitmapFont.add('lcd', Phaser.GameObjects.RetroFont.Parse(this, lcdFontConfig))
   }
 
   create () {

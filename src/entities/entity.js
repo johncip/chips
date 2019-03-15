@@ -1,14 +1,13 @@
-import { Easing } from 'phaser'
+import Phaser from 'phaser'
 import config from '../config'
 import { spriteNamesByIndex, spriteIndicesByName } from '../constants'
 
 /*
- * A game Entity is an item on the tile map -- it could be a wall,
- * a key, a monster, etc.
+ * An item on the tile map -- it could be a wall, a key, a monster, etc.
  */
 export default class Entity {
-  constructor (game, tile, entityMap) {
-    this.game = game
+  constructor (scene, tile, entityMap) {
+    this.scene = scene
     this.entityMap = entityMap
     this.isFlat = false
     this.x = tile.x
@@ -80,9 +79,13 @@ export default class Entity {
 
     if (config.smoothMoves) {
       const duration = config.floorDelay * 1.1
-      this.game.add
-        .tween(this.sprite)
-        .to({ x, y }, duration, Easing.Quadratic.Out, true)
+      this.scene.add.tween({
+        x,
+        y,
+        duration,
+        targets: this.sprite,
+        ease: Phaser.Math.Easing.Quadratic.Out
+      })
     } else {
       this.sprite.x = x
       this.sprite.y = y

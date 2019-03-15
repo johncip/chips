@@ -1,38 +1,53 @@
 import { parseInt } from 'lodash'
-
 import EntityMap from './entitymap'
+import config from './config'
+import depths from './depths'
 import levels from './levels'
 
+/*
+ * Wraps a tilemap and some game state (entity map, inventory).
+ */
 export default class Level {
-  constructor (game, index) {
-    this.game = game
+  constructor (scene, index) {
     this.shortName = levels[index]
 
-    this.tilemap = this.createTilemap()
-    this.bgLayer = this.tilemap.createLayer('bg')
-    this.lowerLayer = this.tilemap.createLayer('lower')
-    this.upperLayer = this.tilemap.createLayer('upper')
-    this.entityMap = new EntityMap(game, this.upperLayer, this.lowerLayer)
-    this.inventory = this.entityMap.player.inventory // read by playing state
+    const map = scene.add.tilemap(this.shortName)
+    map.addTilesetImage('chip-felix', 'tiles')
 
-    this.bgLayer.resizeWorld()
-    this.lowerLayer.exists = false
-    this.upperLayer.exists = false
-  }
+    const camera = scene.cameras.main
+    camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+    camera.setViewport(0, 0, config.width, config.height)
 
-  createTilemap () {
-    const tilemap = this.game.add.tilemap(this.shortName)
-    tilemap.addTilesetImage('chip-felix', 'tiles')
-    return tilemap
+    this.bgLayer = map.createStaticLayer('bg')
+    this.bgLayer.depth = depths.bgLayer
+
+    this.lower = map.createDynamicLayer('lower')
+    this.lower.depth = depths.lowerLayer
+
+    this.upper = map.createDynamicLayer('upper')
+    this.upper.depth = depths.upperLayer
+
+    this.entityMap = new EntityMap(scene, this.upper, this.lower)
+
+    // read by playing state
+    // TODO: don't create this in the player
+    this.inventory = this.entityMap.player.inventory
+
+    // this.bgLayer.resizeWorld()
+    this.bgLayer.setVisible(true)
+    this.lower.setVisible(true)
+    this.upper.setVisible(true)
+
+    this.map = map
   }
 
   destroy () {
     this.entityMap.group.destroy()
     this.inventory.group.destroy()
     this.bgLayer.destroy()
-    this.lowerLayer.destroy()
-    this.upperLayer.destroy()
-    this.tilemap.destroy()
+    this.lower.destroy()
+    this.upper.destroy()
+    this.map.destroy()
   }
 
   update () {
@@ -40,7 +55,7 @@ export default class Level {
   }
 
   getTimeAllowed () {
-    return parseInt(this.tilemap.properties.time)
+    return parseInt(this.map.properties.time)
   }
 
   getChipsNeeded () {
@@ -48,6 +63,6 @@ export default class Level {
   }
 
   getHint () {
-    return 'HINT\n\n' + this.tilemap.properties.hint
+    return 'HINT\n\n' + this.map.properties.hint
   }
 }

@@ -2,8 +2,8 @@ import { isEqual } from 'lodash'
 import Entity from './entity'
 
 export default class Movable extends Entity {
-  constructor (game, tile, entityMap) {
-    super(game, tile, entityMap)
+  constructor (scene, tile, entityMap) {
+    super(scene, tile, entityMap)
     // TODO: get movement dir
     this.lastDir = [0, 0]
     this.frozen = false
@@ -33,8 +33,8 @@ export default class Movable extends Entity {
   }
 
   retire () {
-    this.frozen = true
     super.retire.call(this)
+    this.frozen = true
   }
 
   isFacing (dir) {

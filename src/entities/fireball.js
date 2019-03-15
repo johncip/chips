@@ -2,8 +2,8 @@ import { Dir } from '../constants'
 import Marchable from './marchable'
 
 export default class Fireball extends Marchable {
-  constructor (game, tile, entityMap) {
-    super(game, tile, entityMap)
+  constructor (scene, tile, entityMap) {
+    super(scene, tile, entityMap)
     this.lastDir = [...Dir.LEFT]
   }
 

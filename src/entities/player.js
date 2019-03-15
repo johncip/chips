@@ -1,6 +1,7 @@
 import { includes } from 'lodash'
 import Inventory from '../inventory'
 import config from '../config'
+import depths from '../depths'
 import sfx from '../sfx'
 import Marchable from './marchable'
 
@@ -12,12 +13,13 @@ const FRAMES = {
 }
 
 export default class Player extends Marchable {
-  constructor (game, tile, entityMap) {
-    super(game, tile, entityMap)
-    this.createCursorKeys()
+  constructor (scene, tile, entityMap) {
+    super(scene, tile, entityMap)
 
-    this.inventory = new Inventory(this.game)
+    this.cursors = this.scene.input.keyboard.createCursorKeys()
+    this.inventory = new Inventory(this.scene)
     this.marchDelay = config.floorDelay
+    this.sprite.depth = depths.chip
 
     // exports
     entityMap.player = this // TODO: don't do this here
@@ -33,7 +35,7 @@ export default class Player extends Marchable {
 
   move (dx, dy) {
     this.frames = FRAMES
-    this.game.hintPanel.hide()
+    this.scene.hintPanel.hide()
     this.frozen = false
     super.move.call(this, dx, dy)
 
@@ -77,91 +79,52 @@ export default class Player extends Marchable {
 
   triggerWin () {
     this.retire()
-    const state = this.game.state.getCurrentState()
+    const state = this.scene.state.getCurrentState()
     state.win(null, 1500)
   }
 
   triggerLose () {
     this.retire()
-    const state = this.game.state.getCurrentState()
+    const state = this.scene.state.getCurrentState()
     state.lose('Oops!', 1500)
   }
 
-  createCursorKeys () {
-    const { keyboard } = this.game.input
-
-    this.cursors = keyboard.createCursorKeys()
-    keyboard.onUpCallback = () => this.enableMove()
-
-    this.enableMove()
-  }
-
-  enableMove () {
-    this.moveSafe = true
-    this.lastMove = this.game.time.now
-  }
-
   updatePosition () {
-    this.updateThrottle()
+    if (this.frozen) return
 
-    if (!this.exists() || !this.moveSafe || this.frozen) {
-      return
-    }
+    const { keyboard } = this.scene.input
+    const { up, down, left, right } = this.cursors
+    const delay = 250 // TODO: config.floorDelay?
 
-    if (this.cursors.up.isDown) {
+    if (keyboard.checkDown(up, delay)) {
       this.move(0, -1)
-      this.moveSafe = false
+      console.log(this.sprite.x, this.sprite.y)
     }
-    if (this.cursors.left.isDown) {
+
+    if (keyboard.checkDown(left, delay)) {
       this.move(-1, 0)
-      this.moveSafe = false
+      console.log(this.sprite.x, this.sprite.y)
     }
-    if (this.cursors.down.isDown) {
+
+    if (keyboard.checkDown(down, delay)) {
       this.move(0, 1)
-      this.moveSafe = false
+      console.log(this.sprite.x, this.sprite.y)
     }
-    if (this.cursors.right.isDown) {
+
+    if (keyboard.checkDown(right, delay)) {
       this.move(1, 0)
-      this.moveSafe = false
-    }
-  }
-
-  updateThrottle () {
-    const { now } = this.game.time
-    const waited = now - this.lastMove > config.moveDelay
-
-    if (waited) {
-      this.enableMove()
+      console.log(this.sprite.x, this.sprite.y)
     }
   }
 
   updateCamera () {
-    const {
-      game: { world, camera },
-      sprite
-    } = this
-    const { tsize } = config
-
-    let cx = sprite.x - 4 * tsize
-    let cy = sprite.y - 4 * tsize
-
-    if (cx < 0) {
-      cx = 0
-    }
-
-    if (cy < 0) {
-      cy = 0
-    }
-
-    if (cx > world.width - 9 * tsize) {
-      cx = world.width - 9 * tsize
-    }
-
-    if (cy > world.height - 9 * tsize) {
-      cy = world.height - 9 * tsize
-    }
-
-    camera.view.x = cx
-    camera.view.y = cy
+    const { sprite } = this
+    const camera = this.scene.cameras.main
+    window.camera = camera
+    camera.centerOn(sprite.x, sprite.y)
+    // camera.centerOn(
+    //  sprite.x - 4 * tsize,
+    //  sprite.y - 4 * tsize
+    // )
   }
 }

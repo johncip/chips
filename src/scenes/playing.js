@@ -1,4 +1,4 @@
-import Phaser, { Rectangle } from 'phaser'
+import Phaser, { Geom } from 'phaser'
 import { throttle } from 'lodash'
 
 import config from '../config'
@@ -13,15 +13,13 @@ export default class Playing extends Phaser.Scene {
   }
 
   init () {
-    this.game.onBlur.add(this.pause, this)
-    this.game.renderer.resize(14 * config.tsize, 9 * config.tsize)
-    this.game.bounds = new Rectangle(0, 0, 9 * config.tsize, 9 * config.tsize)
-    this.game.camera.bounds = null
+    this.events.addListener('blur', () => this.pause())
+    this.cameras.main.setBackgroundColor(config.bgColor)
   }
 
   create () {
     this.levelIndex = config.startLevel
-    this.displayPanel = new DisplayPanel(this.game)
+    this.displayPanel = new DisplayPanel(this)
 
     this.createModals()
     this.createHotkeys()
@@ -32,12 +30,12 @@ export default class Playing extends Phaser.Scene {
   createModals () {
     const { tsize } = config
     this.modal = new Modal(
-      this.game,
-      new Rectangle(0, 0, 14 * tsize, 9 * tsize)
+      this,
+      new Geom.Rectangle(0, 0, 14 * tsize, 9 * tsize)
     )
 
-    const hintBounds = new Rectangle(9.5 * tsize, 0, 5 * tsize, 9 * tsize)
-    this.hintPanel = new Modal(this.game, hintBounds, '', {
+    const hintBounds = new Geom.Rectangle(9.5 * tsize, 0, 5 * tsize, 9 * tsize)
+    this.hintPanel = new Modal(this, hintBounds, '', {
       boundsAlignV: 'top',
       font: '30px lato',
       wordWrapWidth: hintBounds.width - tsize
@@ -53,20 +51,18 @@ export default class Playing extends Phaser.Scene {
   }
 
   createHotkeys () {
-    this.addHotkey('F1', this.startLastLevel)
-    this.addHotkey('F2', this.startCurrentLevel)
-    this.addHotkey('F3', this.startNextLevel)
-    this.addHotkey('P', this.pause)
+    this.addHotkey('F1', () => this.startLastLevel())
+    this.addHotkey('F2', () => this.startCurrentLevel())
+    this.addHotkey('F3', () => this.startNextLevel())
+    this.addHotkey('P', () => this.pause())
   }
 
-  addHotkey (keyString, fn) {
-    const keyObj = this.game.input.keyboard.addKey(Phaser.Keyboard[keyString])
-
-    keyObj.onDown.add(() => {
+  addHotkey (str, fn) {
+    this.input.keyboard.on(`keydown_${str}`, event => {
       if (this.game.paused || this.game.halfPaused) {
         return
       }
-      fn.call(this, keyObj)
+      fn()
     })
   }
 
@@ -84,13 +80,12 @@ export default class Playing extends Phaser.Scene {
 
   startCurrentLevel () {
     this.resetState()
-    this.level = new Level(this.game, this.levelIndex)
+    this.level = new Level(this, this.levelIndex)
 
     // post-load
     this.displayPanel.setLevel(this.levelIndex + 1)
     this.hintPanel.setText(this.level.getHint())
     this.timeLeft = this.level.getTimeAllowed()
-    this.fixLayering()
   }
 
   resetState () {
@@ -101,11 +96,6 @@ export default class Playing extends Phaser.Scene {
     this.game.paused = false
     this.game.halfPaused = false
     this.input.keyboard.onPressCallback = null
-  }
-
-  fixLayering () {
-    this.game.world.bringToTop(this.displayPanel.group)
-    this.game.world.bringToTop(this.level.inventory.group)
   }
 
   pause () {

@@ -1,73 +1,77 @@
 import sprintf from 'sprintf'
 import config from './config'
+import depths from './depths'
 
 /*
  * A 3-digit LCD display with a heading above it.
  */
 export default class LCD {
-  constructor (game, labelText) {
-    this.font = game.add.retroFont('lcd', 64, 100, '0123456789', 0)
-    this.display = 0
-    this.group = game.add.group()
+  constructor (scene, labelText) {
+    this.background = background(scene)
+    this.heading = heading(scene, labelText)
+    this.digits = digits(scene)
 
+    this.group = scene.add.group()
     this.group.addMultiple([
-      background(game),
-      heading(game, labelText),
-      digits(game, this.font)
+      this.background,
+      this.heading,
+      this.digits
     ])
+
+    this.display = 0
+  }
+
+  setX (val) {
+    this.background.x = val
+    this.heading.x = val
+    this.digits.x = val
+  }
+
+  setY (val) {
+    this.background.y = val
+    this.heading.y = val
+    this.digits.y = val + config.tsize * 0.5
   }
 
   get display () {
-    return this.font.text
+    return this.digits.text
   }
 
   set display (num) {
-    this.font.text = sprintf('%03d', num)
+    this.digits.text = sprintf('%03d', num)
   }
 }
 
-function digits (game, font) {
-  return game.add.image(0, config.tsize * 0.5, font)
-}
-
-function heading (game, text) {
-  const headingStyle = {
-    font: '20px lato',
-    fill: '#ddddee'
-  }
-  return game.add.text(0, 0, text, headingStyle)
-}
-
-function background (game) {
+function background (scene) {
   const { tsize, lcdBgColor } = config
-  const g = game.add.graphics()
+  const g = scene.add.graphics()
   const padding = tsize / 4
 
-  roundRect(g, {
-    left: padding * -0.5,
-    top: tsize * 0.4,
-    width: tsize * 3 + padding,
-    height: tsize * 1.5 + padding,
-    radius: tsize / 12,
-    color: lcdBgColor
-  })
+  g.fillStyle(lcdBgColor, 1.0)
+  g.fillRoundedRect(
+    padding * -0.5,
+    tsize * 0.4,
+    tsize * 3 + padding,
+    tsize * 1.5 + padding,
+    tsize / 12
+  )
+  g.depth = depths.lcdBack
 
   return g
 }
 
-/*
- * Draws a rounded rectangle in the given graphics context.
- */
-function roundRect (g, { left, top, width, height, radius, color }) {
-  g.beginFill(color, 1.0)
-  g.moveTo(left + radius, top)
-  g.lineTo(left + width - radius, top)
-  g.quadraticCurveTo(left + width, top, left + width, top + radius)
-  g.lineTo(left + width, top + height - radius)
-  g.quadraticCurveTo(left + width, top + height, left + width - radius, top + height)
-  g.lineTo(left + radius, top + height)
-  g.quadraticCurveTo(left, top + height, left, top + height - radius)
-  g.lineTo(left, top + radius)
-  g.quadraticCurveTo(left, top, left + radius, top)
-  g.endFill()
+function heading (scene, str) {
+  const headingStyle = {
+    font: '20px lato',
+    fill: '#ddddee'
+  }
+  const text = scene.add.text(0, 0, str, headingStyle)
+  text.depth = depths.lcdFront
+  return text
+}
+
+function digits (scene) {
+  const dig = scene.add.bitmapText(0, config.tsize * 0.5, 'lcd', '000')
+  dig.depth = depths.lcdFront
+  return dig
 }

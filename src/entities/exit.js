@@ -6,10 +6,10 @@ import Entity from './entity'
  * The exit triggers the win screen and takes the player to the next level.
  */
 export default class Exit extends Entity {
-  constructor (game, tile, entityMap) {
-    super(game, tile, entityMap)
+  constructor (scene, tile, entityMap) {
+    super(scene, tile, entityMap)
     this.entityMap.exit = this // TODO: don't do these here
-    this.pulse = this.sprite.animations.add('pulse', [73, 80])
+    this.pulse = scene.anims.add('pulse', [73, 80])
     this.pulse.play(config.exitFps, true)
   }
 

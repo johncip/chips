@@ -5,8 +5,8 @@ import Marchable from './marchable'
  * Bugs are monsters which always hug the wall to their left.
  */
 export default class Bug extends Marchable {
-  constructor (game, tile, entityMap) {
-    super(game, tile, entityMap)
+  constructor (scene, tile, entityMap) {
+    super(scene, tile, entityMap)
     this.lastDir = [...Dir.UP]
   }
 

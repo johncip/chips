@@ -9,14 +9,14 @@ import Movable from './movable'
  * specific time increment.
  */
 export default class Marchable extends Movable {
-  constructor (game, tile, entityMap) {
-    super(game, tile, entityMap)
+  constructor (scene, tile, entityMap) {
+    super(scene, tile, entityMap)
     this.timeSinceTick = 0
     this.marchDelay = config.moveDelay
   }
 
   update () {
-    this.timeSinceTick += this.game.time.elapsed
+    this.timeSinceTick += this.scene.time.elapsed
 
     if (this.timeSinceTick > this.marchDelay) {
       this.march()

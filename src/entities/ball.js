@@ -5,8 +5,8 @@ import Marchable from './marchable'
  * The (pink) ball is a monster which moves in a straight line.
  */
 export default class Ball extends Marchable {
-  constructor (game, tile, entityMap) {
-    super(game, tile, entityMap)
+  constructor (scene, tile, entityMap) {
+    super(scene, tile, entityMap)
     this.lastDir = [...Dir.RIGHT] // TODO: set based on frame
   }
 

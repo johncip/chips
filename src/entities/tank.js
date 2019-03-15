@@ -2,8 +2,8 @@ import { Dir } from '../constants'
 import Marchable from './marchable'
 
 export default class Tank extends Marchable {
-  constructor (game, tile, entityMap) {
-    super(game, tile, entityMap)
+  constructor (scene, tile, entityMap) {
+    super(scene, tile, entityMap)
 
     this.marchDir = [...Dir.UP]
     this.marchDelay = 300

@@ -1,4 +1,5 @@
 import { each } from 'lodash'
+import depths from './depths'
 
 /*
  * Translucent modal that is used for the hint as well as pause screen, level end, etc.
@@ -6,23 +7,26 @@ import { each } from 'lodash'
  * Given styles are applied as overrides to the default.
  */
 export default class Modal {
-  constructor (game, bounds, subtext = 'Press SPACE to continue', style = {}) {
+  constructor (scene, bounds, subtext = 'Press SPACE to continue', style = {}) {
     const { width } = bounds
 
-    this.game = game
-    this.group = game.add.group()
-    this.mainText = createText(game, bounds, mainTextStyle(width, style))
+    this.scene = scene
+    this.group = scene.add.group()
+    this.mainText = createMainText(scene, bounds, mainTextStyle(width, style))
 
     const bg = createBg(this.group, bounds)
     const subtext_ = createSubtext(
-      game,
+      scene,
       subtext,
       bounds,
       subtextStyle(width, style)
     )
 
-    each([bg, this.mainText, subtext_], x => this.group.add(x))
-    this.group.fixedToCamera = true
+    this.group.addMultiple([bg, this.mainText, subtext_])
+
+    this.group.children.each(child => {
+      child.setScrollFactor(0)
+    })
 
     this.hide()
   }
@@ -32,40 +36,39 @@ export default class Modal {
   }
 
   show () {
-    this.game.world.bringToTop(this.group)
-    this.group.forEach(item => {
-      item.exists = true
+    this.group.children.each(child => {
+      child.setVisible(true)
     })
   }
 
   hide () {
-    this.group.forEach(item => {
-      item.exists = false
+    this.group.children.each(child => {
+      child.setVisible(false)
     })
   }
 
   destroy () {
-    this.group.forEach(sprite => {
-      sprite.destroy()
+    this.group.children.each(child => {
+      child.destroy()
     })
   }
 
   /*
    * Displays the modal with the given message. Takes an optional delay
-   * (during which time the game is paused) and a fn which should
-   * hide the modal and unpause the game.
+   * (during which time the scene is paused) and a fn which should
+   * hide the modal and unpause the scene.
    */
   flash (message, delay, fn) {
-    fn = fn || (() => unpause(this.game, this))
+    fn = fn || (() => unpause(this.scene, this))
     delay = delay || 0
 
     this.setText(message)
-    this.game.halfPaused = true
+    this.scene.halfPaused = true
 
     setTimeout(() => {
-      this.game.input.keyboard.onPressCallback = fn
+      this.scene.input.keyboard.onPressCallback = fn
       this.show()
-      this.game.paused = true
+      this.scene.paused = true
     }, delay)
   }
 }
@@ -80,8 +83,7 @@ function mainTextStyle (width, overrides = {}) {
     boundsAlignH: 'center',
     boundsAlignV: 'middle',
     align: 'center',
-    wordWrap: 'true',
-    wordWrapWidth: width,
+    wordWrap: { width, useAdvancedWrap: true },
     ...overrides
   }
 }
@@ -106,37 +108,40 @@ function createBg (group, { left, top, width, height }) {
   bg.width = width
   bg.height = height
   bg.alpha = 0.8
-
+  bg.depth = depths.modalBack
   return bg
 }
 
 /*
- * Adds and returns a blank text sprite.
+ * Adds and returns a blank text object.
  */
-function createText (game, { left, top, width, height }, style) {
-  const sprite = game.add.text(0, 0, '', style)
-  sprite.setTextBounds(left, top, width, height)
-  return sprite
+function createMainText (scene, { left, top, width, height }, style) {
+  const text = scene.add.text(left, top, '', style)
+  text.setFixedSize(width, height)
+  text.depth = depths.modalFront
+  return text
 }
 
+// TODO: can I just pass in the height and divide by 2?
 /*
  * Adds and returns a text sprite that's half the size.
  */
-function createSubtext (game, text, { left, halfHeight, width }, style) {
-  const sprite = game.add.text(0, 0, text, style)
-  sprite.setTextBounds(left, halfHeight, width, halfHeight)
-  return sprite
+function createSubtext (scene, str, { left, top, width, halfHeight }, style) {
+  const text = scene.add.text(left, top, str, style)
+  text.setFixedSize(width, halfHeight)
+  text.depth = depths.modalFront
+  return text
 }
 
 /*
- * Resume the game and music and hide the modal.
+ * Resume the scene and music and hide the modal.
  */
-function unpause (game, modal) {
-  if (game.music) {
-    game.music.resume()
+function unpause (scene, modal) {
+  if (scene.music) {
+    scene.music.resume()
   }
 
   modal.hide()
-  game.paused = false
-  game.halfPaused = false
+  scene.paused = false
+  scene.halfPaused = false
 }

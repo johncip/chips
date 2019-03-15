@@ -20,8 +20,9 @@ export default class ForceFloor extends Floor {
         player.marchDir = Dir.DOWN
         break
       case 'random':
-        // TODO: random
-        break
+        break // TODO: implement random type
+      default:
+        throw new Error('missing force floor type')
     }
   }
 }

@@ -6,8 +6,8 @@ import Floor from './floor'
  * When dirt collides with water, they make mud.
  */
 export default class Water extends Floor {
-  constructor (game, tile, entityMap) {
-    super(game, tile, entityMap)
+  constructor (scene, tile, entityMap) {
+    super(scene, tile, entityMap)
     this.isFlat = true
   }
 

@@ -5,15 +5,15 @@ import entityFromTile from './entityfromtile'
 import { spriteIndicesByName } from './constants'
 
 /*
- * The EntityMap is a map from tile coordinate to a game entity.
+ * The EntityMap is a map from tile coordinate to an Entity.
  * It is a model of the given level, and the sprites are the view.
  */
 export default class EntityMap {
-  constructor (game, upper, lower) {
-    this.game = game
-    const tilemap = upper.map
+  constructor (scene, upper, lower) {
+    this.scene = scene
+    const { tilemap } = upper
     this.width = tilemap.width
-    this.group = game.add.group(undefined, 'EntityMap')
+    this.group = scene.add.group()
 
     this._lower = this.mapFromLayer(lower)
     this._upper = this.mapFromLayer(upper)
@@ -22,7 +22,10 @@ export default class EntityMap {
     this.chipsNeeded = this.getChipsNeeded(tilemap.properties)
     this.createConnections(tilemap)
     this.createCloneMachines()
-    this.promoteChip()
+
+    this.eachOfType('chip', player => {
+      this.scene.children.bringToTop(player.sprite)
+    })
   }
 
   mapFromLayer (layer) {
@@ -32,7 +35,7 @@ export default class EntityMap {
     tiles.forEach(tile => {
       if (tile.index >= 0) {
         const key = this._key(tile.x, tile.y)
-        res[key] = entityFromTile(this.game, tile, this)
+        res[key] = entityFromTile(this.scene, tile, this)
       }
     })
 
@@ -79,12 +82,6 @@ export default class EntityMap {
     })
   }
 
-  promoteChip () {
-    this.eachOfType('chip', player => {
-      this.group.bringToTop(player.sprite)
-    })
-  }
-
   getChipsNeeded (properties) {
     if (properties.chipsNeeded) {
       return parseInt(properties.chipsNeeded)
@@ -127,8 +124,6 @@ export default class EntityMap {
     const oldKey = this._key(entity.x, entity.y)
     const newKey = this._key(destX, destY)
 
-    // var lastResident = this._upper[newKey]
-
     delete this._upper[oldKey]
     this._upper[newKey] = entity
 
@@ -140,7 +135,7 @@ export default class EntityMap {
 
   createEntity (tile, layer) {
     const key = this._key(tile.x, tile.y)
-    const entity = entityFromTile(this.game, tile, this)
+    const entity = entityFromTile(this.scene, tile, this)
     layer[key] = entity
 
     return entity

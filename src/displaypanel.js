@@ -1,23 +1,27 @@
 import { each } from 'lodash'
-
 import config from './config'
+import depths from './depths'
 import LCD from './lcd'
 
+// TODO: try extending Group
 /**
- * A container for the 3 LCDs (level, time left, chips left).
+ * A group for the 3 LCDs (level, time left, chips left).
  */
 export default class DisplayPanel {
-  constructor (game) {
-    this.game = game
+  constructor (scene) {
+    this.group = scene.add.group()
 
-    this.group = game.add.group()
-    this.group.fixedToCamera = true
+    const bg = createBg(scene)
+    this.group.add(bg)
 
-    const mask = createMask(game)
-    this.group.add(mask)
+    this.lcds = createLcds(scene)
+    each(this.lcds, lcd => {
+      lcd.group.children.each(lcdChild => {
+        this.group.add(lcdChild)
+      })
+    })
 
-    this.lcds = createLcds(game)
-    each(this.lcds, lcd => this.group.add(lcd.group))
+    this.each(child => child.setScrollFactor(0))
   }
 
   setChipsLeft (val) {
@@ -31,30 +35,36 @@ export default class DisplayPanel {
   setTimeLeft (val) {
     this.lcds.chips.display = val
   }
+
+  each (fn) {
+    this.group.children.each(child => {
+      fn(child)
+    })
+  }
 }
 
 const { tsize, bgColor } = config
 
-function createMask (game) {
-  const mask = game.add.graphics()
-  mask.beginFill(bgColor, 1.0)
-  mask.drawRect(9 * tsize, 0, 5 * tsize, 9 * tsize)
-
-  return mask
+function createBg (scene) {
+  const g = scene.add.graphics()
+  g.fillStyle(bgColor, 1.0)
+  g.fillRect(9 * tsize, 0, 5 * tsize, 9 * tsize)
+  g.depth = depths.displayPanelBack
+  return g
 }
 
-function createLcds (game) {
+function createLcds (scene) {
   const lcds = {
-    level: new LCD(game, 'Level'),
-    time: new LCD(game, 'Time'),
-    chips: new LCD(game, 'Chips')
+    level: new LCD(scene, 'Level'),
+    time: new LCD(scene, 'Time'),
+    chips: new LCD(scene, 'Chips')
   }
 
-  let top = 0.1 * config.tsize
+  let y = 0.1 * tsize
   each(lcds, lcd => {
-    lcd.group.x += 10.25 * config.tsize
-    lcd.group.y = top
-    top += tsize * 2.25
+    lcd.setX(10.25 * tsize)
+    lcd.setY(y)
+    y += tsize * 2.25
   })
 
   return lcds
