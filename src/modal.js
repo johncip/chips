@@ -1,4 +1,3 @@
-import { each } from 'lodash'
 import depths from './depths'
 
 /*
