@@ -1,4 +1,3 @@
-import { each } from 'lodash'
 import config from './config'
 import { spriteIndicesByName } from './constants'
 import depths from './depths'
@@ -70,7 +69,7 @@ export default class Inventory {
 
   reset () {
     this.counts = {}
-    each(this.sprites, item => {
+    this.sprites.forEach(item => {
       item.setVisible(false)
     })
   }
