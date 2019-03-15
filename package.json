@@ -7,7 +7,9 @@
     "build": "webpack",
     "dev": "webpack-dev-server",
     "lint": "eslint_d src --ext .js || true",
-    "watch": "webpack -w"
+    "watch": "webpack -w",
+    "start": "node server.js",
+    "heroku-postbuild": "webpack -p"
   },
   "repository": {
     "type": "git",
@@ -44,6 +46,7 @@
     "xo": "^0.24.0"
   },
   "dependencies": {
+    "express": "^4.16.4",
     "jsxm": "^1.0.1",
     "lodash": "^4.17.11",
     "loov-jsfx": "^1.2.0",
