@@ -13,7 +13,7 @@ export default class Fire extends Floor {
   }
 
   collideWith (target) {
-    super.collideWith.call(this, target)
+    super.collideWith(target)
 
     if (target.type === 'fireball') {
       this.moveHere(target)

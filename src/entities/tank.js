@@ -14,7 +14,7 @@ export default class Tank extends Marchable {
       target.collideWith(this)
     } else {
       // TODO: what does this mean? is it just reversing who collides with who?
-      super.collideWith.call(this, target)
+      super.collideWith(target)
     }
   }
 

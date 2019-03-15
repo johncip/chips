@@ -33,7 +33,7 @@ export default class Movable extends Entity {
   }
 
   retire () {
-    super.retire.call(this)
+    super.retire()
     this.frozen = true
   }
 
