@@ -35,7 +35,7 @@ export default class Player extends Marchable {
 
   move (dx, dy) {
     this.frames = FRAMES
-    this.scene.hintPanel.hide()
+    this.scene.hintPanel.hide() // TODO: this should not be in player.js
     this.frozen = false
     super.move(dx, dy)
 

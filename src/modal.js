@@ -22,12 +22,9 @@ export default class Modal {
     )
 
     this.group.addMultiple([bg, this.mainText, subtext_])
-
-    this.group.children.each(child => {
-      child.setScrollFactor(0)
-    })
-
-    this.hide()
+    this.group.children.each(child => child.setScrollFactor(0))
+    this.group.children.each(child => child.setVisible(false))
+    this.shown = false
   }
 
   setText (text) {
@@ -35,34 +32,15 @@ export default class Modal {
   }
 
   show () {
-    this.group.children.each(child => {
-      child.setVisible(true)
-    })
+    if (this.shown) return
+    this.group.children.each(child => child.setVisible(true))
+    this.shown = true
   }
 
   hide () {
-    this.group.children.each(child => {
-      child.setVisible(false)
-    })
-  }
-
-  /*
-   * Displays the modal with the given message. Takes an optional delay
-   * (during which time the scene is paused) and a fn which should
-   * hide the modal and unpause the scene.
-   */
-  flash (message, delay, fn) {
-    fn = fn || (() => unpause(this.scene, this))
-    delay = delay || 0
-
-    this.setText(message)
-    this.scene.halfPaused = true
-
-    setTimeout(() => {
-      this.scene.input.keyboard.onPressCallback = fn
-      this.show()
-      this.scene.paused = true
-    }, delay)
+    if (!this.shown) return
+    this.group.children.each(child => child.setVisible(false))
+    this.shown = false
   }
 }
 
@@ -123,17 +101,4 @@ function createSubtext (scene, str, { left, top, width, halfHeight }, style) {
   text.setFixedSize(width, halfHeight)
   text.depth = depths.modalFront
   return text
-}
-
-/*
- * Resume the scene and music and hide the modal.
- */
-function unpause (scene, modal) {
-  if (scene.music) {
-    scene.music.resume()
-  }
-
-  modal.hide()
-  scene.paused = false
-  scene.halfPaused = false
 }

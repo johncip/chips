@@ -10,10 +10,11 @@ import Level from '../level'
 export default class Playing extends Phaser.Scene {
   constructor () {
     super('Playing')
+    this.paused = false
   }
 
   init () {
-    this.events.addListener('blur', () => this.pause())
+    this.events.addListener('blur', () => this.pauseGame())
     this.cameras.main.setBackgroundColor(config.bgColor)
   }
 
@@ -54,16 +55,20 @@ export default class Playing extends Phaser.Scene {
     this.addHotkey('F1', () => this.startLastLevel())
     this.addHotkey('F2', () => this.startCurrentLevel())
     this.addHotkey('F3', () => this.startNextLevel())
-    this.addHotkey('P', () => this.pause())
+    this.addHotkey('P', () => this.pauseGame())
+    this.addHotkey('SPACE', () => this.resumeGame())
+
+    this.input.keyboard.on(
+      'keydown_SPACE',
+      () => this.paused ? this.resumeGame() : null
+    )
   }
 
-  addHotkey (str, fn) {
-    this.input.keyboard.on(`keydown_${str}`, event => {
-      if (this.game.paused || this.game.halfPaused) {
-        return
-      }
-      fn()
-    })
+  addHotkey (key, fn) {
+    this.input.keyboard.on(
+      'keydown_' + key,
+      () => this.paused ? null : fn()
+    )
   }
 
   startLastLevel () {
@@ -93,21 +98,29 @@ export default class Playing extends Phaser.Scene {
       this.level.destroy()
     }
 
-    this.game.paused = false
-    this.game.halfPaused = false
-    this.input.keyboard.onPressCallback = null
+    this.scene.resume()
+    this.paused = false
   }
 
-  pause () {
-    if (this.game.paused) {
-      return
+  pauseGame () {
+    if (config.enableMusic) {
+      window.XMPlayer.pause()
     }
+    this.modal.setText('Paused...')
+    this.modal.show()
+    this.paused = true
+  }
 
-    this.modal.flash('Paused...')
+  resumeGame () {
+    if (config.enableMusic) {
+      window.XMPlayer.play()
+    }
+    this.modal.hide()
+    this.paused = false
   }
 
   countDown () {
-    if (this.game.halfPaused || this.game.paused || this.timeLeft === 0) {
+    if (this.paused || this.timeLeft === 0) {
       return
     }
 
