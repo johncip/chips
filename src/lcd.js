@@ -7,9 +7,9 @@ import depths from './depths'
  */
 export default class LCD {
   constructor (scene, labelText) {
-    this.background = background(scene)
-    this.heading = heading(scene, labelText)
-    this.digits = digits(scene)
+    this.background = createBackground(scene)
+    this.heading = createHeading(scene, labelText)
+    this.digits = createDigits(scene)
 
     this.group = scene.add.group()
     this.group.addMultiple([
@@ -42,7 +42,7 @@ export default class LCD {
   }
 }
 
-function background (scene) {
+function createBackground (scene) {
   const { tsize, lcdBgColor } = config
   const g = scene.add.graphics()
   const padding = tsize / 4
@@ -60,7 +60,7 @@ function background (scene) {
   return g
 }
 
-function heading (scene, str) {
+function createHeading (scene, str) {
   const headingStyle = {
     font: '20px lato',
     fill: '#ddddee'
@@ -70,7 +70,7 @@ function heading (scene, str) {
   return text
 }
 
-function digits (scene) {
+function createDigits (scene) {
   const dig = scene.add.bitmapText(0, config.tsize * 0.5, 'lcd', '000')
   dig.depth = depths.lcdFront
   return dig
