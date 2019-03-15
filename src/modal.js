@@ -46,12 +46,6 @@ export default class Modal {
     })
   }
 
-  destroy () {
-    this.group.children.each(child => {
-      child.destroy()
-    })
-  }
-
   /*
    * Displays the modal with the given message. Takes an optional delay
    * (during which time the scene is paused) and a fn which should
