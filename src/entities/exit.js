@@ -1,4 +1,3 @@
-import config from '../config'
 import sfx from '../sfx'
 import Entity from './entity'
 
@@ -9,14 +8,24 @@ export default class Exit extends Entity {
   constructor (scene, tile, entityMap) {
     super(scene, tile, entityMap)
     this.entityMap.exit = this // TODO: don't do these here
-    this.pulse = scene.anims.add('pulse', [73, 80])
-    this.pulse.play(config.exitFps, true)
+
+    const frames = scene.anims.generateFrameNumbers('sprites', { frames: [73, 80] })
+
+    this.pulse = scene.anims.create({
+      key: 'pulse',
+      frames,
+      frameRate: 2,
+      repeat: -1
+    })
+
+    this.sprite.anims.load(this.pulse)
+    this.sprite.play('pulse')
   }
 
   collideWith (target) {
     if (target.type === 'chip') {
       this.moveHere(target)
-      this.pulse.stop()
+      this.sprite.anims.pause()
       this.changeFrame('chip:exit')
       sfx.exit()
 
