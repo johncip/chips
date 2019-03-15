@@ -2,14 +2,14 @@ const keys = [
   'bgLayer',
   'lowerLayer',
   'upperLayer',
+  'chip',
   'displayPanelBack',
   'inventoryBack',
   'inventoryFront',
   'lcdBack',
   'lcdFront',
   'modalBack',
-  'modalFront',
-  'chip'
+  'modalFront'
 ]
 
 export default keys.reduce(
