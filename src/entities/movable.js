@@ -16,7 +16,7 @@ export default class Movable extends Entity {
     }
 
     this.lastDir = [dx, dy]
-    this.changeFrameDir([dx, dy])
+    this.sprite.setFrame(this.frames[this.lastDir.toString()])
     const resident = this.entityMap.get(this.x + dx, this.y + dy)
 
     if (resident) {
@@ -26,10 +26,6 @@ export default class Movable extends Entity {
     }
 
     this.entityMap.resetTraps()
-  }
-
-  changeFrameDir (dir) {
-    this.sprite.frame = this.frames[dir.toString()]
   }
 
   retire () {
