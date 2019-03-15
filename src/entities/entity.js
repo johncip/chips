@@ -27,18 +27,18 @@ export default class Entity {
     )
   }
 
+  exists () {
+    return this.sprite.visible
+  }
+
   retire () {
-    this.sprite.exists = false
+    this.sprite.setVisible(false)
   }
 
   update () {}
 
   reset () {
     this.timeSinceTick = 0
-  }
-
-  exists () {
-    return this.sprite.exists
   }
 
   replaceWith (type, isUpper) {

@@ -97,21 +97,13 @@ export default class EntityMap {
   }
 
   getUpper (x, y) {
-    const key = this._key(x, y)
-    const res = this._upper[key]
-
-    if (res && res.exists()) {
-      return res
-    }
+    const res = this._upper[this._key(x, y)]
+    return res && res.exists() ? res : null
   }
 
   getLower (x, y) {
-    const key = this._key(x, y)
-    const res = this._lower[key]
-
-    if (res && res.exists()) {
-      return res
-    }
+    const res = this._lower[this._key(x, y)]
+    return res && res.exists() ? res : null
   }
 
   moveEntity (entity, dx, dy) {
