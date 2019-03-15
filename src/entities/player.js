@@ -98,22 +98,18 @@ export default class Player extends Marchable {
 
     if (keyboard.checkDown(up, delay)) {
       this.move(0, -1)
-      console.log(this.sprite.x, this.sprite.y)
     }
 
     if (keyboard.checkDown(left, delay)) {
       this.move(-1, 0)
-      console.log(this.sprite.x, this.sprite.y)
     }
 
     if (keyboard.checkDown(down, delay)) {
       this.move(0, 1)
-      console.log(this.sprite.x, this.sprite.y)
     }
 
     if (keyboard.checkDown(right, delay)) {
       this.move(1, 0)
-      console.log(this.sprite.x, this.sprite.y)
     }
   }
 
