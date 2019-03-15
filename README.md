@@ -1,6 +1,6 @@
 # Chips!
 
-**[https://johncip.github.io/play-chips](https://johncip.github.io/play-chips/)**
+**[https://play-chips.herokuapp.com](https://play-chips.herokuapp.com)**
 
 Chips! is a WIP Javascript remake of [Chip's Challenge](https://en.wikipedia.org/wiki/Chip%27s_Challenge), a puzzle game created in 1989 by Chuck Sommerville.
 
