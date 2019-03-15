@@ -13,7 +13,7 @@ export default class Modal {
     this.group = scene.add.group()
     this.mainText = createMainText(scene, bounds, mainTextStyle(width, style))
 
-    const bg = createBg(this.group, bounds)
+    const bg = createBackground(scene, bounds)
     const subtext_ = createSubtext(
       scene,
       subtext,
@@ -96,20 +96,19 @@ function subtextStyle (width, overrides = {}) {
 /*
  * Adds and returns a translucent black background sprite.
  */
-function createBg (group, { left, top, width, height }) {
-  const bg = group.create(left, top, 'black')
-  bg.width = width
-  bg.height = height
-  bg.alpha = 0.8
-  bg.depth = depths.modalBack
-  return bg
+function createBackground (scene, { x, y, width, height }) {
+  const g = scene.add.graphics()
+  g.fillStyle('black', 0.8)
+  g.fillRect(x, y, width, height)
+  g.depth = depths.modalBack
+  return g
 }
 
 /*
  * Adds and returns a blank text object.
  */
-function createMainText (scene, { left, top, width, height }, style) {
-  const text = scene.add.text(left, top, '', style)
+function createMainText (scene, { x, y, width, height }, style) {
+  const text = scene.add.text(x, y, '', style)
   text.setFixedSize(width, height)
   text.depth = depths.modalFront
   return text
