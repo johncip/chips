@@ -8,6 +8,8 @@ const keys = [
   'inventoryFront',
   'lcdBack',
   'lcdFront',
+  'hintBack',
+  'hintFront',
   'modalBack',
   'modalFront'
 ]

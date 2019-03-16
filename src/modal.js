@@ -1,4 +1,5 @@
 import config from './config'
+import depths from './depths'
 import Overlay, { createText } from './overlay'
 
 /*
@@ -11,6 +12,8 @@ export default class Modal extends Overlay {
     const { centerX, centerY } = bounds
     const { fontFamily } = config
 
+    this.bg.depth = depths.modalBack
+
     this.message = createText(
       scene,
       '',
@@ -18,6 +21,7 @@ export default class Modal extends Overlay {
       centerY * 0.8,
       { fontFamily, fontSize: 48, fill: '#dde' }
     )
+    this.message.depth = depths.modalFront
 
     const subtext = createText(
       scene,
@@ -26,6 +30,7 @@ export default class Modal extends Overlay {
       centerY * 1.25,
       { fontFamily, fontSize: 24, fill: '#ccd' }
     )
+    subtext.depth = depths.modalFront
 
     this.group.addMultiple([this.message, subtext])
     this.group.children.each(child => child.setScrollFactor(0))

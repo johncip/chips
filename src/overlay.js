@@ -1,5 +1,3 @@
-import depths from './depths'
-
 /*
  * Translucent overlay that is used for the hint as well as pause screen, level end, etc.
  */
@@ -7,8 +5,8 @@ export default class Overlay {
   constructor (scene, bounds) {
     this.scene = scene
     this.group = scene.add.group()
-    const bg = createBackground(scene, bounds)
-    this.group.add(bg)
+    this.bg = createBackground(scene, bounds)
+    this.group.add(this.bg)
   }
 
   setText (text) {
@@ -35,7 +33,6 @@ function createBackground (scene, { x, y, width, height }) {
   const g = scene.add.graphics()
   g.fillStyle('black', 0.8)
   g.fillRect(x, y, width, height)
-  g.depth = depths.modalBack
   return g
 }
 
@@ -45,7 +42,5 @@ function createBackground (scene, { x, y, width, height }) {
 export function createText (scene, str, centerX, centerY, style) {
   const text = scene.add.text(centerX, centerY, str, style)
   text.setOrigin(0.5)
-  text.depth = depths.modalFront
-
   return text
 }

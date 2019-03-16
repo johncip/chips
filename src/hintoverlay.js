@@ -1,4 +1,5 @@
 import config from './config'
+import depths from './depths'
 import Overlay, { createText } from './overlay'
 
 /*
@@ -10,8 +11,11 @@ export default class HintOverlay extends Overlay {
 
     const { width, centerX, centerY } = bounds
 
+    this.bg.depth = depths.hintBack
+
     this.hintText = createText(scene, '', centerX, centerY, style(width * 0.8))
     this.hintText.lineSpacing = 10
+    this.hintText.depth = depths.hintFront
 
     this.group.add(this.hintText)
     this.group.children.each(child => child.setScrollFactor(0))
