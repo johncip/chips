@@ -62,7 +62,7 @@ function createLcds (scene) {
 
   let y = 0.1 * tsize
   each(lcds, lcd => {
-    lcd.setX(10.25 * tsize)
+    lcd.setX(10 * tsize)
     lcd.setY(y)
     y += tsize * 2.25
   })

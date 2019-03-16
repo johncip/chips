@@ -23,9 +23,7 @@ export default class Inventory {
   constructor (scene) {
     this.group = scene.add.group()
 
-    // this.left = 9.75 * tsize
-    // this.top = 7 * tsize
-    this.left = 10.25 * tsize
+    this.left = 10 * tsize
     this.top = 7.5 * tsize
     this.counts = {}
     this.sprites = {}
