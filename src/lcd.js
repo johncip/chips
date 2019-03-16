@@ -63,7 +63,7 @@ function createBackground (scene) {
 function createHeading (scene, str) {
   const headingStyle = {
     font: '20px lato',
-    fill: '#ddddee'
+    fill: 'rgb(220, 220, 240)'
   }
   const text = scene.add.text(0, 0, str, headingStyle)
   text.depth = depths.lcdFront

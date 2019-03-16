@@ -36,9 +36,9 @@ function style (width) {
   return {
     fontFamily: 'lato',
     align: 'center',
+    fill: 'rgb(220, 220, 220)',
     fontSize: 34,
     fontWeight: 'bold',
-    fill: 'white',
     wordWrap: {
       width,
       useAdvancedWrap: true
