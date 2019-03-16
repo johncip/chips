@@ -9,13 +9,7 @@ export default class HintOverlay extends Overlay {
 
     const { width, centerX, centerY } = bounds
 
-    this.hintText = createText(
-      scene,
-      '',
-      centerX,
-      centerY,
-      style(width * 0.8)
-    )
+    this.hintText = createText(scene, '', centerX, centerY, style(width * 0.8))
     this.hintText.lineSpacing = 10
 
     this.group.add(this.hintText)
