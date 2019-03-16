@@ -11,16 +11,15 @@ import { spriteIndicesByName } from './constants'
 export default class EntityMap {
   constructor (scene, upper, lower) {
     this.scene = scene
-    const { tilemap } = upper
-    this.width = tilemap.width
+    this.tilemap = upper.tilemap
     this.group = scene.add.group()
 
     this._lower = this.mapFromLayer(lower)
     this._upper = this.mapFromLayer(upper)
 
     // post
-    this.chipsNeeded = this.getChipsNeeded(tilemap.properties)
-    this.createConnections(tilemap)
+    this.chipsNeeded = this.getChipsNeeded(this.tilemap.properties)
+    this.createConnections(this.tilemap)
     this.createCloneMachines()
 
     this.eachOfType('chip', player => {
@@ -35,6 +34,7 @@ export default class EntityMap {
     tiles.forEach(tile => {
       if (tile.index >= 0) {
         const key = this._key(tile.x, tile.y)
+        // TODO: set depth
         res[key] = entityFromTile(this.scene, tile, this)
       }
     })
@@ -172,6 +172,6 @@ export default class EntityMap {
   }
 
   _key (x, y) {
-    return y * this.width + x
+    return y * this.tilemap.width + x
   }
 }
