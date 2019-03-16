@@ -1,3 +1,4 @@
+import config from './config'
 import Overlay, { createText } from './overlay'
 
 /*
@@ -28,9 +29,9 @@ export default class HintOverlay extends Overlay {
  */
 function style (width) {
   return {
-    fontFamily: 'lato',
     align: 'center',
     fill: 'rgb(220, 220, 220)',
+    fontFamily: config.fontFamily,
     fontSize: 34,
     fontWeight: 'bold',
     wordWrap: {

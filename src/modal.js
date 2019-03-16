@@ -1,3 +1,4 @@
+import config from './config'
 import Overlay, { createText } from './overlay'
 
 /*
@@ -8,13 +9,14 @@ export default class Modal extends Overlay {
     super(scene, bounds)
 
     const { centerX, centerY } = bounds
+    const { fontFamily } = config
 
     this.message = createText(
       scene,
       '',
       centerX,
       centerY * 0.8,
-      { fontFamily: 'lato', fontSize: 48, fill: '#dde' }
+      { fontFamily, fontSize: 48, fill: '#dde' }
     )
 
     const subtext = createText(
@@ -22,7 +24,7 @@ export default class Modal extends Overlay {
       'Press SPACE to continue',
       centerX,
       centerY * 1.25,
-      { fontFamily: 'lato', fontSize: 24, fill: '#ccd' }
+      { fontFamily, fontSize: 24, fill: '#ccd' }
     )
 
     this.group.addMultiple([this.message, subtext])

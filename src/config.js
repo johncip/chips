@@ -3,6 +3,7 @@ export default {
   debug: true,
   enableMusic: false,
   floorDelay: 1000 / 10,
+  fontFamily: 'lato',
   height: 576,
   lcdBgColor: 0x301010,
   moveDelay: 1000 / 3,

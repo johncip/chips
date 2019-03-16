@@ -62,7 +62,8 @@ function createBackground (scene) {
 
 function createHeading (scene, str) {
   const headingStyle = {
-    font: '20px lato',
+    fontFamily: config.fontFamily,
+    fontSize: 20,
     fill: 'rgb(220, 220, 240)'
   }
   const text = scene.add.text(0, 0, str, headingStyle)
