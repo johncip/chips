@@ -117,7 +117,6 @@ export default class Player extends Marchable {
     const { x, y } = this.sprite
     const { tsize } = config
     const camera = this.scene.cameras.main
-    window.camera = camera
     camera.centerOn(x + tsize / 2, y + tsize / 2)
   }
 }
