@@ -29,6 +29,8 @@ export default class Entity {
     this.sprite.setOrigin(0)
   }
 
+  update () {}
+
   exists () {
     return this.sprite.visible
   }
@@ -36,8 +38,6 @@ export default class Entity {
   retire () {
     this.sprite.setVisible(false)
   }
-
-  update () {}
 
   reset () {
     this.timeSinceTick = 0
