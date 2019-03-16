@@ -42,12 +42,11 @@ export default class Level {
   }
 
   destroy () {
-    this.entityMap.group.destroy()
-    this.inventory.group.destroy()
-    this.bgLayer.destroy()
-    this.lower.destroy()
-    this.upper.destroy()
-    this.map.destroy()
+    [
+      this.entityMap.group,
+      this.inventory.group,
+      this.map
+    ].forEach(x => x.destroy(true))
   }
 
   update () {
