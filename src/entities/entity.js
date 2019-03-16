@@ -25,6 +25,8 @@ export default class Entity {
       'sprites',
       tile.index - 1
     )
+
+    this.sprite.setOrigin(0)
   }
 
   exists () {
