@@ -63,15 +63,17 @@ export default class Playing extends Phaser.Scene {
     )
   }
 
+  // TODO: extract wrap
+  // TODO: have an end state
   startLastLevel () {
-    const numLevels = levels.length
-    this.levelIndex = (this.levelIndex - 1 + numLevels) % numLevels
+    const num = levels.length
+    this.levelIndex = (this.levelIndex - 1 + num) % num
     this.startCurrentLevel()
   }
 
   startNextLevel () {
-    const numLevels = levels.length
-    this.levelIndex = (this.levelIndex + 1) % numLevels
+    const num = levels.length
+    this.levelIndex = (this.levelIndex + 1) % num
     this.startCurrentLevel()
   }
 
