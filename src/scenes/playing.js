@@ -98,7 +98,7 @@ export default class Playing extends Phaser.Scene {
     if (config.enableMusic) {
       window.XMPlayer.pause()
     }
-    this.modal.setMessage('Paused...')
+    this.modal.setMessage('Paused')
     this.modal.show()
     this.paused = true
   }
