@@ -10,6 +10,7 @@ new Phaser.Game({
   width: config.width,
   height: config.height,
   parent: 'gameContainer',
+  resolution: window.devicePixelRatio || 1,
   scene: [Preload, MainMenu, Playing]
 })
 
