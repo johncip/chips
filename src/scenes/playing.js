@@ -5,6 +5,7 @@ import config from '../config'
 import levels from '../levels'
 import DisplayPanel from '../displaypanel'
 import Modal from '../modal'
+import HintOverlay from '../hintoverlay'
 import Level from '../level'
 
 export default class Playing extends Phaser.Scene {
@@ -22,33 +23,24 @@ export default class Playing extends Phaser.Scene {
     this.levelIndex = config.startLevel
     this.displayPanel = new DisplayPanel(this)
 
-    this.createModals()
+    this.createOverlays()
     this.createHotkeys()
 
     this.startCurrentLevel()
   }
 
-  createModals () {
+  createOverlays () {
     const { tsize } = config
     this.modal = new Modal(
       this,
       new Geom.Rectangle(0, 0, 14 * tsize, 9 * tsize)
     )
 
-    const hintBounds = new Geom.Rectangle(9.5 * tsize, 0, 5 * tsize, 9 * tsize)
-    this.hintPanel = new Modal(this, hintBounds, '', {
-      boundsAlignV: 'top',
-      font: '30px lato',
-      wordWrapWidth: hintBounds.width - tsize
-    })
-
-    // twerkz
-    this.modal.mainText.y -= tsize
-    this.hintPanel.mainText.x -= 0.25 * tsize
-    this.hintPanel.mainText.y += tsize
-
-    // exports
-    this.game.hintPanel = this.hintPanel
+    // currently hidden and shown in entity collision code
+    this.hintOverlay = new HintOverlay(
+      this,
+      new Geom.Rectangle(9 * tsize, 0, 5 * tsize, 9 * tsize)
+    )
   }
 
   createHotkeys () {
@@ -89,7 +81,7 @@ export default class Playing extends Phaser.Scene {
 
     // post-load
     this.displayPanel.setLevel(this.levelIndex + 1)
-    this.hintPanel.setText(this.level.getHint())
+    this.hintOverlay.setHint(this.level.getHint())
     this.timeLeft = this.level.getTimeAllowed()
   }
 
@@ -106,7 +98,7 @@ export default class Playing extends Phaser.Scene {
     if (config.enableMusic) {
       window.XMPlayer.pause()
     }
-    this.modal.setText('Paused...')
+    this.modal.setMessage('Paused...')
     this.modal.show()
     this.paused = true
   }
@@ -142,13 +134,13 @@ export default class Playing extends Phaser.Scene {
   }
 
   lose (msg, delay) {
-    this.modal.setText(msg)
+    this.modal.setMessage(msg)
     this.modal.show()
     // this.modal.flash(msg, delay, () => this.startCurrentLevel())
   }
 
-  win (msg = 'Yowzer! You win!', delay) {
-    this.modal.setText(msg)
+  win (msg, delay) {
+    this.modal.setMessage(msg)
     this.modal.show()
     // this.modal.flash(msg, delay, () => this.startNextLevel())
   }
