@@ -55,9 +55,9 @@ export default class Entity {
 
   changeFrame (frame) {
     if (isNaN(frame)) {
-      this.sprite.frame = spriteIndicesByName[frame]
+      this.sprite.setFrame(spriteIndicesByName[frame])
     } else {
-      this.sprite.frame = frame
+      this.sprite.setFrame(frame)
     }
   }
 
