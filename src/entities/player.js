@@ -77,16 +77,16 @@ export default class Player extends Marchable {
     this.updateCamera()
   }
 
+  // TODO: move to playing.js
   triggerWin () {
     this.retire()
-    const state = this.scene.state.getCurrentState()
-    state.win(null, 1500)
+    this.scene.win(null, 1500)
   }
 
+  // TODO: move to playing.js
   triggerLose () {
     this.retire()
-    const state = this.scene.state.getCurrentState()
-    state.lose('Oops!', 1500)
+    this.scene.lose('Oops!', 1500)
   }
 
   updatePosition () {

@@ -142,12 +142,15 @@ export default class Playing extends Phaser.Scene {
   }
 
   lose (msg, delay) {
-    this.modal.flash(msg, delay, () => this.startCurrentLevel())
+    this.modal.setText(msg)
+    this.modal.show()
+    // this.modal.flash(msg, delay, () => this.startCurrentLevel())
   }
 
-  win (msg, delay) {
-    msg = msg || 'Yowzer! You win!'
-    this.modal.flash(msg, delay, () => this.startNextLevel())
+  win (msg = 'Yowzer! You win!', delay) {
+    this.modal.setText(msg)
+    this.modal.show()
+    // this.modal.flash(msg, delay, () => this.startNextLevel())
   }
 
   asyncLoad (cacheKey, path, onLoad) {
