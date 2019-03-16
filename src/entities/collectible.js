@@ -9,7 +9,7 @@ export default class Collectible extends Entity {
   collideWith (player) {
     player.inventory.add(this.spriteKey)
     sfx.collect()
-    this.moveHere(player)
     this.retire()
+    this.moveHere(player)
   }
 }
