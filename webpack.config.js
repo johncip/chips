@@ -64,7 +64,7 @@ module.exports = {
     ]),
     new GoogleFontsPlugin({
       fonts: [
-        { family: 'Lato', subsets: ['latin'] }
+        { family: 'Inconsolata', subsets: ['latin'] }
       ]
     }),
     // TODO: is this needed?
