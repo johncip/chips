@@ -42,8 +42,7 @@
     "style-loader": "^0.23.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.2.1",
-    "xo": "^0.24.0"
+    "webpack-dev-server": "^3.2.1"
   },
   "dependencies": {
     "express": "^4.16.4",
@@ -52,21 +51,5 @@
     "loov-jsfx": "^1.2.0",
     "phaser": "^3.16.2",
     "sprintf": "^0.1.5"
-  },
-  "xo": {
-    "space": true,
-    "semicolon": false,
-    "extends": "standard",
-    "settings": {
-      "import/resolver": "webpack"
-    },
-    "rules": {
-      "no-multiple-empty-lines": 0,
-      "capitalized-comments": 0,
-      "no-warning-comments": 0,
-      "max-statements-per-line": 0,
-      "import/no-unassigned-import": 0,
-      "padding-line-between-statements": 0
-    }
   }
 }
