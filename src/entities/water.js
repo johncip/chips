@@ -14,14 +14,7 @@ export default class Water extends Floor {
   collideWith (target) {
     if (target.type === 'chip') {
       super.collideWith(target)
-
-      target.frames = {
-        '0,-1': 87,
-        '-1,0': 94,
-        '0,1': 101,
-        '1,0': 108
-      }
-      target.changeFrameDir(target.lastDir)
+      target.sprite.setFrame(swimFrames[target.lastDir.toString()])
     } else if (target.type === 'fireball') {
       target.retire()
     } else if (target.type === 'block') {
@@ -39,4 +32,11 @@ export default class Water extends Floor {
     this.changeFrame('splash')
     player.triggerLose()
   }
+}
+
+const swimFrames = {
+  '0,-1': 87,
+  '-1,0': 94,
+  '0,1': 101,
+  '1,0': 108
 }
