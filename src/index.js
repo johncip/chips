@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 import config from './config'
-import { Preload, MainMenu, Playing } from './scenes'
+import { Preload, Playing } from './scenes'
 
 import 'Assets/style/style.css'
 
@@ -11,7 +11,7 @@ new Phaser.Game({
   height: config.height,
   parent: 'gameContainer',
   resolution: window.devicePixelRatio || 1,
-  scene: [Preload, MainMenu, Playing]
+  scene: [Preload, Playing]
 })
 
 require('./music')
