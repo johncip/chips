@@ -11,34 +11,27 @@ export default class Level {
   constructor (scene, index) {
     this.shortName = levels[index]
 
-    const map = scene.add.tilemap(this.shortName)
-    map.addTilesetImage('chip-felix', 'tiles')
+    this.map = scene.add.tilemap(this.shortName)
+    const tileset = this.map.addTilesetImage('chip-felix', 'tiles')
 
-    const camera = scene.cameras.main
-    camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
-    camera.setViewport(0, 0, config.width, config.height)
-
-    this.bgLayer = map.createStaticLayer('bg')
+    this.bgLayer = this.map.createStaticLayer('bg', tileset)
     this.bgLayer.depth = depths.bgLayer
 
-    this.lower = map.createDynamicLayer('lower')
-    this.lower.depth = depths.lowerLayer
+    // the layer data is used to create entities, but not rendered directly
+    const lower = this.map.createDynamicLayer('lower', tileset)
+    const upper = this.map.createDynamicLayer('upper', null)
 
-    this.upper = map.createDynamicLayer('upper')
-    this.upper.depth = depths.upperLayer
+    this.entityMap = new EntityMap(scene, upper, lower)
 
-    this.entityMap = new EntityMap(scene, this.upper, this.lower)
-
-    // read by playing state
-    // TODO: don't create this in the player
+    // read by the scene
+    // TODO: move out of the player
     this.inventory = this.entityMap.player.inventory
 
-    // this.bgLayer.resizeWorld()
-    this.bgLayer.setVisible(true)
-    this.lower.setVisible(true)
-    this.upper.setVisible(true)
+    const camera = scene.cameras.main
+    camera.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
+    camera.setViewport(0, 0, config.width, config.height)
 
-    this.map = map
+    this.bgLayer.setVisible(true)
   }
 
   destroy () {
