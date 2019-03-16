@@ -18,7 +18,7 @@ export default class Level {
     this.bgLayer.depth = depths.bgLayer
 
     // the layer data is used to create entities, but not rendered directly
-    const lower = this.map.createDynamicLayer('lower', tileset)
+    const lower = this.map.createDynamicLayer('lower', null)
     const upper = this.map.createDynamicLayer('upper', null)
 
     this.entityMap = new EntityMap(scene, upper, lower)
