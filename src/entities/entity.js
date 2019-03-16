@@ -44,15 +44,16 @@ export default class Entity {
   }
 
   replaceWith (type, isUpper) {
-    const tile = {
+    this.retire()
+
+    // TODO: handle this a better way
+    const layer = isUpper ? this.entityMap._upper : this.entityMap._lower
+
+    return this.entityMap.createEntity({
       x: this.x,
       y: this.y,
       index: spriteIndicesByName[type] + 1
-    }
-    const createFunc = isUpper ? 'createUpper' : 'createLower'
-
-    this.retire()
-    return this.entityMap[createFunc](tile)
+    }, layer)
   }
 
   changeFrame (frame) {

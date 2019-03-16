@@ -133,14 +133,6 @@ export default class EntityMap {
     return entity
   }
 
-  createUpper (tile) {
-    return this.createEntity(tile, this._upper)
-  }
-
-  createLower (tile) {
-    return this.createEntity(tile, this._lower)
-  }
-
   update () {
     this.eachEntity(entity => {
       if (!entity) return
