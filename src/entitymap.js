@@ -112,6 +112,13 @@ export default class EntityMap {
     this.moveEntityAbs(entity, destX, destY)
   }
 
+  removeEntity (entity) {
+    const key = this._key(entity.x, entity.y)
+    // TODO: only delete from the right one
+    delete this._upper[key]
+    delete this._lower[key]
+  }
+
   moveEntityAbs (entity, destX, destY) {
     const oldKey = this._key(entity.x, entity.y)
     const newKey = this._key(destX, destY)

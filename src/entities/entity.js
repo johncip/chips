@@ -36,7 +36,8 @@ export default class Entity {
   }
 
   retire () {
-    this.sprite.setVisible(false)
+    this.entityMap.removeEntity(this)
+    this.sprite.destroy()
   }
 
   reset () {
