@@ -97,6 +97,9 @@ export default class Playing extends Phaser.Scene {
   }
 
   pauseGame () {
+    if (this.modal.shown) {
+      return
+    }
     if (config.enableMusic) {
       window.XMPlayer.pause()
     }
@@ -138,13 +141,21 @@ export default class Playing extends Phaser.Scene {
   lose (msg, delay) {
     this.modal.setMessage(msg)
     this.modal.show()
-    // this.modal.flash(msg, delay, () => this.startCurrentLevel())
+
+    this.input.keyboard.once(
+      'keydown_SPACE',
+      () => this.startCurrentLevel()
+    )
   }
 
   win (msg, delay) {
     this.modal.setMessage(msg)
     this.modal.show()
-    // this.modal.flash(msg, delay, () => this.startNextLevel())
+
+    this.input.keyboard.once(
+      'keydown_SPACE',
+      () => this.startNextLevel()
+    )
   }
 
   asyncLoad (cacheKey, path, onLoad) {
