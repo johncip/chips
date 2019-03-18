@@ -73,7 +73,7 @@ export default class Player extends Marchable {
 
   update () {
     super.update()
-    this.updatePosition()
+    this.checkCursorKeys()
     this.updateCamera()
   }
 
@@ -89,7 +89,7 @@ export default class Player extends Marchable {
     this.scene.lose('Oops!', 1500)
   }
 
-  updatePosition () {
+  checkCursorKeys () {
     if (this.frozen) return
 
     const { keyboard } = this.scene.input
