@@ -159,18 +159,4 @@ export default class Playing extends Phaser.Scene {
     this.modal.show()
     this.input.keyboard.once('keydown_SPACE', () => this.startNextLevel())
   }
-
-  asyncLoad (cacheKey, path, onLoad) {
-    this.load.audio(cacheKey, path)
-    this.load.start()
-
-    const index = window.setInterval(function () {
-      if (this.game.load.isLoading) {
-        return
-      }
-
-      onLoad()
-      window.clearInterval(index)
-    }, 1000)
-  }
 }
