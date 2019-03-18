@@ -140,10 +140,12 @@ export default class EntityMap {
     return entity
   }
 
-  update () {
+  update (time, delta) {
     this.eachEntity(entity => {
-      if (!entity) return
-      entity.update()
+      if (!entity) {
+        return
+      }
+      entity.update(time, delta)
     })
   }
 

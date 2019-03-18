@@ -15,8 +15,8 @@ export default class Marchable extends Movable {
     this.marchDelay = config.moveDelay
   }
 
-  update () {
-    this.timeSinceTick += this.scene.time.elapsed
+  update (time, delta) {
+    this.timeSinceTick += delta
 
     if (this.timeSinceTick > this.marchDelay) {
       this.march()

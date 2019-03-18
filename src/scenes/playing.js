@@ -125,14 +125,14 @@ export default class Playing extends Phaser.Scene {
     }
   }
 
-  update () {
+  update (time, delta) {
     const chipsLeft =
       this.level.getChipsNeeded() - this.level.inventory.count('ic')
 
     this.updateTimeLeft()
     this.displayPanel.setTimeLeft(this.timeLeft)
     this.displayPanel.setChipsLeft(chipsLeft)
-    this.level.update()
+    this.level.update(time, delta)
   }
 
   lose (msg, delay) {

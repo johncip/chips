@@ -42,8 +42,8 @@ export default class Level {
     ].forEach(x => x.destroy(true))
   }
 
-  update () {
-    this.entityMap.update()
+  update (time, delta) {
+    this.entityMap.update(time, delta)
   }
 
   getTimeAllowed () {
