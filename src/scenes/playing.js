@@ -40,16 +40,8 @@ export default class Playing extends Phaser.Scene {
     this.levelIndex = config.startLevel
     this.displayPanel = new DisplayPanel(this)
 
-    this.modal = new Modal(
-      this,
-      new Geom.Rectangle(0, 0, 14 * tsize, 9 * tsize)
-    )
-
-    // currently hidden and shown in entity collision code
-    this.hintOverlay = new HintOverlay(
-      this,
-      new Geom.Rectangle(9 * tsize, 0, 5 * tsize, 9 * tsize)
-    )
+    this.modal = new Modal(this)
+    this.hintOverlay = new HintOverlay(this) // hidden / shown in entity collision code
 
     this.createHotkeys()
     this.startCurrentLevel()

@@ -1,3 +1,4 @@
+import { Geom } from 'phaser'
 import config from './config'
 import depths from './depths'
 import Overlay, { createText } from './overlay'
@@ -6,7 +7,9 @@ import Overlay, { createText } from './overlay'
  * Translucent overlay that is used for the as pause screen, level end, etc.
  */
 export default class Modal extends Overlay {
-  constructor (scene, bounds) {
+  constructor (scene) {
+    const { width, height } = scene.game.canvas
+    const bounds = new Geom.Rectangle(0, 0, width, height)
     super(scene, bounds)
 
     const { centerX, centerY } = bounds
