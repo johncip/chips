@@ -1,4 +1,3 @@
-import { includes } from 'lodash'
 import Inventory from '../inventory'
 import config from '../config'
 import depths from '../depths'
@@ -27,9 +26,7 @@ export default class Player extends Marchable {
 
   march () {
     if (this.sliding) {
-      const dx = this.marchDir[0]
-      const dy = this.marchDir[1]
-      this.move(dx, dy)
+      this.move(...this.marchDir)
     }
   }
 
@@ -60,7 +57,7 @@ export default class Player extends Marchable {
   collideWith (target) {
     const monsters = ['bug', 'fireball', 'ball', 'glider', 'tank']
 
-    if (includes(monsters, target.type)) {
+    if (monsters.includes(target.type)) {
       sfx.lose()
       this.triggerLose()
     }
