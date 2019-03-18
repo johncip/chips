@@ -1,5 +1,4 @@
 import Phaser, { Geom } from 'phaser'
-import { throttle } from 'lodash'
 
 import config from '../config'
 import levels from '../levels'
@@ -25,6 +24,13 @@ export default class Playing extends Phaser.Scene {
   init () {
     this.events.addListener('blur', () => this.pauseGame())
     this.cameras.main.setBackgroundColor(config.bgColor)
+
+    this.time.addEvent({
+      delay: 1000,
+      callback: this.countDown,
+      callbackScope: this,
+      loop: true
+    })
   }
 
   create () {
@@ -181,5 +187,3 @@ export default class Playing extends Phaser.Scene {
     }, 1000)
   }
 }
-
-Playing.prototype.updateTimeLeft = throttle(Playing.prototype.countDown, 1000)
