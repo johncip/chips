@@ -139,12 +139,12 @@ export default class Playing extends Phaser.Scene {
     this.level.update(time, delta)
   }
 
-  lose (msg, delay) {
+  lose (msg) {
     this.modal.showMessage(msg)
     this.input.keyboard.once('keydown_SPACE', () => this.startCurrentLevel())
   }
 
-  win (msg, delay) {
+  win (msg) {
     this.modal.showMessage(msg)
     this.input.keyboard.once('keydown_SPACE', () => this.startNextLevel())
   }
