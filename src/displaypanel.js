@@ -33,7 +33,7 @@ export default class DisplayPanel {
   }
 
   setTimeLeft (val) {
-    this.lcds.chips.display = val
+    this.lcds.time.display = val
   }
 
   each (fn) {
