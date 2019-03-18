@@ -96,7 +96,6 @@ export default class Playing extends Phaser.Scene {
     }
 
     this.scene.resume()
-    this.paused = false
   }
 
   pauseGame () {
