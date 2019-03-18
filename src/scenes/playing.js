@@ -63,10 +63,7 @@ export default class Playing extends Phaser.Scene {
   }
 
   addHotkey (key, fn) {
-    this.input.keyboard.on(
-      'keydown_' + key,
-      () => this.paused ? null : fn()
-    )
+    this.input.keyboard.on('keydown_' + key, () => (this.paused ? null : fn()))
   }
 
   // TODO: extract wrap
@@ -114,9 +111,8 @@ export default class Playing extends Phaser.Scene {
     this.modal.show()
     this.paused = true
 
-    this.input.keyboard.once(
-      'keydown_SPACE',
-      () => this.paused ? this.resumeGame() : null
+    this.input.keyboard.once('keydown_SPACE', () =>
+      this.paused ? this.resumeGame() : null
     )
   }
 
@@ -157,20 +153,14 @@ export default class Playing extends Phaser.Scene {
     this.modal.setMessage(msg)
     this.modal.show()
 
-    this.input.keyboard.once(
-      'keydown_SPACE',
-      () => this.startCurrentLevel()
-    )
+    this.input.keyboard.once('keydown_SPACE', () => this.startCurrentLevel())
   }
 
   win (msg, delay) {
     this.modal.setMessage(msg)
     this.modal.show()
 
-    this.input.keyboard.once(
-      'keydown_SPACE',
-      () => this.startNextLevel()
-    )
+    this.input.keyboard.once('keydown_SPACE', () => this.startNextLevel())
   }
 
   asyncLoad (cacheKey, path, onLoad) {
