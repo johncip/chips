@@ -28,17 +28,11 @@ export default class Playing extends Phaser.Scene {
   }
 
   create () {
+    const { tsize } = config
+
     this.levelIndex = config.startLevel
     this.displayPanel = new DisplayPanel(this)
 
-    this.createOverlays()
-    this.createHotkeys()
-
-    this.startCurrentLevel()
-  }
-
-  createOverlays () {
-    const { tsize } = config
     this.modal = new Modal(
       this,
       new Geom.Rectangle(0, 0, 14 * tsize, 9 * tsize)
@@ -49,6 +43,9 @@ export default class Playing extends Phaser.Scene {
       this,
       new Geom.Rectangle(9 * tsize, 0, 5 * tsize, 9 * tsize)
     )
+
+    this.createHotkeys()
+    this.startCurrentLevel()
   }
 
   createHotkeys () {
