@@ -16,6 +16,10 @@ export default class Marchable extends Movable {
   }
 
   update (time, delta) {
+    if (this.scene.paused) {
+      return
+    }
+
     this.timeSinceTick += delta
 
     if (this.timeSinceTick > this.marchDelay) {
