@@ -54,11 +54,6 @@ export default class Playing extends Phaser.Scene {
     this.addHotkey('F3', () => this.startNextLevel())
     this.addHotkey('P', () => this.pauseGame())
     this.addHotkey('SPACE', () => this.resumeGame())
-
-    this.input.keyboard.on(
-      'keydown_SPACE',
-      () => this.paused ? this.resumeGame() : null
-    )
   }
 
   addHotkey (key, fn) {
@@ -111,6 +106,11 @@ export default class Playing extends Phaser.Scene {
     this.modal.setMessage('Paused')
     this.modal.show()
     this.paused = true
+
+    this.input.keyboard.once(
+      'keydown_SPACE',
+      () => this.paused ? this.resumeGame() : null
+    )
   }
 
   resumeGame () {
