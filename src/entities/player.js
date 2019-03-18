@@ -91,6 +91,7 @@ export default class Player extends Marchable {
 
   checkCursorKeys () {
     if (this.frozen) return
+    if (this.scene.paused) return
 
     const { keyboard } = this.scene.input
     const { up, down, left, right } = this.cursors
