@@ -11,6 +11,14 @@ import Level from '../level'
 export default class Playing extends Phaser.Scene {
   constructor () {
     super('Playing')
+
+    this.chipsLeft = null
+    this.displayPanel = null
+    this.hintOverlay = null
+    this.levelIndex = null
+    this.modal = null
+    this.timeLeft = null
+
     this.paused = false
   }
 
