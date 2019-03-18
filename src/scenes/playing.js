@@ -35,8 +35,6 @@ export default class Playing extends Phaser.Scene {
   }
 
   create () {
-    const { tsize } = config
-
     this.levelIndex = config.startLevel
     this.displayPanel = new DisplayPanel(this)
 
