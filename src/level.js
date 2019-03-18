@@ -1,4 +1,3 @@
-import { parseInt } from 'lodash'
 import EntityMap from './entitymap'
 import config from './config'
 import depths from './depths'

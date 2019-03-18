@@ -1,4 +1,4 @@
-import { each, parseInt } from 'lodash'
+import { each } from 'lodash'
 
 export const Dir = {
   UP: [0, -1],
