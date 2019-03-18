@@ -6,6 +6,7 @@ import DisplayPanel from '../displaypanel'
 import Modal from '../modal'
 import HintOverlay from '../hintoverlay'
 import Level from '../level'
+import { modInc, modDec } from '../util'
 
 export default class Playing extends Phaser.Scene {
   constructor () {
@@ -69,14 +70,12 @@ export default class Playing extends Phaser.Scene {
   // TODO: extract wrap
   // TODO: have an end state
   startLastLevel () {
-    const num = levels.length
-    this.levelIndex = (this.levelIndex - 1 + num) % num
+    this.levelIndex = modDec(this.levelIndex, levels.length)
     this.startCurrentLevel()
   }
 
   startNextLevel () {
-    const num = levels.length
-    this.levelIndex = (this.levelIndex + 1) % num
+    this.levelIndex = modInc(this.levelIndex, levels.length)
     this.startCurrentLevel()
   }
 
