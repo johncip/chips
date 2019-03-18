@@ -85,6 +85,7 @@ export default class Playing extends Phaser.Scene {
     this.displayPanel.setLevel(this.levelIndex + 1)
     this.hintOverlay.setHint(this.level.getHint())
     this.timeLeft = this.level.getTimeAllowed()
+    this.displayPanel.setTimeLeft(this.timeLeft)
   }
 
   resetState () {
@@ -127,6 +128,7 @@ export default class Playing extends Phaser.Scene {
     }
 
     this.timeLeft--
+    this.displayPanel.setTimeLeft(this.timeLeft)
 
     if (this.timeLeft === 0) {
       this.lose("Time's Up!")
@@ -137,9 +139,11 @@ export default class Playing extends Phaser.Scene {
     const chipsLeft =
       this.level.getChipsNeeded() - this.level.inventory.count('ic')
 
-    this.updateTimeLeft()
-    this.displayPanel.setTimeLeft(this.timeLeft)
-    this.displayPanel.setChipsLeft(chipsLeft)
+    if (chipsLeft !== this.chipsLeft) {
+      this.displayPanel.setChipsLeft(chipsLeft)
+      this.chipsLeft = chipsLeft
+    }
+
     this.level.update(time, delta)
   }
 
