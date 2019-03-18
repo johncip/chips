@@ -25,9 +25,10 @@ export default class Player extends Marchable {
   }
 
   march () {
-    if (this.sliding) {
-      this.move(...this.marchDir)
+    if (!this.sliding) {
+      return
     }
+    this.move(...this.marchDir)
   }
 
   move (dx, dy) {
@@ -70,7 +71,15 @@ export default class Player extends Marchable {
 
   update () {
     super.update()
-    this.checkCursorKeys()
+
+    if (!this.scene.paused && !this.frozen) {
+      checkCursorKeys({
+        keyboard: this.scene.input.keyboard,
+        cursors: this.cursors,
+        delay: 250,
+        moveFn: this.move.bind(this)
+      })
+    }
     this.updateCamera()
   }
 
@@ -86,35 +95,19 @@ export default class Player extends Marchable {
     this.scene.lose('Oops!', 1500)
   }
 
-  checkCursorKeys () {
-    if (this.frozen) return
-    if (this.scene.paused) return
-
-    const { keyboard } = this.scene.input
-    const { up, down, left, right } = this.cursors
-    const delay = 250 // TODO: config.floorDelay?
-
-    if (keyboard.checkDown(up, delay)) {
-      this.move(0, -1)
-    }
-
-    if (keyboard.checkDown(left, delay)) {
-      this.move(-1, 0)
-    }
-
-    if (keyboard.checkDown(down, delay)) {
-      this.move(0, 1)
-    }
-
-    if (keyboard.checkDown(right, delay)) {
-      this.move(1, 0)
-    }
-  }
-
   updateCamera () {
     const { x, y } = this.sprite
     const { tsize } = config
     const camera = this.scene.cameras.main
     camera.centerOn(x, y + tsize / 2)
   }
+}
+
+function checkCursorKeys ({ keyboard, cursors, delay, moveFn }) {
+  const { up, down, left, right } = cursors
+
+  if (keyboard.checkDown(up, delay)) { moveFn(0, -1) }
+  if (keyboard.checkDown(left, delay)) { moveFn(-1, 0) }
+  if (keyboard.checkDown(down, delay)) { moveFn(0, 1) }
+  if (keyboard.checkDown(right, delay)) { moveFn(1, 0) }
 }
