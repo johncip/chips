@@ -89,6 +89,8 @@ export default class Playing extends Phaser.Scene {
     this.displayPanel.setLevel(this.levelIndex + 1)
     this.displayPanel.setTimeLeft(this.timeLeft)
     this.hintOverlay.setHint(this.level.getHint())
+    this.paused = false
+    this.modal.hide()
   }
 
   pauseGame () {
@@ -140,11 +142,13 @@ export default class Playing extends Phaser.Scene {
   }
 
   lose (msg) {
+    this.paused = true
     this.modal.showMessage(msg)
     this.input.keyboard.once('keydown_SPACE', () => this.startCurrentLevel())
   }
 
   win (msg) {
+    this.paused = true
     this.modal.showMessage(msg)
     this.input.keyboard.once('keydown_SPACE', () => this.startNextLevel())
   }
