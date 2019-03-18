@@ -106,8 +106,7 @@ export default class Playing extends Phaser.Scene {
     if (config.enableMusic) {
       window.XMPlayer.pause()
     }
-    this.modal.setMessage('Paused')
-    this.modal.show()
+    this.modal.showMessage('Paused')
     this.paused = true
 
     this.input.keyboard.once('keydown_SPACE', () =>
@@ -149,14 +148,12 @@ export default class Playing extends Phaser.Scene {
   }
 
   lose (msg, delay) {
-    this.modal.setMessage(msg)
-    this.modal.show()
+    this.modal.showMessage(msg)
     this.input.keyboard.once('keydown_SPACE', () => this.startCurrentLevel())
   }
 
   win (msg, delay) {
-    this.modal.setMessage(msg)
-    this.modal.show()
+    this.modal.showMessage(msg)
     this.input.keyboard.once('keydown_SPACE', () => this.startNextLevel())
   }
 }
