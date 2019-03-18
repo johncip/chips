@@ -80,22 +80,15 @@ export default class Playing extends Phaser.Scene {
   }
 
   startCurrentLevel () {
-    this.resetState()
-    this.level = new Level(this, this.levelIndex)
-
-    // post-load
-    this.displayPanel.setLevel(this.levelIndex + 1)
-    this.hintOverlay.setHint(this.level.getHint())
-    this.timeLeft = this.level.getTimeAllowed()
-    this.displayPanel.setTimeLeft(this.timeLeft)
-  }
-
-  resetState () {
     if (this.level) {
       this.level.destroy()
     }
+    this.level = new Level(this, this.levelIndex)
+    this.timeLeft = this.level.getTimeAllowed()
 
-    this.scene.resume()
+    this.displayPanel.setLevel(this.levelIndex + 1)
+    this.displayPanel.setTimeLeft(this.timeLeft)
+    this.hintOverlay.setHint(this.level.getHint())
   }
 
   pauseGame () {
