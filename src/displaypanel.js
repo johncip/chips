@@ -37,9 +37,7 @@ export default class DisplayPanel {
   }
 
   each (fn) {
-    this.group.children.each(child => {
-      fn(child)
-    })
+    this.group.children.each(fn)
   }
 }
 
