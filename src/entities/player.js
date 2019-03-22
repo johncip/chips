@@ -95,6 +95,7 @@ export default class Player extends Marchable {
     this.scene.lose('Oops!', 1500)
   }
 
+  // TODO: use startFollow
   updateCamera () {
     const { x, y } = this.sprite
     const { tsize } = config
