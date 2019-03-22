@@ -11,10 +11,6 @@ export default class Preload extends Phaser.Scene {
   }
 
   preload () {
-    // const { tsize, bgColor, height, width } = config
-    // const camera = this.cameras.add(0, 0, height, width)
-    // camera.setBackgroundColor(bgColor)
-
     // individual images
     each(images, (val, key) => {
       this.load.image(key, val)

@@ -29,8 +29,6 @@ export default class Level {
     const camera = scene.cameras.main
     camera.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
     camera.setViewport(0, 0, config.width, config.height)
-
-    this.bgLayer.setVisible(true)
   }
 
   destroy () {

@@ -1,4 +1,4 @@
-import Phaser, { Geom } from 'phaser'
+import Phaser from 'phaser'
 
 import config from '../config'
 import levels from '../levels'
@@ -24,7 +24,6 @@ export default class Playing extends Phaser.Scene {
 
   init () {
     this.events.addListener('blur', () => this.pauseGame())
-    this.cameras.main.setBackgroundColor(config.bgColor)
 
     this.time.addEvent({
       delay: 1000,
@@ -57,7 +56,6 @@ export default class Playing extends Phaser.Scene {
     this.input.keyboard.on('keydown_' + key, () => (this.paused ? null : fn()))
   }
 
-  // TODO: extract wrap
   // TODO: have an end state
   startLastLevel () {
     this.levelIndex = modDec(this.levelIndex, levels.length)
