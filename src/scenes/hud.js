@@ -1,11 +1,14 @@
+import { each } from 'lodash'
 import Phaser from 'phaser'
 
 import config from '../config'
-import DisplayPanel from '../displaypanel'
+import depths from '../depths'
 import HintOverlay from '../hintoverlay'
 import Inventory from '../inventory'
+import LCD from '../lcd'
 import Modal from '../modal'
 
+const { tsize, bgColor } = config
 
 export default class HUD extends Phaser.Scene {
   constructor (key) {
@@ -19,24 +22,36 @@ export default class HUD extends Phaser.Scene {
   }
 
   create () {
-    this.displayPanel = new DisplayPanel(this)
+    // TODO: get width, height from outside
+    const { width, height } = this.game.canvas
+    this.cameras.main.setViewport(0, 0, width, height)
+    window.camera = this.cameras.main
+
+    const group = this.add.group()
+    group.add(createSidebarBg(this))
+
+    this.lcds = createLcds(this)
+    each(this.lcds, lcd => {
+      lcd.group.children.each(child => {
+        group.add(child)
+      })
+    })
+
     this.hintOverlay = new HintOverlay(this)
     this.inventory = new Inventory(this)
     this.modal = new Modal(this)
-
-    const camera = this.cameras.main
-    camera.setViewport(0, 0, config.width, config.height)
+    this.scene.sendToBack()
   }
 
   // TODO: destroy?
 
   populate ({ level, timeLeft, hint, chipsLeft }) {
     if (level) {
-      this.displayPanel.setLevel(level)
+      this.lcds.level.display = level
     }
 
     if (timeLeft || timeLeft === 0) {
-      this.displayPanel.setTimeLeft(timeLeft)
+      this.lcds.time.display = timeLeft
     }
 
     if (hint) {
@@ -44,7 +59,7 @@ export default class HUD extends Phaser.Scene {
     }
 
     if (chipsLeft || chipsLeft === 0) {
-      this.displayPanel.setChipsLeft(chipsLeft)
+      this.lcds.chips.display = chipsLeft
     }
   }
 
@@ -88,3 +103,30 @@ export default class HUD extends Phaser.Scene {
     return this.modal.shown
   }
 }
+
+function createSidebarBg (scene) {
+  const g = scene.add.graphics()
+  g.fillStyle(bgColor, 1.0)
+  g.fillRect(9 * tsize, 0, 5 * tsize, 9 * tsize)
+  g.depth = depths.displayPanelBack
+  return g
+}
+
+function createLcds (scene) {
+  const lcds = {
+    level: new LCD(scene, 'Level'),
+    time: new LCD(scene, 'Time'),
+    chips: new LCD(scene, 'Chips')
+  }
+
+  let y = 0.1 * tsize
+  each(lcds, lcd => {
+    lcd.setX(10 * tsize)
+    lcd.setY(y)
+    y += tsize * 2.25
+  })
+
+  return lcds
+}
+
+
