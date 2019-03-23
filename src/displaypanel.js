@@ -21,7 +21,7 @@ export default class DisplayPanel {
       })
     })
 
-    this.each(child => child.setScrollFactor(0))
+    this.group.children.each(child => child.setScrollFactor(0))
   }
 
   setChipsLeft (val) {
@@ -34,10 +34,6 @@ export default class DisplayPanel {
 
   setTimeLeft (val) {
     this.lcds.time.display = val
-  }
-
-  each (fn) {
-    this.group.children.each(fn)
   }
 }
 
