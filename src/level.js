@@ -1,5 +1,4 @@
 import EntityMap from './entitymap'
-import config from './config'
 import depths from './depths'
 import levels from './levels'
 
@@ -22,19 +21,13 @@ export default class Level {
 
     this.entityMap = new EntityMap(scene, upper, lower)
 
-    // read by the scene
-    // TODO: move out of the player
-    this.inventory = this.entityMap.player.inventory
-
     const camera = scene.cameras.main
     camera.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
-    camera.setViewport(0, 0, config.width, config.height)
   }
 
   destroy () {
     [
       this.entityMap.group,
-      this.inventory.group,
       this.map
     ].forEach(x => x.destroy(true))
   }

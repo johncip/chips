@@ -1,3 +1,4 @@
+import { each } from 'lodash'
 import config from './config'
 import { spriteIndicesByName } from './constants'
 import depths from './depths'
@@ -15,6 +16,8 @@ const itemKeys = [
 
 const { debug, tsize } = config
 
+// TODO: extend group?
+
 /*
  * A record of each item the player has collected, and the sprites to
  * display them.
@@ -29,17 +32,27 @@ export default class Inventory {
     this.sprites = {}
 
     this.createBackground()
+
     itemKeys.forEach((key, idx) => {
-      this.counts[key] = debug ? 99 : 0
-      this.createItem(key, idx)
+      this.sprites[key] = this.createSprite(key, idx)
     })
-    this.counts.ic = 0
 
     this.group.children.each(child => {
       child.setScrollFactor(0)
     })
+
+    this.reset()
   }
 
+  initCounts () {
+    this.counts.ic = 0
+
+    itemKeys.forEach(key => {
+      this.counts[key] = debug ? 99 : 0
+    })
+  }
+
+  // TODO: move out of class
   createBackground () {
     for (let row = 0; row < 2; row++) {
       for (let col = 0; col < 4; col++) {
@@ -54,22 +67,13 @@ export default class Inventory {
     }
   }
 
-  createItem (key, idx) {
+  // TODO: move out of class
+  createSprite (key, idx) {
     const sprite = this.group.create(0, 0, 'sprites', spriteIndicesByName[key])
-
     sprite.x = this.left + (idx % 4) * tsize
     sprite.y = this.top + Math.floor(idx / 4) * tsize
-    sprite.setVisible(this.counts[key])
     sprite.depth = depths.inventoryFront
-
-    this.sprites[key] = sprite
-  }
-
-  reset () {
-    this.counts = {}
-    this.sprites.forEach(item => {
-      item.setVisible(false)
-    })
+    return sprite
   }
 
   add (key) {
@@ -95,11 +99,12 @@ export default class Inventory {
     return num || 0
   }
 
-  contains (key) {
+  has (key) {
     return this.count(key) > 0
   }
 
-  each (fn) {
-    this.group.children.each(child => fn(child))
+  reset () {
+    this.initCounts()
+    each(this.sprites, (val, key) => val.setVisible(this.counts[key]))
   }
 }

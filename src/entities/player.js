@@ -1,4 +1,3 @@
-import Inventory from '../inventory'
 import config from '../config'
 import depths from '../depths'
 import sfx from '../sfx'
@@ -16,7 +15,6 @@ export default class Player extends Marchable {
     super(scene, tile, entityMap)
 
     this.cursors = this.scene.input.keyboard.createCursorKeys()
-    this.inventory = new Inventory(this.scene)
     this.marchDelay = config.floorDelay
     this.sprite.depth = depths.chip
 
@@ -33,7 +31,7 @@ export default class Player extends Marchable {
 
   move (dx, dy) {
     this.frames = FRAMES
-    this.scene.hintOverlay.hide() // TODO: this should not be in player.js
+    this.scene.hideHint() // TODO: this should not be in player.js
     this.frozen = false
     super.move(dx, dy)
 
@@ -51,10 +49,6 @@ export default class Player extends Marchable {
     return slippery && !floor.hasShoes(this)
   }
 
-  hasAllChips () {
-    return this.inventory.count('ic') === this.entityMap.chipsNeeded
-  }
-
   collideWith (target) {
     const monsters = ['bug', 'fireball', 'ball', 'glider', 'tank']
 
@@ -66,7 +60,6 @@ export default class Player extends Marchable {
 
   destroy () {
     super.destroy()
-    this.inventory.destroy()
   }
 
   update () {
@@ -100,7 +93,7 @@ export default class Player extends Marchable {
     const { x, y } = this.sprite
     const { tsize } = config
     const camera = this.scene.cameras.main
-    camera.centerOn(x, y + tsize / 2)
+    camera.centerOn(x + tsize / 2, y + tsize / 2)
   }
 }
 

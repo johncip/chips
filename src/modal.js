@@ -41,7 +41,7 @@ export default class Modal extends Overlay {
     this.shown = false
   }
 
-  showMessage (text) {
+  show (text) {
     this.message.text = text
     super.show()
   }

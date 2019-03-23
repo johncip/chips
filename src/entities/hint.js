@@ -11,6 +11,6 @@ export default class Hint extends Entity {
 
   collideWith (target) {
     this.moveHere(target)
-    this.scene.hintOverlay.show()
+    this.scene.showHint()
   }
 }

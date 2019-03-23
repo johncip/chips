@@ -2,22 +2,18 @@ import Phaser from 'phaser'
 
 import config from '../config'
 import levels from '../levels'
-import DisplayPanel from '../displaypanel'
-import Modal from '../modal'
-import HintOverlay from '../hintoverlay'
 import Level from '../level'
 import { modInc, modDec } from '../util'
+import HUD from './hud'
 
 export default class Playing extends Phaser.Scene {
   constructor () {
     super('Playing')
 
     this.chipsLeft = null
-    this.displayPanel = null
-    this.hintOverlay = null
     this.levelIndex = null
-    this.modal = null
     this.timeLeft = null
+    this.hud = null
 
     this.paused = false
   }
@@ -31,15 +27,17 @@ export default class Playing extends Phaser.Scene {
       callbackScope: this,
       loop: true
     })
+
+    const sbKey = 'HUD'
+    this.hud = new HUD(sbKey)
+    this.scene.add(sbKey, this.hud, true)
   }
 
   create () {
+    const camera = this.cameras.main
+    camera.setViewport(0, 0, 9 * config.tsize, 9 * config.tsize)
+
     this.levelIndex = config.startLevel
-    this.displayPanel = new DisplayPanel(this)
-
-    this.modal = new Modal(this)
-    this.hintOverlay = new HintOverlay(this) // hidden / shown in entity collision code
-
     this.createHotkeys()
     this.startCurrentLevel()
   }
@@ -71,24 +69,28 @@ export default class Playing extends Phaser.Scene {
     if (this.level) {
       this.level.destroy()
     }
+    this.hud.resetInventory()
     this.level = new Level(this, this.levelIndex)
     this.timeLeft = this.level.getTimeAllowed()
 
-    this.displayPanel.setLevel(this.levelIndex + 1)
-    this.displayPanel.setTimeLeft(this.timeLeft)
-    this.hintOverlay.setHint(this.level.getHint())
+    this.hud.populate({
+      level: this.levelIndex + 1,
+      timeLeft: this.timeLeft,
+      hint: this.level.getHint()
+    })
+
     this.paused = false
-    this.modal.hide()
+    this.hud.hideModal()
   }
 
   pauseGame () {
-    if (this.modal.shown) {
+    if (this.hud.modalIsShown()) {
       return
     }
     if (config.enableMusic) {
       window.XMPlayer.pause()
     }
-    this.modal.showMessage('Paused')
+    this.hud.showModal('Paused')
     this.paused = true
 
     this.input.keyboard.once('keydown_SPACE', () =>
@@ -100,7 +102,7 @@ export default class Playing extends Phaser.Scene {
     if (config.enableMusic) {
       window.XMPlayer.play()
     }
-    this.modal.hide()
+    this.hud.hideModal()
     this.paused = false
   }
 
@@ -110,7 +112,7 @@ export default class Playing extends Phaser.Scene {
     }
 
     this.timeLeft--
-    this.displayPanel.setTimeLeft(this.timeLeft)
+    this.hud.populate({ timeLeft: this.timeLeft })
 
     if (this.timeLeft === 0) {
       this.lose("Time's Up!")
@@ -118,26 +120,52 @@ export default class Playing extends Phaser.Scene {
   }
 
   update (time, delta) {
-    const chipsLeft =
-      this.level.getChipsNeeded() - this.level.inventory.count('ic')
+    const { level, hud } = this
 
+    const chipsLeft = level.getChipsNeeded() - hud.getChipsCollected()
     if (chipsLeft !== this.chipsLeft) {
-      this.displayPanel.setChipsLeft(chipsLeft)
       this.chipsLeft = chipsLeft
+      hud.populate({ chipsLeft })
     }
 
-    this.level.update(time, delta)
+    level.update(time, delta)
   }
 
   lose (msg) {
     this.paused = true
-    this.modal.showMessage(msg)
+    this.hud.showModal(msg)
     this.input.keyboard.once('keydown_SPACE', () => this.startCurrentLevel())
   }
 
   win (msg) {
     this.paused = true
-    this.modal.showMessage(msg)
+    this.hud.showModal(msg)
     this.input.keyboard.once('keydown_SPACE', () => this.startNextLevel())
+  }
+
+  // -- hud crap --
+
+  hideHint () {
+    this.hud.hideHint()
+  }
+
+  showHint () {
+    this.hud.showHint()
+  }
+
+  addToInventory (val) {
+    this.hud.addToInventory(val)
+  }
+
+  inventoryHas (key) {
+    return this.hud.inventoryHas(key)
+  }
+
+  removeFromInventory (key) {
+    this.hud.removeFromInventory(key)
+  }
+
+  hasEnoughChips () {
+    return this.hud.getChipsCollected() === this.level.getChipsNeeded()
   }
 }
