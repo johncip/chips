@@ -14,6 +14,7 @@ new Phaser.Game({
   height: config.height,
   resolution: ratio,
   scene: [Preload, Playing],
+  transparent: true,
   scale: {
     parent: 'gameContainer',
     mode: Phaser.Scale.FIT,
