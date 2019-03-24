@@ -39,7 +39,6 @@ export default class HUD extends Phaser.Scene {
     this.hintOverlay = new HintOverlay(this)
     this.inventory = new Inventory(this)
     this.modal = new Modal(this)
-    this.scene.sendToBack()
   }
 
   // TODO: destroy?
