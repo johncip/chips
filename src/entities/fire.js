@@ -14,7 +14,7 @@ export default class Fire extends Floor {
     this.burn = scene.anims.create({
       key: 'burn',
       frames,
-      frameRate: 2,
+      frameRate: 4,
       repeat: -1
     })
     this.sprite.anims.load(this.burn)
