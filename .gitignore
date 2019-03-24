@@ -21,3 +21,6 @@ tags
 
 # dev game config
 src/config.dev.js
+
+# assets
+assets/tilemaps/sets/windows.png
