@@ -9,12 +9,14 @@ export default class LCD {
   constructor (scene, labelText) {
     this.background = createBackground(scene)
     this.heading = createHeading(scene, labelText)
+    this.digitsBg = createDigitsBg(scene)
     this.digits = createDigits(scene)
 
     this.group = scene.add.group()
     this.group.addMultiple([
       this.background,
       this.heading,
+      this.digitsBg,
       this.digits
     ])
 
@@ -22,15 +24,18 @@ export default class LCD {
   }
 
   setX (val) {
-    this.background.x = val
-    this.heading.x = val
-    this.digits.x = val
+    this.group.children.each(child => {
+      child.x = val
+    })
+
+    this.digits.x += 5
+    this.digitsBg.x += 5
   }
 
   setY (val) {
-    this.background.y = val
-    this.heading.y = val
-    this.digits.y = val + config.tsize * 0.5
+    this.group.children.each(child => {
+      child.y = val
+    })
   }
 
   get display () {
@@ -45,14 +50,13 @@ export default class LCD {
 function createBackground (scene) {
   const { tsize, lcdBgColor } = config
   const g = scene.add.graphics()
-  const padding = tsize / 4
 
   g.fillStyle(lcdBgColor, 1.0)
   g.fillRoundedRect(
-    padding * -0.5,
-    tsize * 0.4,
-    tsize * 3 + padding,
-    tsize * 1.5 + padding,
+    0,
+    tsize * 0.5,
+    tsize * 3,
+    tsize * 1.5,
     tsize / 12
   )
   g.depth = depths.lcdBack
@@ -71,8 +75,33 @@ function createHeading (scene, str) {
   return text
 }
 
+function createDigitsBg (scene) {
+  const style = {
+    fontFamily: 'lcd',
+    fontSize: 110,
+    color: 'rgb(64, 0, 0)',
+    padding: 20
+  }
+  const text = scene.add.text(0, 0, '888', style)
+  text.depth = depths.lcdFront
+  return text
+}
+
 function createDigits (scene) {
-  const dig = scene.add.bitmapText(0, config.tsize * 0.5, 'lcd', '000')
-  dig.depth = depths.lcdFront
-  return dig
+  const style = {
+    fontFamily: 'lcd',
+    fontSize: 110,
+    color: 'rgb(235, 10, 10)',
+    padding: 20,
+    shadow: {
+      color: 'rgb(180, 10, 10)',
+      blur: 20,
+      fill: true,
+      offsetX: 0,
+      offsetY: 0
+    }
+  }
+  const text = scene.add.text(0, 0, '000', style)
+  text.depth = depths.lcdFront
+  return text
 }

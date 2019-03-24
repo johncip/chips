@@ -28,7 +28,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpg|xm)$/,
+        test: /\.(png|jpg|xm|woff)$/,
         use: ['file-loader']
       },
       {

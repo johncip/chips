@@ -29,16 +29,6 @@ export default class Preload extends Phaser.Scene {
       images.spriteSheet,
       { frameWidth: tsize, frameHeight: tsize }
     )
-
-    // lcd font
-    const lcdFontConfig = {
-      image: 'lcd',
-      width: 64,
-      height: 100,
-      chars: '0123456789',
-      charsPerRow: 10
-    }
-    this.cache.bitmapFont.add('lcd', Phaser.GameObjects.RetroFont.Parse(this, lcdFontConfig))
   }
 
   create () {
