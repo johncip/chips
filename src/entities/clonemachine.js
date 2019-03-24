@@ -8,10 +8,10 @@ export default class CloneMachine extends Entity {
   }
 
   clone () {
-    this.entityMap.createUpper({
+    this.entityMap.createEntity({
       x: this.x,
       y: this.y,
       index: spriteIndicesByName[this.template] + 1
-    })
+    }, this.entityMap._upper)
   }
 }

@@ -17,14 +17,15 @@ export default class EntityMap {
     this._lower = this.mapFromLayer(lower)
     this._upper = this.mapFromLayer(upper)
 
-    // post
+    // requires layers to be loaded
     this.chipsNeeded = this.getChipsNeeded(this.tilemap.properties)
-    this.createConnections(this.tilemap)
-    this.createCloneMachines()
 
-    this.eachOfType('chip', player => {
-      this.scene.children.bringToTop(player.sprite)
-    })
+    const connectionsLayer = this.tilemap.objects.find(x => x.name === 'connections')
+    if (connectionsLayer) {
+      this.createConnections(connectionsLayer)
+    }
+
+    this.createCloneMachines()
   }
 
   mapFromLayer (layer) {
@@ -42,11 +43,8 @@ export default class EntityMap {
     return res
   }
 
-  createConnections (tilemap) {
-    const { connections } = tilemap.objects
-    if (!connections) return
-
-    connections.forEach(obj => {
+  createConnections (connectionsLayer) {
+    connectionsLayer.objects.forEach(obj => {
       const props = obj.properties
 
       const x = obj.x / obj.width
@@ -70,12 +68,13 @@ export default class EntityMap {
       const above = machine.entityAbove()
 
       // duplicate sprite
-      this.group.create(
+      const stamp = this.group.create(
         above.x * config.tsize,
         above.y * config.tsize,
         'sprites',
         spriteIndicesByName[above.spriteKey]
       )
+      stamp.setOrigin(0)
 
       machine.template = above.spriteKey
       above.retire()
