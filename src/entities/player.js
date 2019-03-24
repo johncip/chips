@@ -26,6 +26,7 @@ export default class Player extends Marchable {
     if (!this.sliding) {
       return
     }
+
     this.move(...this.marchDir)
   }
 
@@ -62,8 +63,8 @@ export default class Player extends Marchable {
     super.destroy()
   }
 
-  update () {
-    super.update()
+  update (time, delta) {
+    super.update(time, delta)
 
     if (!this.scene.paused && !this.frozen) {
       checkCursorKeys({
