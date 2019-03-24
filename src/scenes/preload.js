@@ -2,8 +2,8 @@ import Phaser from 'phaser'
 import { each } from 'lodash'
 
 import config from '../config'
-import images from '../images'
 import tilemaps from '../tilemaps'
+import spriteSheet from 'Assets/tilemaps/sets/felix-big.png'
 
 export default class Preload extends Phaser.Scene {
   constructor () {
@@ -11,13 +11,8 @@ export default class Preload extends Phaser.Scene {
   }
 
   preload () {
-    // individual images
-    each(images, (val, key) => {
-      this.load.image(key, val)
-    })
-
     // level tilemaps
-    this.load.image('tiles', images.spriteSheet)
+    this.load.image('tiles', spriteSheet)
     each(tilemaps, (val, key) => {
       this.load.tilemapTiledJSON(key, val)
     })
@@ -26,7 +21,7 @@ export default class Preload extends Phaser.Scene {
     const { tsize } = config
     this.load.spritesheet(
       'sprites',
-      images.spriteSheet,
+      spriteSheet,
       { frameWidth: tsize, frameHeight: tsize }
     )
   }
