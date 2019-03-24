@@ -24,17 +24,17 @@ const { debug, tsize } = config
  */
 export default class Inventory {
   constructor (scene) {
-    this.group = scene.add.group()
+    const group = scene.add.group()
+    const left = 10 * tsize
+    const top = 7.5 * tsize
 
-    this.left = 10 * tsize
-    this.top = 7.5 * tsize
     this.counts = {}
     this.sprites = {}
 
-    this.createBackground()
+    createBackground(group, left, top)
 
     itemKeys.forEach((key, idx) => {
-      this.sprites[key] = this.createSprite(key, idx)
+      this.sprites[key] = createSprite(group, key, idx, left, top)
     })
 
     this.reset()
@@ -46,30 +46,6 @@ export default class Inventory {
     itemKeys.forEach(key => {
       this.counts[key] = debug ? 99 : 0
     })
-  }
-
-  // TODO: move out of class
-  createBackground () {
-    for (let row = 0; row < 2; row++) {
-      for (let col = 0; col < 4; col++) {
-        const sprite = this.group.create(
-          this.left + col * tsize,
-          this.top + row * tsize,
-          'sprites',
-          spriteIndicesByName.floor
-        )
-        sprite.depth = depths.inventoryBack
-      }
-    }
-  }
-
-  // TODO: move out of class
-  createSprite (key, idx) {
-    const sprite = this.group.create(0, 0, 'sprites', spriteIndicesByName[key])
-    sprite.x = this.left + (idx % 4) * tsize
-    sprite.y = this.top + Math.floor(idx / 4) * tsize
-    sprite.depth = depths.inventoryFront
-    return sprite
   }
 
   add (key) {
@@ -103,4 +79,26 @@ export default class Inventory {
     this.initCounts()
     each(this.sprites, (val, key) => val.setVisible(this.counts[key]))
   }
+}
+
+function createBackground (group, x, y) {
+  for (let row = 0; row < 2; row++) {
+    for (let col = 0; col < 4; col++) {
+      const sprite = group.create(
+        x + col * tsize,
+        y + row * tsize,
+        'sprites',
+        spriteIndicesByName.floor
+      )
+      sprite.depth = depths.inventoryBack
+    }
+  }
+}
+
+function createSprite (group, key, index, x, y) {
+  const sprite = group.create(0, 0, 'sprites', spriteIndicesByName[key])
+  sprite.x = x + (index % 4) * tsize
+  sprite.y = y + Math.floor(index / 4) * tsize
+  sprite.depth = depths.inventoryFront
+  return sprite
 }
