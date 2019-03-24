@@ -1,15 +1,23 @@
 import sfx from '../sfx'
 import Floor from './floor'
 
-const BURN_FPS = 2
-
 /*
  * Doors can only be opened when the right key is in the inventory.
  */
 export default class Fire extends Floor {
   constructor (scene, tile, entityMap) {
     super(scene, tile, entityMap)
-    this.burn = this.sprite.animations.add('burn', [31, 38])
+
+    const frames = scene.anims.generateFrameNumbers('sprites', {
+      frames: [31, 38]
+    })
+    this.burn = scene.anims.create({
+      key: 'burn',
+      frames,
+      frameRate: 2,
+      repeat: -1
+    })
+    this.sprite.anims.load(this.burn)
   }
 
   collideWith (target) {
@@ -21,7 +29,7 @@ export default class Fire extends Floor {
   }
 
   noShoes (player) {
-    this.burn.play(BURN_FPS, false)
+    this.sprite.play('burn')
     sfx.splash()
     player.triggerLose()
   }
