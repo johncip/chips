@@ -22,7 +22,7 @@ export default class Modal extends Overlay {
       '',
       centerX,
       centerY * 0.8,
-      { fontFamily, fontSize: 48, fill: '#dde' }
+      { fontFamily, fontSize: 64, fill: '#dde' }
     )
     this.message.depth = depths.modalFront
 
@@ -31,7 +31,7 @@ export default class Modal extends Overlay {
       'Press SPACE to continue',
       centerX,
       centerY * 1.25,
-      { fontFamily, fontSize: 24, fill: '#ccd' }
+      { fontFamily, fontSize: 32, fill: '#ccd' }
     )
     subtext.depth = depths.modalFront
 
