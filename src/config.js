@@ -1,7 +1,7 @@
 const config = {
   bgColor: 0x333344,
   debug: false,
-  enableMusic: false,
+  enableMusic: true,
   floorDelay: 1000 / 10,
   fontFamily: 'inconsolata',
   height: 576,
