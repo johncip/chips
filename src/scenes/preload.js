@@ -3,7 +3,7 @@ import { each } from 'lodash'
 
 import config from '../config'
 import tilemaps from '../tilemaps'
-import spriteSheet from 'Assets/tilemaps/sets/felix-big.png'
+import spriteSheet from 'Assets/images/felix-64.png'
 
 export default class Preload extends Phaser.Scene {
   constructor () {
