@@ -16,8 +16,6 @@ const itemKeys = [
 
 const { debug, tsize } = config
 
-// TODO: extend group?
-
 /*
  * A record of each item the player has collected, and the sprites to
  * display them.
