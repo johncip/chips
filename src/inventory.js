@@ -37,10 +37,6 @@ export default class Inventory {
       this.sprites[key] = this.createSprite(key, idx)
     })
 
-    this.group.children.each(child => {
-      child.setScrollFactor(0)
-    })
-
     this.reset()
   }
 

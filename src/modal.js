@@ -36,7 +36,6 @@ export default class Modal extends Overlay {
     subtext.depth = depths.modalFront
 
     this.group.addMultiple([this.message, subtext])
-    this.group.children.each(child => child.setScrollFactor(0))
     this.group.children.each(child => child.setVisible(false))
     this.shown = false
   }

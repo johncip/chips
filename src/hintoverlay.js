@@ -20,7 +20,6 @@ export default class HintOverlay extends Overlay {
     this.hintText.depth = depths.hintFront
 
     this.group.add(this.hintText)
-    this.group.children.each(child => child.setScrollFactor(0))
     this.group.children.each(child => child.setVisible(false))
     this.shown = false
   }
