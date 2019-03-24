@@ -25,7 +25,6 @@ export default class HUD extends Phaser.Scene {
     // TODO: get width, height from outside
     const { width, height } = this.game.canvas
     this.cameras.main.setViewport(0, 0, width, height)
-    window.camera = this.cameras.main
 
     const group = this.add.group()
     group.add(createSidebarBg(this))
