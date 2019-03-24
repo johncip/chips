@@ -25,7 +25,7 @@ export default class Movable extends Entity {
       this.entityMap.moveEntity(this, dx, dy)
     }
 
-    this.entityMap.resetTraps()
+    this.entityMap.resetTraps() // TODO: why does this happen here?
   }
 
   retire () {
