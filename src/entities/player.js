@@ -1,6 +1,5 @@
-import { includes } from 'lodash'
-import Inventory from '../inventory'
 import config from '../config'
+import depths from '../depths'
 import sfx from '../sfx'
 import Marchable from './marchable'
 
@@ -12,30 +11,30 @@ const FRAMES = {
 }
 
 export default class Player extends Marchable {
-  constructor (game, tile, entityMap) {
-    super(game, tile, entityMap)
-    this.createCursorKeys()
+  constructor (scene, tile, entityMap) {
+    super(scene, tile, entityMap)
 
-    this.inventory = new Inventory(this.game)
+    this.cursors = this.scene.input.keyboard.createCursorKeys()
     this.marchDelay = config.floorDelay
+    this.sprite.depth = depths.chip
 
     // exports
     entityMap.player = this // TODO: don't do this here
   }
 
   march () {
-    if (this.sliding) {
-      const dx = this.marchDir[0]
-      const dy = this.marchDir[1]
-      this.move(dx, dy)
+    if (!this.sliding) {
+      return
     }
+
+    this.move(...this.marchDir)
   }
 
   move (dx, dy) {
     this.frames = FRAMES
-    this.game.hintPanel.hide()
+    this.scene.hideHint() // TODO: this should not be in player.js
     this.frozen = false
-    super.move.call(this, dx, dy)
+    super.move(dx, dy)
 
     // TODO: this might apply to all movables
     this.sliding = this.shouldSlide()
@@ -51,117 +50,59 @@ export default class Player extends Marchable {
     return slippery && !floor.hasShoes(this)
   }
 
-  hasAllChips () {
-    return this.inventory.count('ic') === this.entityMap.chipsNeeded
-  }
-
   collideWith (target) {
     const monsters = ['bug', 'fireball', 'ball', 'glider', 'tank']
 
-    if (includes(monsters, target.type)) {
+    if (monsters.includes(target.type)) {
       sfx.lose()
       this.triggerLose()
     }
   }
 
   destroy () {
-    super.destroy.call(this)
-    this.inventory.destroy()
+    super.destroy()
   }
 
-  update () {
-    super.update.call(this)
-    this.updatePosition()
+  update (time, delta) {
+    super.update(time, delta)
+
+    if (!this.scene.paused && !this.frozen) {
+      checkCursorKeys({
+        keyboard: this.scene.input.keyboard,
+        cursors: this.cursors,
+        delay: 250,
+        moveFn: this.move.bind(this)
+      })
+    }
     this.updateCamera()
   }
 
+  // TODO: move to playing.js
   triggerWin () {
     this.retire()
-    const state = this.game.state.getCurrentState()
-    state.win(null, 1500)
+    this.scene.win('Yowzer! You win!', 1500)
   }
 
+  // TODO: move to playing.js
   triggerLose () {
     this.retire()
-    const state = this.game.state.getCurrentState()
-    state.lose('Oops!', 1500)
+    this.scene.lose('Oops!', 1500)
   }
 
-  createCursorKeys () {
-    const { keyboard } = this.game.input
-
-    this.cursors = keyboard.createCursorKeys()
-    keyboard.onUpCallback = () => this.enableMove()
-
-    this.enableMove()
-  }
-
-  enableMove () {
-    this.moveSafe = true
-    this.lastMove = this.game.time.now
-  }
-
-  updatePosition () {
-    this.updateThrottle()
-
-    if (!this.exists() || !this.moveSafe || this.frozen) {
-      return
-    }
-
-    if (this.cursors.up.isDown) {
-      this.move(0, -1)
-      this.moveSafe = false
-    }
-    if (this.cursors.left.isDown) {
-      this.move(-1, 0)
-      this.moveSafe = false
-    }
-    if (this.cursors.down.isDown) {
-      this.move(0, 1)
-      this.moveSafe = false
-    }
-    if (this.cursors.right.isDown) {
-      this.move(1, 0)
-      this.moveSafe = false
-    }
-  }
-
-  updateThrottle () {
-    const { now } = this.game.time
-    const waited = now - this.lastMove > config.moveDelay
-
-    if (waited) {
-      this.enableMove()
-    }
-  }
-
+  // TODO: use startFollow
   updateCamera () {
-    const {
-      game: { world, camera },
-      sprite
-    } = this
+    const { x, y } = this.sprite
     const { tsize } = config
-
-    let cx = sprite.x - 4 * tsize
-    let cy = sprite.y - 4 * tsize
-
-    if (cx < 0) {
-      cx = 0
-    }
-
-    if (cy < 0) {
-      cy = 0
-    }
-
-    if (cx > world.width - 9 * tsize) {
-      cx = world.width - 9 * tsize
-    }
-
-    if (cy > world.height - 9 * tsize) {
-      cy = world.height - 9 * tsize
-    }
-
-    camera.view.x = cx
-    camera.view.y = cy
+    const camera = this.scene.cameras.main
+    camera.centerOn(x + tsize / 2, y + tsize / 2)
   }
+}
+
+function checkCursorKeys ({ keyboard, cursors, delay, moveFn }) {
+  const { up, down, left, right } = cursors
+
+  if (keyboard.checkDown(up, delay)) { moveFn(0, -1) }
+  if (keyboard.checkDown(left, delay)) { moveFn(-1, 0) }
+  if (keyboard.checkDown(down, delay)) { moveFn(0, 1) }
+  if (keyboard.checkDown(right, delay)) { moveFn(1, 0) }
 }

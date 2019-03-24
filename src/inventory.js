@@ -1,6 +1,7 @@
 import { each } from 'lodash'
 import config from './config'
 import { spriteIndicesByName } from './constants'
+import depths from './depths'
 
 const itemKeys = [
   'key:blue',
@@ -20,51 +21,28 @@ const { debug, tsize } = config
  * display them.
  */
 export default class Inventory {
-  constructor (game) {
-    this.group = game.add.group(undefined, 'Inventory')
-    this.group.fixedToCamera = true
+  constructor (scene) {
+    const group = scene.add.group()
+    const left = 10 * tsize
+    const top = 7.5 * tsize
 
-    this.left = 9.75 * tsize
-    this.top = 7 * tsize
     this.counts = {}
     this.sprites = {}
 
-    this.createBackground()
+    createBackground(group, left, top)
+
     itemKeys.forEach((key, idx) => {
-      this.counts[key] = debug ? 99 : 0
-      this.createSprite(key, idx)
+      this.sprites[key] = createSprite(group, key, idx, left, top)
     })
 
+    this.reset()
+  }
+
+  initCounts () {
     this.counts.ic = 0
-  }
 
-  createBackground () {
-    for (let row = 0; row < 2; row++) {
-      for (let col = 0; col < 4; col++) {
-        this.group.create(
-          this.left + col * tsize,
-          this.top + row * tsize,
-          'sprites',
-          spriteIndicesByName.floor
-        )
-      }
-    }
-  }
-
-  createSprite (key, idx) {
-    const sprite = this.group.create(0, 0, 'sprites', spriteIndicesByName[key])
-
-    sprite.x = this.left + (idx % 4) * tsize
-    sprite.y = this.top + Math.floor(idx / 4) * tsize
-    sprite.exists = Boolean(this.counts[key])
-
-    this.sprites[key] = sprite
-  }
-
-  reset () {
-    this.counts = {}
-    each(this.sprites, item => {
-      item.exists = false
+    itemKeys.forEach(key => {
+      this.counts[key] = debug ? 99 : 0
     })
   }
 
@@ -72,7 +50,7 @@ export default class Inventory {
     this.counts[key] += 1
 
     if (key !== 'ic') {
-      this.sprites[key].exists = true
+      this.sprites[key].setVisible(true)
     }
   }
 
@@ -82,7 +60,7 @@ export default class Inventory {
     }
 
     if (key !== 'ic' && !this.counts[key]) {
-      this.sprites[key].exists = false
+      this.sprites[key].setVisible(false)
     }
   }
 
@@ -91,7 +69,34 @@ export default class Inventory {
     return num || 0
   }
 
-  contains (key) {
+  has (key) {
     return this.count(key) > 0
   }
+
+  reset () {
+    this.initCounts()
+    each(this.sprites, (val, key) => val.setVisible(this.counts[key]))
+  }
+}
+
+function createBackground (group, x, y) {
+  for (let row = 0; row < 2; row++) {
+    for (let col = 0; col < 4; col++) {
+      const sprite = group.create(
+        x + col * tsize,
+        y + row * tsize,
+        'sprites',
+        spriteIndicesByName.floor
+      )
+      sprite.depth = depths.inventoryBack
+    }
+  }
+}
+
+function createSprite (group, key, index, x, y) {
+  const sprite = group.create(0, 0, 'sprites', spriteIndicesByName[key])
+  sprite.x = x + (index % 4) * tsize
+  sprite.y = y + Math.floor(index / 4) * tsize
+  sprite.depth = depths.inventoryFront
+  return sprite
 }

@@ -1,46 +1,43 @@
-import { parseInt } from 'lodash'
-
 import EntityMap from './entitymap'
+import depths from './depths'
 import levels from './levels'
 
+/*
+ * Wraps a tilemap and some game state (entity map, inventory).
+ */
 export default class Level {
-  constructor (game, index) {
-    this.game = game
+  constructor (scene, index) {
     this.shortName = levels[index]
 
-    this.tilemap = this.createTilemap()
-    this.bgLayer = this.tilemap.createLayer('bg')
-    this.lowerLayer = this.tilemap.createLayer('lower')
-    this.upperLayer = this.tilemap.createLayer('upper')
-    this.entityMap = new EntityMap(game, this.upperLayer, this.lowerLayer)
-    this.inventory = this.entityMap.player.inventory // read by playing state
+    this.map = scene.add.tilemap(this.shortName)
+    const tileset = this.map.addTilesetImage('chip-felix', 'tiles')
 
-    this.bgLayer.resizeWorld()
-    this.lowerLayer.exists = false
-    this.upperLayer.exists = false
-  }
+    this.bgLayer = this.map.createStaticLayer('bg', tileset)
+    this.bgLayer.depth = depths.bgLayer
 
-  createTilemap () {
-    const tilemap = this.game.add.tilemap(this.shortName)
-    tilemap.addTilesetImage('chip-felix', 'tiles')
-    return tilemap
+    // the layer data is used to create entities, but not rendered directly
+    const lower = this.map.createDynamicLayer('lower', null)
+    const upper = this.map.createDynamicLayer('upper', null)
+
+    this.entityMap = new EntityMap(scene, upper, lower)
+
+    const camera = scene.cameras.main
+    camera.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
   }
 
   destroy () {
-    this.entityMap.group.destroy()
-    this.inventory.group.destroy()
-    this.bgLayer.destroy()
-    this.lowerLayer.destroy()
-    this.upperLayer.destroy()
-    this.tilemap.destroy()
+    [
+      this.entityMap.group,
+      this.map
+    ].forEach(x => x.destroy(true))
   }
 
-  update () {
-    this.entityMap.update()
+  update (time, delta) {
+    this.entityMap.update(time, delta)
   }
 
   getTimeAllowed () {
-    return parseInt(this.tilemap.properties.time)
+    return parseInt(this.map.properties.time)
   }
 
   getChipsNeeded () {
@@ -48,6 +45,6 @@ export default class Level {
   }
 
   getHint () {
-    return 'HINT\n\n' + this.tilemap.properties.hint
+    return 'HINT\n\n' + this.map.properties.hint
   }
 }

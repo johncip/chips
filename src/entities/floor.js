@@ -20,7 +20,7 @@ export default class Floor extends Entity {
   hasShoes (player) {
     // TODO: move this to the player
     const shoe = 'shoe:' + this.type
-    return player.inventory.contains(shoe)
+    return this.scene.inventoryHas(shoe)
   }
 
   noShoes (player) {}

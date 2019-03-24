@@ -1,14 +1,13 @@
-import { Easing } from 'phaser'
+import Phaser from 'phaser'
 import config from '../config'
 import { spriteNamesByIndex, spriteIndicesByName } from '../constants'
 
 /*
- * A game Entity is an item on the tile map -- it could be a wall,
- * a key, a monster, etc.
+ * An item on the tile map -- it could be a wall, a key, a monster, etc.
  */
 export default class Entity {
-  constructor (game, tile, entityMap) {
-    this.game = game
+  constructor (scene, tile, entityMap) {
+    this.scene = scene
     this.entityMap = entityMap
     this.isFlat = false
     this.x = tile.x
@@ -26,39 +25,43 @@ export default class Entity {
       'sprites',
       tile.index - 1
     )
-  }
 
-  retire () {
-    this.sprite.exists = false
+    this.sprite.setOrigin(0)
   }
 
   update () {}
+
+  exists () {
+    return this.sprite.visible
+  }
+
+  retire () {
+    this.entityMap.removeEntity(this)
+    this.sprite.destroy()
+  }
 
   reset () {
     this.timeSinceTick = 0
   }
 
-  exists () {
-    return this.sprite.exists
-  }
-
   replaceWith (type, isUpper) {
-    const tile = {
+    this.retire()
+
+    // TODO: handle this a better way
+    const layer = isUpper ? this.entityMap._upper : this.entityMap._lower
+
+    return this.entityMap.createEntity({
       x: this.x,
       y: this.y,
       index: spriteIndicesByName[type] + 1
-    }
-    const createFunc = isUpper ? 'createUpper' : 'createLower'
-
-    this.retire()
-    return this.entityMap[createFunc](tile)
+    }, layer)
   }
 
   changeFrame (frame) {
     if (isNaN(frame)) {
-      this.sprite.frame = spriteIndicesByName[frame]
+      this.sprite.setFrame(spriteIndicesByName[frame])
     } else {
-      this.sprite.frame = frame
+      this.sprite.setFrame(frame)
     }
   }
 
@@ -80,9 +83,13 @@ export default class Entity {
 
     if (config.smoothMoves) {
       const duration = config.floorDelay * 1.1
-      this.game.add
-        .tween(this.sprite)
-        .to({ x, y }, duration, Easing.Quadratic.Out, true)
+      this.scene.add.tween({
+        x,
+        y,
+        duration,
+        targets: this.sprite,
+        ease: Phaser.Math.Easing.Quadratic.Out
+      })
     } else {
       this.sprite.x = x
       this.sprite.y = y

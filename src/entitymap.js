@@ -1,28 +1,31 @@
-import { each, filter, flatten, parseInt } from 'lodash'
+import { each, filter, flatten } from 'lodash'
 
 import config from './config'
 import entityFromTile from './entityfromtile'
 import { spriteIndicesByName } from './constants'
 
 /*
- * The EntityMap is a map from tile coordinate to a game entity.
+ * The EntityMap is a map from tile coordinate to an Entity.
  * It is a model of the given level, and the sprites are the view.
  */
 export default class EntityMap {
-  constructor (game, upper, lower) {
-    this.game = game
-    const tilemap = upper.map
-    this.width = tilemap.width
-    this.group = game.add.group(undefined, 'EntityMap')
+  constructor (scene, upper, lower) {
+    this.scene = scene
+    this.tilemap = upper.tilemap
+    this.group = scene.add.group()
 
     this._lower = this.mapFromLayer(lower)
     this._upper = this.mapFromLayer(upper)
 
-    // post
-    this.chipsNeeded = this.getChipsNeeded(tilemap.properties)
-    this.createConnections(tilemap)
+    // requires layers to be loaded
+    this.chipsNeeded = this.getChipsNeeded(this.tilemap.properties)
+
+    const connectionsLayer = this.tilemap.objects.find(x => x.name === 'connections')
+    if (connectionsLayer) {
+      this.createConnections(connectionsLayer)
+    }
+
     this.createCloneMachines()
-    this.promoteChip()
   }
 
   mapFromLayer (layer) {
@@ -32,18 +35,16 @@ export default class EntityMap {
     tiles.forEach(tile => {
       if (tile.index >= 0) {
         const key = this._key(tile.x, tile.y)
-        res[key] = entityFromTile(this.game, tile, this)
+        // TODO: set depth
+        res[key] = entityFromTile(this.scene, tile, this)
       }
     })
 
     return res
   }
 
-  createConnections (tilemap) {
-    const { connections } = tilemap.objects
-    if (!connections) return
-
-    connections.forEach(obj => {
+  createConnections (connectionsLayer) {
+    connectionsLayer.objects.forEach(obj => {
       const props = obj.properties
 
       const x = obj.x / obj.width
@@ -67,21 +68,16 @@ export default class EntityMap {
       const above = machine.entityAbove()
 
       // duplicate sprite
-      this.group.create(
+      const stamp = this.group.create(
         above.x * config.tsize,
         above.y * config.tsize,
         'sprites',
         spriteIndicesByName[above.spriteKey]
       )
+      stamp.setOrigin(0)
 
       machine.template = above.spriteKey
       above.retire()
-    })
-  }
-
-  promoteChip () {
-    this.eachOfType('chip', player => {
-      this.group.bringToTop(player.sprite)
     })
   }
 
@@ -100,21 +96,13 @@ export default class EntityMap {
   }
 
   getUpper (x, y) {
-    const key = this._key(x, y)
-    const res = this._upper[key]
-
-    if (res && res.exists()) {
-      return res
-    }
+    const res = this._upper[this._key(x, y)]
+    return res && res.exists() ? res : null
   }
 
   getLower (x, y) {
-    const key = this._key(x, y)
-    const res = this._lower[key]
-
-    if (res && res.exists()) {
-      return res
-    }
+    const res = this._lower[this._key(x, y)]
+    return res && res.exists() ? res : null
   }
 
   moveEntity (entity, dx, dy) {
@@ -123,11 +111,16 @@ export default class EntityMap {
     this.moveEntityAbs(entity, destX, destY)
   }
 
+  removeEntity (entity) {
+    const key = this._key(entity.x, entity.y)
+    // TODO: only delete from the right one
+    delete this._upper[key]
+    delete this._lower[key]
+  }
+
   moveEntityAbs (entity, destX, destY) {
     const oldKey = this._key(entity.x, entity.y)
     const newKey = this._key(destX, destY)
-
-    // var lastResident = this._upper[newKey]
 
     delete this._upper[oldKey]
     this._upper[newKey] = entity
@@ -140,24 +133,18 @@ export default class EntityMap {
 
   createEntity (tile, layer) {
     const key = this._key(tile.x, tile.y)
-    const entity = entityFromTile(this.game, tile, this)
+    const entity = entityFromTile(this.scene, tile, this)
     layer[key] = entity
 
     return entity
   }
 
-  createUpper (tile) {
-    return this.createEntity(tile, this._upper)
-  }
-
-  createLower (tile) {
-    return this.createEntity(tile, this._lower)
-  }
-
-  update () {
+  update (time, delta) {
     this.eachEntity(entity => {
-      if (!entity) return
-      entity.update()
+      if (!entity) {
+        return
+      }
+      entity.update(time, delta)
     })
   }
 
@@ -185,6 +172,6 @@ export default class EntityMap {
   }
 
   _key (x, y) {
-    return y * this.width + x
+    return y * this.tilemap.width + x
   }
 }

@@ -7,11 +7,10 @@ import Entity from './entity'
  */
 export default class Door extends Entity {
   collideWith (player) {
-    const { inventory } = player
     const key = 'key:' + this.subtype
 
-    if (inventory.contains(key) || config.debug) {
-      this.useKey(key, inventory)
+    if (this.scene.inventoryHas(key) || config.debug) {
+      this.useKey(key)
       this.moveHere(player)
     } else {
       sfx.bump()
@@ -20,7 +19,7 @@ export default class Door extends Entity {
 
   useKey (key, inventory) {
     this.retire()
-    inventory.remove(key)
+    this.scene.removeFromInventory(key)
     sfx.open()
   }
 }

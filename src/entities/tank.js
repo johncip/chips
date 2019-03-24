@@ -2,8 +2,8 @@ import { Dir } from '../constants'
 import Marchable from './marchable'
 
 export default class Tank extends Marchable {
-  constructor (game, tile, entityMap) {
-    super(game, tile, entityMap)
+  constructor (scene, tile, entityMap) {
+    super(scene, tile, entityMap)
 
     this.marchDir = [...Dir.UP]
     this.marchDelay = 300
@@ -14,7 +14,7 @@ export default class Tank extends Marchable {
       target.collideWith(this)
     } else {
       // TODO: what does this mean? is it just reversing who collides with who?
-      super.collideWith.call(this, target)
+      super.collideWith(target)
     }
   }
 

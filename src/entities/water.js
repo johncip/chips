@@ -6,22 +6,15 @@ import Floor from './floor'
  * When dirt collides with water, they make mud.
  */
 export default class Water extends Floor {
-  constructor (game, tile, entityMap) {
-    super(game, tile, entityMap)
+  constructor (scene, tile, entityMap) {
+    super(scene, tile, entityMap)
     this.isFlat = true
   }
 
   collideWith (target) {
     if (target.type === 'chip') {
-      super.collideWith.call(this, target)
-
-      target.frames = {
-        '0,-1': 87,
-        '-1,0': 94,
-        '0,1': 101,
-        '1,0': 108
-      }
-      target.changeFrameDir(target.lastDir)
+      super.collideWith(target)
+      target.sprite.setFrame(swimFrames[target.lastDir.toString()])
     } else if (target.type === 'fireball') {
       target.retire()
     } else if (target.type === 'block') {
@@ -39,4 +32,11 @@ export default class Water extends Floor {
     this.changeFrame('splash')
     player.triggerLose()
   }
+}
+
+const swimFrames = {
+  '0,-1': 87,
+  '-1,0': 94,
+  '0,1': 101,
+  '1,0': 108
 }

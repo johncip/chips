@@ -8,7 +8,7 @@ import Entity from './entity'
  */
 export default class Socket extends Entity {
   collideWith (player) {
-    if (player.hasAllChips() || config.debug) {
+    if (this.scene.hasEnoughChips() || config.debug) {
       this.openUp(player)
     } else {
       sfx.bump()

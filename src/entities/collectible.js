@@ -7,9 +7,9 @@ import Entity from './entity'
  */
 export default class Collectible extends Entity {
   collideWith (player) {
-    player.inventory.add(this.spriteKey)
+    this.scene.addToInventory(this.spriteKey)
     sfx.collect()
-    this.moveHere(player)
     this.retire()
+    this.moveHere(player)
   }
 }

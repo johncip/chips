@@ -17,3 +17,10 @@ npm-debug.log
 .DS_Store
 .notes.md
 js-codemod/
+tags
+
+# dev game config
+src/config.dev.js
+
+# assets
+assets/tilemaps/sets/windows.png

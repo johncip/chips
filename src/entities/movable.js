@@ -2,8 +2,8 @@ import { isEqual } from 'lodash'
 import Entity from './entity'
 
 export default class Movable extends Entity {
-  constructor (game, tile, entityMap) {
-    super(game, tile, entityMap)
+  constructor (scene, tile, entityMap) {
+    super(scene, tile, entityMap)
     // TODO: get movement dir
     this.lastDir = [0, 0]
     this.frozen = false
@@ -16,7 +16,7 @@ export default class Movable extends Entity {
     }
 
     this.lastDir = [dx, dy]
-    this.changeFrameDir([dx, dy])
+    this.sprite.setFrame(this.frames[this.lastDir.toString()])
     const resident = this.entityMap.get(this.x + dx, this.y + dy)
 
     if (resident) {
@@ -25,16 +25,12 @@ export default class Movable extends Entity {
       this.entityMap.moveEntity(this, dx, dy)
     }
 
-    this.entityMap.resetTraps()
-  }
-
-  changeFrameDir (dir) {
-    this.sprite.frame = this.frames[dir.toString()]
+    this.entityMap.resetTraps() // TODO: why does this happen here?
   }
 
   retire () {
+    super.retire()
     this.frozen = true
-    super.retire.call(this)
   }
 
   isFacing (dir) {

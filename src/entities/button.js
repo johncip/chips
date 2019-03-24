@@ -2,8 +2,8 @@ import sfx from '../sfx'
 import Entity from './entity'
 
 export default class Button extends Entity {
-  constructor (game, tile, entityMap) {
-    super(game, tile, entityMap)
+  constructor (scene, tile, entityMap) {
+    super(scene, tile, entityMap)
     this.target = null
   }
 

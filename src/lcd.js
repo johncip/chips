@@ -1,73 +1,107 @@
 import sprintf from 'sprintf'
 import config from './config'
+import depths from './depths'
 
 /*
  * A 3-digit LCD display with a heading above it.
  */
 export default class LCD {
-  constructor (game, labelText) {
-    this.font = game.add.retroFont('lcd', 64, 100, '0123456789', 0)
-    this.display = 0
-    this.group = game.add.group()
+  constructor (scene, labelText) {
+    this.background = createBackground(scene)
+    this.heading = createHeading(scene, labelText)
+    this.digitsBg = createDigitsBg(scene)
+    this.digits = createDigits(scene)
 
+    this.group = scene.add.group()
     this.group.addMultiple([
-      background(game),
-      heading(game, labelText),
-      digits(game, this.font)
+      this.background,
+      this.heading,
+      this.digitsBg,
+      this.digits
     ])
+
+    this.display = 0
+  }
+
+  setX (val) {
+    this.group.children.each(child => {
+      child.x = val
+    })
+
+    this.digits.x += 5
+    this.digitsBg.x += 5
+  }
+
+  setY (val) {
+    this.group.children.each(child => {
+      child.y = val
+    })
   }
 
   get display () {
-    return this.font.text
+    return this.digits.text
   }
 
   set display (num) {
-    this.font.text = sprintf('%03d', num)
+    this.digits.text = sprintf('%03d', num)
   }
 }
 
-function digits (game, font) {
-  return game.add.image(0, config.tsize * 0.5, font)
-}
-
-function heading (game, text) {
-  const headingStyle = {
-    font: '20px lato',
-    fill: '#ddddee'
-  }
-  return game.add.text(0, 0, text, headingStyle)
-}
-
-function background (game) {
+function createBackground (scene) {
   const { tsize, lcdBgColor } = config
-  const g = game.add.graphics()
-  const padding = tsize / 4
+  const g = scene.add.graphics()
 
-  roundRect(g, {
-    left: padding * -0.5,
-    top: tsize * 0.4,
-    width: tsize * 3 + padding,
-    height: tsize * 1.5 + padding,
-    radius: tsize / 12,
-    color: lcdBgColor
-  })
+  g.fillStyle(lcdBgColor, 1.0)
+  g.fillRoundedRect(
+    0,
+    tsize * 0.5,
+    tsize * 3,
+    tsize * 1.5,
+    tsize / 12
+  )
+  g.depth = depths.lcdBack
 
   return g
 }
 
-/*
- * Draws a rounded rectangle in the given graphics context.
- */
-function roundRect (g, { left, top, width, height, radius, color }) {
-  g.beginFill(color, 1.0)
-  g.moveTo(left + radius, top)
-  g.lineTo(left + width - radius, top)
-  g.quadraticCurveTo(left + width, top, left + width, top + radius)
-  g.lineTo(left + width, top + height - radius)
-  g.quadraticCurveTo(left + width, top + height, left + width - radius, top + height)
-  g.lineTo(left + radius, top + height)
-  g.quadraticCurveTo(left, top + height, left, top + height - radius)
-  g.lineTo(left, top + radius)
-  g.quadraticCurveTo(left, top, left + radius, top)
-  g.endFill()
+function createHeading (scene, str) {
+  const headingStyle = {
+    fontFamily: config.fontFamily,
+    fontSize: 20,
+    fill: 'rgb(220, 220, 240)'
+  }
+  const text = scene.add.text(0, 0, str, headingStyle)
+  text.depth = depths.lcdFront
+  return text
+}
+
+function createDigitsBg (scene) {
+  const style = {
+    fontFamily: 'lcd',
+    fontSize: 110,
+    color: 'rgb(64, 0, 0)',
+    padding: 20
+  }
+  const text = scene.add.text(0, 0, '888', style)
+  text.depth = depths.lcdFront
+  return text
+}
+
+function createDigits (scene) {
+  const style = {
+    fontFamily: 'lcd',
+    fontSize: 110,
+    color: 'rgb(235, 10, 10)',
+    padding: 20,
+    shadow: {
+      color: 'rgb(180, 10, 10)',
+      blur: 20,
+      fill: true,
+      offsetX: 0,
+      offsetY: 0
+    }
+  }
+  const text = scene.add.text(0, 0, '000', style)
+  text.depth = depths.lcdFront
+  return text
 }

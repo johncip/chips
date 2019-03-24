@@ -1,9 +1,9 @@
-export default {
+const config = {
   bgColor: 0x333344,
   debug: false,
   enableMusic: true,
-  exitFps: 2,
   floorDelay: 1000 / 10,
+  fontFamily: 'inconsolata',
   height: 576,
   lcdBgColor: 0x301010,
   moveDelay: 1000 / 3,
@@ -14,3 +14,11 @@ export default {
   tsize: 64,
   width: 896
 }
+
+try {
+  const devConfig = require('./config.dev.js').default
+  Object.assign(config, devConfig)
+} catch (e) {
+}
+
+export default config

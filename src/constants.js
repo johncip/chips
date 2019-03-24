@@ -1,4 +1,4 @@
-import { each, parseInt } from 'lodash'
+import { invert } from './util'
 
 export const Dir = {
   UP: [0, -1],
@@ -111,22 +111,6 @@ export const spriteNamesByIndex = {
   108: 'swim:right',
   109: 'tank:right',
   111: 'chip:right'
-}
-
-// TODO: replace with bimap
-/*
- * Returns the inverse of a map. The inverse will have the original's keys
- * as its values, and the values as its keys. The original should be
- * one-to-one and have strings for values.
- *
- * Convert integer-strings to integers for convenience.
- */
-const invert = obj => {
-  const res = {}
-  each(obj, (val, key) => {
-    res[val] = isNaN(key) ? key : parseInt(key)
-  })
-  return res
 }
 
 export const spriteIndicesByName = invert(spriteNamesByIndex)

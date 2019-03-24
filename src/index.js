@@ -1,24 +1,27 @@
-/* eslint-disable no-unused-vars, import/order, import/no-extraneous-dependencies */
-import PIXI from 'pixi'
-import p2 from 'p2'
 import Phaser from 'phaser'
-/* eslint-enable */
-
 import config from './config'
-import { Preload, MainMenu, Playing } from './states'
-
+import { Preload, Playing } from './scenes'
 import 'Assets/style/style.css'
 
-const game = new Phaser.Game(
-  config.width,
-  config.height,
-  Phaser.AUTO,
-  'gameContainer',
-  null
-)
-game.state.add('Preload', Preload)
-game.state.add('MainMenu', MainMenu)
-game.state.add('Playing', Playing)
-game.state.start('Preload')
+
+const ratio = window.devicePixelRatio || 1
+
+// eslint-disable-next-line no-new
+new Phaser.Game({
+  type: Phaser.AUTO,
+  parent: 'gameContainer',
+  width: config.width,
+  height: config.height,
+  resolution: ratio,
+  scene: [Preload, Playing],
+  transparent: true,
+  scale: {
+    parent: 'gameContainer',
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+    width: config.width / ratio,
+    height: config.height / ratio
+  }
+})
 
 require('./music')
