@@ -61,22 +61,6 @@ export default class HUD extends Phaser.Scene {
     }
   }
 
-  addToInventory (val) {
-    this.inventory.add(val)
-  }
-
-  inventoryHas (key) {
-    return this.inventory.has(key)
-  }
-
-  removeFromInventory (key) {
-    this.inventory.remove(key)
-  }
-
-  resetInventory () {
-    this.inventory.reset()
-  }
-
   getChipsCollected () {
     return this.inventory.count('ic')
   }

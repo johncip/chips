@@ -69,18 +69,18 @@ export default class Playing extends Phaser.Scene {
     if (this.level) {
       this.level.destroy()
     }
-    this.hud.resetInventory()
     this.level = new Level(this, this.levelIndex)
-    this.timeLeft = this.level.getTimeAllowed()
 
+    this.hud.inventory.reset()
     this.hud.populate({
       level: this.levelIndex + 1,
       timeLeft: this.timeLeft,
       hint: this.level.getHint()
     })
-
-    this.paused = false
     this.hud.hideModal()
+
+    this.timeLeft = this.level.getTimeAllowed()
+    this.paused = false
   }
 
   pauseGame () {
@@ -154,15 +154,15 @@ export default class Playing extends Phaser.Scene {
   }
 
   addToInventory (val) {
-    this.hud.addToInventory(val)
+    this.hud.inventory.add(val)
   }
 
   inventoryHas (key) {
-    return this.hud.inventoryHas(key)
+    return this.hud.inventory.has(key)
   }
 
   removeFromInventory (key) {
-    this.hud.removeFromInventory(key)
+    this.hud.inventory.remove(key)
   }
 
   hasEnoughChips () {
