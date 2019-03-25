@@ -15,3 +15,8 @@ settings:
   import/resolver: webpack
 rules:
   no-multiple-empty-lines: 0
+  import/no-cycle: 2
+  import/no-useless-path-segments: 2
+  import/no-extraneous-dependencies: 2
+  import/no-mutable-exports: 2
+  import/order: 1
