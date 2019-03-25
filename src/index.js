@@ -3,6 +3,7 @@ import config from './config'
 import { Preload, Playing } from './scenes'
 import 'Assets/style/style.css'
 
+const { width, height } = config
 
 const ratio = window.devicePixelRatio || 1
 
@@ -10,8 +11,8 @@ const ratio = window.devicePixelRatio || 1
 new Phaser.Game({
   type: Phaser.AUTO,
   parent: 'gameContainer',
-  width: config.width,
-  height: config.height,
+  width: width,
+  height: height,
   resolution: ratio,
   scene: [Preload, Playing],
   transparent: true,
@@ -19,8 +20,8 @@ new Phaser.Game({
     parent: 'gameContainer',
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: config.width / ratio,
-    height: config.height / ratio
+    width: width / ratio,
+    height: height / ratio
   }
 })
 
