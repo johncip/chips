@@ -23,8 +23,8 @@ const { debug, tsize } = config
 export default class Inventory {
   constructor (scene) {
     const group = scene.add.group()
-    const left = 10 * tsize
-    const top = 7.5 * tsize
+    const left = 0.5 * tsize
+    const top = 9.5 * tsize
 
     this.counts = {}
     this.sprites = {}
@@ -79,24 +79,24 @@ export default class Inventory {
   }
 }
 
-function createBackground (group, x, y) {
-  for (let row = 0; row < 2; row++) {
-    for (let col = 0; col < 4; col++) {
-      const sprite = group.create(
-        x + col * tsize,
-        y + row * tsize,
-        'sprites',
-        spriteIndicesByName.floor
-      )
-      sprite.depth = depths.inventoryBack
-    }
+function createBackground (group, left, top) {
+  for (let idx = 0; idx < 8; idx++) {
+    const sprite = group.create(
+      left + idx * tsize,
+      top,
+      'sprites',
+      spriteIndicesByName.floor
+    )
+    sprite.depth = depths.inventoryBack
+    sprite.setOrigin(0)
   }
 }
 
 function createSprite (group, key, index, x, y) {
   const sprite = group.create(0, 0, 'sprites', spriteIndicesByName[key])
-  sprite.x = x + (index % 4) * tsize
-  sprite.y = y + Math.floor(index / 4) * tsize
+  sprite.x = x + index * tsize
+  sprite.y = y
   sprite.depth = depths.inventoryFront
+  sprite.setOrigin(0)
   return sprite
 }

@@ -45,6 +45,6 @@ export default class Level {
   }
 
   getHint () {
-    return 'HINT\n\n' + this.map.properties.hint
+    return this.map.properties.hint
   }
 }

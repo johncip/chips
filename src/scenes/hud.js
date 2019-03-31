@@ -27,7 +27,7 @@ export default class HUD extends Phaser.Scene {
     this.cameras.main.setViewport(0, 0, width, height)
 
     const group = this.add.group()
-    group.add(createSidebarBg(this))
+    group.add(createBackground(this))
 
     this.lcds = createLcds(this)
     each(this.lcds, lcd => {
@@ -93,10 +93,10 @@ export default class HUD extends Phaser.Scene {
   }
 }
 
-function createSidebarBg (scene) {
+function createBackground (scene) {
   const g = scene.add.graphics()
   g.fillStyle(bgColor, 1.0)
-  g.fillRect(9 * tsize, 0, 5 * tsize, 9 * tsize)
+  g.fillRect(0, 9 * tsize, 9 * tsize, 4 * tsize)
   g.depth = depths.displayPanelBack
   return g
 }
@@ -108,11 +108,11 @@ function createLcds (scene) {
     chips: new LCD(scene, 'Chips')
   }
 
-  let y = 0.1 * tsize
+  let x = 0
   each(lcds, lcd => {
-    lcd.setX(10 * tsize)
-    lcd.setY(y)
-    y += tsize * 2.25
+    lcd.setX(x)
+    lcd.setY(11 * tsize)
+    x += tsize * 3
   })
 
   return lcds

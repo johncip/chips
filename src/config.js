@@ -4,14 +4,14 @@ const config = {
   enableMusic: true,
   floorDelay: 1000 / 10,
   fontFamily: 'inconsolata',
-  height: 576,
+  height: 832,
   moveDelay: 1000 / 3,
   musicVolume: 0.25,
   smoothMoves: true,
   startLevel: 0,
   startState: 'Playing',
   tsize: 64,
-  width: 896
+  width: 576
 }
 
 try {

@@ -9,7 +9,7 @@ import Overlay, { createText } from './overlay'
 export default class HintOverlay extends Overlay {
   constructor (scene) {
     const { tsize } = config
-    const bounds = new Geom.Rectangle(9 * tsize, 0, 5 * tsize, 9 * tsize)
+    const bounds = new Geom.Rectangle(0, 9 * tsize, 9 * tsize, 4 * tsize)
     super(scene, bounds)
 
     const { width, centerX, centerY } = bounds
@@ -37,7 +37,7 @@ function style (width) {
     align: 'center',
     fill: 'white',
     fontFamily: config.fontFamily,
-    fontSize: 34,
+    fontSize: 28,
     fontWeight: 'bold',
     stroke: 'black',
     strokeThickness: 6,
