@@ -43,6 +43,13 @@ export default class HUD extends Phaser.Scene {
 
   // TODO: destroy?
 
+  reset (opts) {
+    this.inventory.reset()
+    this.populate(opts)
+    this.hideModal()
+    this.hideHint()
+  }
+
   populate ({ level, timeLeft, hint, chipsLeft }) {
     if (level) {
       this.lcds.level.display = level

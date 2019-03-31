@@ -70,16 +70,14 @@ export default class Playing extends Phaser.Scene {
       this.level.destroy()
     }
     this.level = new Level(this, this.levelIndex)
+    this.timeLeft = this.level.getTimeAllowed()
 
-    this.hud.inventory.reset()
-    this.hud.populate({
+    this.hud.reset({
       level: this.levelIndex + 1,
       timeLeft: this.timeLeft,
       hint: this.level.getHint()
     })
-    this.hud.hideModal()
 
-    this.timeLeft = this.level.getTimeAllowed()
     this.paused = false
   }
 
