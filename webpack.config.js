@@ -2,14 +2,13 @@ const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const GoogleFontsPlugin = require('@beyonk/google-fonts-webpack-plugin')
 const { DefinePlugin } = require('webpack')
 
 
-module.exports = {
-  mode: 'development',
-
-  devtool: 'eval-source-map',
+const config = {
+  mode: 'production',
 
   devServer: {
     contentBase: path.join(__dirname, 'assets'),
@@ -49,6 +48,18 @@ module.exports = {
     }
   },
 
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
+  },
+
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
@@ -73,4 +84,15 @@ module.exports = {
       'typeof WEBGL_RENDERER': JSON.stringify(true)
     })
   ]
+}
+
+module.exports = (env, argv) => {
+  if (argv.mode === 'development') {
+    config.devtool = 'eval-source-map'
+    config.plugins.push(
+      new BundleAnalyzerPlugin()
+    )
+  }
+
+  return config
 }
