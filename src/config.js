@@ -5,7 +5,6 @@ const config = {
   floorDelay: 1000 / 10,
   fontFamily: 'inconsolata',
   height: 576,
-  lcdBgColor: 0x301010,
   moveDelay: 1000 / 3,
   musicVolume: 0.25,
   smoothMoves: true,

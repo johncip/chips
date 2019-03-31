@@ -48,10 +48,9 @@ export default class LCD {
 }
 
 function createBackground (scene) {
-  const { tsize, lcdBgColor } = config
   const g = scene.add.graphics()
 
-  g.fillStyle(lcdBgColor, 1.0)
+  g.fillStyle(0x301010, 1.0)
   g.fillRoundedRect(
     0,
     tsize * 0.5,
