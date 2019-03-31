@@ -3,6 +3,12 @@ import config from './config'
 import depths from './depths'
 import Overlay, { createText } from './overlay'
 
+const baseTextStyle = {
+  fontFamily: config.fontFamily,
+  stroke: 'black',
+  strokeThickness: 8
+}
+
 /*
  * Translucent overlay that is used for the as pause screen, level end, etc.
  */
@@ -11,18 +17,15 @@ export default class Modal extends Overlay {
     const { width, height } = scene.game.canvas
     const bounds = new Geom.Rectangle(0, 0, width, height)
     super(scene, bounds)
-
-    const { centerX, centerY } = bounds
-    const { fontFamily } = config
-
     this.bg.depth = depths.modalBack
 
+    const { centerX, centerY } = bounds
     this.message = createText(
       scene,
       '',
       centerX,
       centerY * 0.8,
-      { fontFamily, fontSize: 64, fill: '#dde' }
+      { ...baseTextStyle, fontSize: 64, fill: '#dde' }
     )
     this.message.depth = depths.modalFront
 
@@ -31,7 +34,7 @@ export default class Modal extends Overlay {
       'Press SPACE to continue',
       centerX,
       centerY * 1.25,
-      { fontFamily, fontSize: 32, fill: '#ccd' }
+      { ...baseTextStyle, fontSize: 32, fill: '#ccd' }
     )
     subtext.depth = depths.modalFront
 

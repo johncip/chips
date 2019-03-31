@@ -67,7 +67,7 @@ function createHeading (scene, str) {
   const headingStyle = {
     fontFamily: config.fontFamily,
     fontSize: 20,
-    fill: 'rgb(220, 220, 240)'
+    fill: 'white'
   }
   const text = scene.add.text(0, 0, str, headingStyle)
   text.depth = depths.lcdFront

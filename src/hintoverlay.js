@@ -35,10 +35,12 @@ export default class HintOverlay extends Overlay {
 function style (width) {
   return {
     align: 'center',
-    fill: 'rgb(220, 220, 220)',
+    fill: 'white',
     fontFamily: config.fontFamily,
     fontSize: 34,
     fontWeight: 'bold',
+    stroke: 'black',
+    strokeThickness: 6,
     wordWrap: {
       width,
       useAdvancedWrap: true
