@@ -1,4 +1,4 @@
-import { isEqual } from 'lodash'
+import isEqual from 'lodash/isEqual'
 import Entity from './entity'
 
 export default class Movable extends Entity {

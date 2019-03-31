@@ -1,4 +1,6 @@
-import { each, filter, flatten } from 'lodash'
+import each from 'lodash/each'
+import filter from 'lodash/filter'
+import flatten from 'lodash/flatten'
 
 import config from './config'
 import entityFromTile from './entityfromtile'

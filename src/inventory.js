@@ -1,4 +1,4 @@
-import { each } from 'lodash'
+import each from 'lodash/each'
 import config from './config'
 import { spriteIndicesByName } from './constants'
 import depths from './depths'

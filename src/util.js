@@ -1,4 +1,4 @@
-import { reduce } from 'lodash'
+import reduce from 'lodash/reduce'
 
 /*
  * Returns the inverse of an object. The inverse will have the original's

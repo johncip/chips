@@ -1,4 +1,4 @@
-import { throttle } from 'lodash'
+import throttle from 'lodash/throttle'
 import config from '../config'
 import depths from '../depths'
 import sfx from '../sfx'

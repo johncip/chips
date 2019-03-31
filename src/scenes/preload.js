@@ -1,5 +1,5 @@
+import each from 'lodash/each'
 import Phaser from 'phaser'
-import { each } from 'lodash'
 
 import config from '../config'
 import tilemaps from '../tilemaps'

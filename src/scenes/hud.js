@@ -1,4 +1,4 @@
-import { each } from 'lodash'
+import each from 'lodash/each'
 import Phaser from 'phaser'
 
 import config from '../config'
