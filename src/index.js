@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import SwipePlugin from 'phaser3-swipe-plugin'
 import config from './config'
 import { Preload, Playing } from './scenes'
 import 'Assets/style/style.css'
@@ -22,6 +23,15 @@ new Phaser.Game({
     autoCenter: Phaser.Scale.CENTER_BOTH,
     width: width / ratio,
     height: height / ratio
+  },
+  plugins: {
+    global: [
+      {
+        key: 'SwipePlugin',
+        plugin: SwipePlugin,
+        start: true
+      }
+    ]
   }
 })
 

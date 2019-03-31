@@ -1,3 +1,4 @@
+import { throttle } from 'lodash'
 import config from '../config'
 import depths from '../depths'
 import sfx from '../sfx'
@@ -17,6 +18,15 @@ export default class Player extends Marchable {
     this.cursors = this.scene.input.keyboard.createCursorKeys()
     this.marchDelay = config.floorDelay
     this.sprite.depth = depths.chip
+
+    this.scene.game.events.on('swipe', throttle(dir => {
+      switch (dir) {
+        case 'up': this.move(0, -1); break
+        case 'left': this.move(-1, 0); break
+        case 'down': this.move(0, 1); break
+        case 'right': this.move(1, 0); break
+      }
+    }, 250))
 
     // exports
     entityMap.player = this // TODO: don't do this here

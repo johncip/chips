@@ -50,6 +50,7 @@
     "lodash": "^4.17.11",
     "loov-jsfx": "^1.2.0",
     "phaser": "^3.16.2",
+    "phaser3-swipe-plugin": "^1.0.6",
     "sprintf": "^0.1.5"
   }
 }
