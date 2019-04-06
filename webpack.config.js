@@ -5,7 +5,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const GoogleFontsPlugin = require('@beyonk/google-fonts-webpack-plugin')
-const DashboardPlugin = require('webpack-dashboard/plugin')
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 const baseConfig = {
@@ -91,7 +90,6 @@ const baseConfig = {
 const devConfig = {
   devtool: 'eval-source-map',
   plugins: [
-    new DashboardPlugin()
     // new BundleAnalyzerPlugin()
   ]
 }
