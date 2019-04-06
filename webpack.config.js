@@ -1,18 +1,21 @@
 const path = require('path')
+const merge = require('webpack-merge')
+const { DefinePlugin } = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const GoogleFontsPlugin = require('@beyonk/google-fonts-webpack-plugin')
-const { DefinePlugin } = require('webpack')
+const DashboardPlugin = require('webpack-dashboard/plugin')
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
-
-const config = {
+const baseConfig = {
   mode: 'production',
 
   devServer: {
     contentBase: path.join(__dirname, 'assets'),
-    stats: 'minimal'
+    stats: 'minimal',
+    open: true,
+    overlay: true
   },
 
   entry: {
@@ -78,7 +81,6 @@ const config = {
         { family: 'Inconsolata', subsets: ['latin'] }
       ]
     }),
-    // TODO: is this needed?
     new DefinePlugin({
       'typeof CANVAS_RENDERER': JSON.stringify(true),
       'typeof WEBGL_RENDERER': JSON.stringify(true)
@@ -86,13 +88,18 @@ const config = {
   ]
 }
 
+const devConfig = {
+  devtool: 'eval-source-map',
+  plugins: [
+    new DashboardPlugin()
+    // new BundleAnalyzerPlugin()
+  ]
+}
+
 module.exports = (env, argv) => {
   if (argv.mode === 'development') {
-    config.devtool = 'eval-source-map'
-    config.plugins.push(
-      new BundleAnalyzerPlugin()
-    )
+    return merge(baseConfig, devConfig)
   }
 
-  return config
+  return baseConfig
 }
